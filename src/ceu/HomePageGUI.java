@@ -20,15 +20,11 @@ import javax.swing.SwingConstants;
 import javax.swing.Box;
 import javax.swing.JToolBar;
 import javax.swing.JSplitPane;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JSeparator;
 import java.awt.Color;
 import java.awt.Component;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.SoftBevelBorder;
@@ -80,7 +76,6 @@ public class HomePageGUI extends JFrame {
 		employeeInfoPanel.setBounds(10, 41, 223, 102);
 		employeeInfoPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(employeeInfoPanel);
-		employeeInfoPanel.setLayout(new MigLayout("", "[]", "[][][][][][][]"));
 		
 		JLabel employeeName = new JLabel("Francisco, Earl Ace D.");
 		employeeName.setFont(new Font("Tahoma", Font.BOLD, 14));
