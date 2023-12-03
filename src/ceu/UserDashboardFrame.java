@@ -1,41 +1,11 @@
 package ceu;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JInternalFrame;
-import javax.swing.JTextArea;
-import java.awt.BorderLayout;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import javax.swing.Box;
-import javax.swing.JToolBar;
-import javax.swing.JSplitPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JSeparator;
-import java.awt.Color;
-import java.awt.Component;
-import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Choice;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import com.jgoodies.forms.layout.*;
+import net.miginfocom.swing.*;
+import java.awt.event.*;
 
 public class HomePageGUI extends JFrame {
 
@@ -49,7 +19,7 @@ public class HomePageGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HomePageGUI frame = new HomePageGUI();
+					UserDashboardFrame frame = new UserDashboardFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,7 +31,7 @@ public class HomePageGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public HomePageGUI() {
+	public UserDashboardFrame() {
 		setTitle("Leave Application Form\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 783, 520);
