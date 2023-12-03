@@ -7,7 +7,7 @@ import com.jgoodies.forms.layout.*;
 import net.miginfocom.swing.*;
 import java.awt.event.*;
 
-public class HomePageGUI extends JFrame {
+public class UserDashboardFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
