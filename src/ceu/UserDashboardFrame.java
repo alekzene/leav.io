@@ -7,7 +7,7 @@ import com.jgoodies.forms.layout.*;
 import net.miginfocom.swing.*;
 import java.awt.event.*;
 
-public class UserDashboardFrame extends JFrame {
+public class UserDashboardFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -46,7 +46,6 @@ public class UserDashboardFrame extends JFrame {
 		employeeInfoPanel.setBounds(10, 41, 223, 102);
 		employeeInfoPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(employeeInfoPanel);
-		employeeInfoPanel.setLayout(new MigLayout("", "[]", "[][][][][][][]"));
 		
 		JLabel employeeName = new JLabel("Francisco, Earl Ace D.");
 		employeeName.setFont(new Font("Tahoma", Font.BOLD, 14));
