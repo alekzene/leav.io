@@ -32,7 +32,7 @@ public class UserDashboardFrame extends JFrame {
 	public UserDashboardFrame() {
 		setTitle("Leave Application Form\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 783, 520);
+		setBounds(100, 100, 832, 563);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 128, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -41,60 +41,55 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel employeeInfoPanel = new JPanel();
-		employeeInfoPanel.setBounds(10, 41, 223, 102);
+		employeeInfoPanel.setBounds(22, 25, 220, 102);
 		employeeInfoPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(employeeInfoPanel);
+		employeeInfoPanel.setLayout(null);
 		
 		JLabel employeeName = new JLabel("Francisco, Earl Ace D.");
-		employeeName.setFont(new Font("Tahoma", Font.BOLD, 14));
-		employeeInfoPanel.add(employeeName, "cell 0 1");
+		employeeName.setBounds(10, 56, 145, 17);
+		employeeName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		employeeInfoPanel.add(employeeName);
 		
-		JLabel employee_ID = new JLabel("Employee ID: 136696130811\r\n");
-		employee_ID.setFont(new Font("Tahoma", Font.BOLD, 14));
-		employeeInfoPanel.add(employee_ID, "cell 0 3");
+		JLabel employee_ID = new JLabel("136696130811\r\n");
+		employee_ID.setBounds(10, 36, 205, 17);
+		employee_ID.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		employeeInfoPanel.add(employee_ID);
 		
 		JLabel employeePosition = new JLabel("Non-Teaching Library Staff");
-		employeePosition.setFont(new Font("Tahoma", Font.BOLD, 14));
-		employeeInfoPanel.add(employeePosition, "cell 0 5");
+		employeePosition.setBounds(10, 74, 186, 17);
+		employeePosition.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		employeeInfoPanel.add(employeePosition);
 		
-		JButton menuButton = new JButton("|||");
-		menuButton.setBounds(10, 4, 49, 28);
-		menuButton.setFont(new Font("Tahoma", Font.BOLD, 10));
-		menuButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		contentPane.add(menuButton);
+		JLabel Leave_RemainingLabel = new JLabel("Employee Information");
+		Leave_RemainingLabel.setBounds(0, 11, 174, 17);
+		employeeInfoPanel.add(Leave_RemainingLabel);
+		Leave_RemainingLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		Leave_RemainingLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JPanel remainingLeaveCreditPanel = new JPanel();
-		remainingLeaveCreditPanel.setBounds(266, 41, 150, 102);
+		remainingLeaveCreditPanel.setBounds(451, 25, 158, 102);
 		remainingLeaveCreditPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(remainingLeaveCreditPanel);
 		remainingLeaveCreditPanel.setLayout(null);
 		
-		JLabel Leave_RemainingLabel = new JLabel("Leaves Remaining");
-		Leave_RemainingLabel.setBounds(0, 0, 150, 17);
-		remainingLeaveCreditPanel.add(Leave_RemainingLabel);
-		Leave_RemainingLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		Leave_RemainingLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
 		JLabel remaining_LeaveCount = new JLabel("13");
-		remaining_LeaveCount.setBounds(0, 17, 150, 85);
+		remaining_LeaveCount.setBounds(0, 17, 158, 85);
 		remainingLeaveCreditPanel.add(remaining_LeaveCount);
 		remaining_LeaveCount.setHorizontalAlignment(SwingConstants.CENTER);
 		remaining_LeaveCount.setFont(new Font("Tahoma", Font.BOLD, 50));
 		
+		JLabel Leave_RemainingLabel_1 = new JLabel("Leaves Remaining");
+		Leave_RemainingLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		Leave_RemainingLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		Leave_RemainingLabel_1.setBounds(0, 11, 161, 17);
+		remainingLeaveCreditPanel.add(Leave_RemainingLabel_1);
+		
 		JPanel usedCreditsPanel = new JPanel();
-		usedCreditsPanel.setBounds(437, 41, 150, 102);
+		usedCreditsPanel.setBounds(290, 25, 150, 102);
 		usedCreditsPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(usedCreditsPanel);
 		usedCreditsPanel.setLayout(null);
-		
-		JLabel used_LeaveLabel = new JLabel("Leaves Used");
-		used_LeaveLabel.setBounds(0, 0, 150, 17);
-		usedCreditsPanel.add(used_LeaveLabel);
-		used_LeaveLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		used_LeaveLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JLabel used_LeaveCount = new JLabel("2");
 		used_LeaveCount.setBounds(0, 17, 150, 85);
@@ -102,88 +97,47 @@ public class UserDashboardFrame extends JFrame {
 		used_LeaveCount.setHorizontalAlignment(SwingConstants.CENTER);
 		used_LeaveCount.setFont(new Font("Tahoma", Font.BOLD, 50));
 		
+		JLabel used_LeaveLabel = new JLabel("Leaves Used");
+		used_LeaveLabel.setBounds(0, 11, 150, 17);
+		usedCreditsPanel.add(used_LeaveLabel);
+		used_LeaveLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		used_LeaveLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
 		JPanel date_and_timePanel = new JPanel();
-		date_and_timePanel.setBounds(612, 41, 150, 99);
+		date_and_timePanel.setBounds(645, 26, 150, 99);
 		date_and_timePanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(date_and_timePanel);
 		date_and_timePanel.setLayout(null);
 		
-		JLabel day_monthLabel = new JLabel("SUN DECEMBER");
+		JLabel day_monthLabel = new JLabel("Date and Time");
 		day_monthLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		day_monthLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		day_monthLabel.setBounds(0, 0, 150, 32);
+		day_monthLabel.setBounds(1, 2, 150, 32);
 		date_and_timePanel.add(day_monthLabel);
 		
 		JLabel dataLabel = new JLabel("12 / 03 / 2003");
 		dataLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		dataLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		dataLabel.setBounds(0, 28, 150, 32);
+		dataLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dataLabel.setBounds(1, 45, 150, 32);
 		date_and_timePanel.add(dataLabel);
 		
 		JLabel timeLabel = new JLabel("12 : 03");
 		timeLabel.setBounds(0, 60, 150, 32);
 		date_and_timePanel.add(timeLabel);
 		timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		timeLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		timeLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JPanel fileLeavePanel = new JPanel();
-		fileLeavePanel.setBounds(612, 146, 150, 34);
-		fileLeavePanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		contentPane.add(fileLeavePanel);
-		fileLeavePanel.setLayout(null);
-		
-		JButton fileLeaveButton = new JButton("File Leave");
-		fileLeaveButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				//Nathaniel Codes insert here
-			}
-		});
-		fileLeaveButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		fileLeaveButton.setBounds(0, 0, 150, 34);
-		fileLeavePanel.add(fileLeaveButton);
-		
-		JLabel label = new JLabel("New label");
-		label.setBounds(95, 13, 45, 13);
-		fileLeavePanel.add(label);
+		JLabel lblSunday = new JLabel("Sunday");
+		lblSunday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSunday.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSunday.setBounds(1, 25, 150, 32);
+		date_and_timePanel.add(lblSunday);
 		
 		JPanel leaveRemainingTrackerPanel = new JPanel();
-		leaveRemainingTrackerPanel.setBounds(10, 190, 370, 281);
+		leaveRemainingTrackerPanel.setBounds(22, 195, 395, 281);
 		leaveRemainingTrackerPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(leaveRemainingTrackerPanel);
-		
-		JLabel LRTracker_Label = new JLabel("Leaves Approved:");
-		LRTracker_Label.setBounds(7, 7, 355, 25);
-		LRTracker_Label.setHorizontalAlignment(SwingConstants.LEFT);
-		LRTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 20));
-		
-		JButton scalingButtonLR = new JButton("^");
-		scalingButtonLR.setFont(new Font("Tahoma", Font.BOLD, 16));
-		scalingButtonLR.setBounds(0, 249, 369, 32);
-		scalingButtonLR.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		leaveRemainingTrackerPanel.setLayout(null);
-		leaveRemainingTrackerPanel.add(LRTracker_Label);
-		leaveRemainingTrackerPanel.add(scalingButtonLR);
-		
-		JButton AnnualButtonView = new JButton("+");
-		AnnualButtonView.setFont(new Font("Tahoma", Font.BOLD, 20));
-		AnnualButtonView.setBounds(319, 80, 50, 40);
-		leaveRemainingTrackerPanel.add(AnnualButtonView);
-		
-		JButton SickButtonView = new JButton("+");
-		SickButtonView.setFont(new Font("Tahoma", Font.BOLD, 20));
-		SickButtonView.setHorizontalAlignment(SwingConstants.LEFT);
-		SickButtonView.setVerticalAlignment(SwingConstants.TOP);
-		SickButtonView.setBounds(319, 42, 50, 40);
-		leaveRemainingTrackerPanel.add(SickButtonView);
-		
-		JButton PaternityButtonView = new JButton("+");
-		PaternityButtonView.setFont(new Font("Tahoma", Font.BOLD, 20));
-		PaternityButtonView.setBounds(319, 117, 50, 40);
-		leaveRemainingTrackerPanel.add(PaternityButtonView);
 		
 		JLabel SickLeaveLabel = new JLabel("Sick Leave :\r\n");
 		SickLeaveLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -230,25 +184,26 @@ public class UserDashboardFrame extends JFrame {
 		PaternityLeaveDate.setBounds(171, 117, 85, 40);
 		leaveRemainingTrackerPanel.add(PaternityLeaveDate);
 		
-		JPanel leavePendingTrackerPanel = new JPanel();
-		leavePendingTrackerPanel.setBounds(390, 190, 369, 281);
-		leavePendingTrackerPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		contentPane.add(leavePendingTrackerPanel);
-		leavePendingTrackerPanel.setLayout(null);
+		JScrollBar scrollBar_1 = new JScrollBar();
+		scrollBar_1.setBounds(378, 0, 17, 281);
+		leaveRemainingTrackerPanel.add(scrollBar_1);
 		
-		JLabel LPTracker_Label = new JLabel("Leaves Pending:");
-		LPTracker_Label.setBounds(7, 7, 355, 25);
-		leavePendingTrackerPanel.add(LPTracker_Label);
-		LPTracker_Label.setHorizontalAlignment(SwingConstants.LEFT);
-		LPTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 20));
+		JLabel LRTracker_Label = new JLabel("Approved");
+		LRTracker_Label.setBounds(22, 159, 355, 25);
+		contentPane.add(LRTracker_Label);
+		LRTracker_Label.setHorizontalAlignment(SwingConstants.LEFT);
+		LRTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
-		JButton scalingButtonLP = new JButton("^");
-		scalingButtonLP.setFont(new Font("Tahoma", Font.BOLD, 16));
-		scalingButtonLP.setBounds(0, 249, 369, 32);
-		leavePendingTrackerPanel.add(scalingButtonLP);
-		scalingButtonLP.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JButton fileLeaveButton = new JButton("File New Leave");
+		fileLeaveButton.setForeground(new Color(0, 210, 105));
+		fileLeaveButton.setBounds(645, 155, 150, 34);
+		contentPane.add(fileLeaveButton);
+		fileLeaveButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//Nathaniel Codes insert here
 			}
 		});
+		fileLeaveButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 	}
 }

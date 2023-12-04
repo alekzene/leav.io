@@ -9,7 +9,7 @@ import java.util.*;
 
 <<<<<<< Updated upstream
 
-class LeaveApplicationFormFrame{
+class LeaveApplicationFrame{
 	static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
     static JTable tblCalendar;
