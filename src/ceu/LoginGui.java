@@ -147,6 +147,8 @@ public class LoginGui extends JFrame {
 	        Loginpanel.add(viewpass);
 
 	      
+	    
 	       
-    }
+ }
+	        	
 }

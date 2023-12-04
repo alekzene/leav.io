@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
+<<<<<<< Updated upstream
 
 class LeaveApplicationFormFrame{
 	static JLabel lblMonth, lblYear;
@@ -22,6 +23,9 @@ class LeaveApplicationFormFrame{
 	
 	
 	
+=======
+class LeaveApplicationFrame{
+>>>>>>> Stashed changes
 	public static void main(String args[]){
 		//Another GUI Frame
 		JFrame frame = new JFrame("Leave Application Form");
