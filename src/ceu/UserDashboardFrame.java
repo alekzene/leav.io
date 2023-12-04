@@ -226,7 +226,7 @@ public class UserDashboardFrame extends JFrame {
 		approveTracker_Table.getColumnModel().getColumn(1).setMaxWidth(160);
 		approveTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(50);
 		approveTracker_Table.getColumnModel().getColumn(2).setMinWidth(50);
-		approveTracker_Table.getColumnModel().getColumn(2).setMaxWidth(66);
+		approveTracker_Table.getColumnModel().getColumn(2).setMaxWidth(67);
 		approveTracker_Table.getColumnModel().getColumn(3).setPreferredWidth(35);
 		approveTracker_Table.getColumnModel().getColumn(3).setMaxWidth(40);
 		approveTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -278,7 +278,7 @@ public class UserDashboardFrame extends JFrame {
 		pendingTracker_Table.getColumnModel().getColumn(0).setMaxWidth(118);
 		pendingTracker_Table.getColumnModel().getColumn(1).setMaxWidth(160);
 		pendingTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(66);
-		pendingTracker_Table.getColumnModel().getColumn(2).setMaxWidth(66);
+		pendingTracker_Table.getColumnModel().getColumn(2).setMaxWidth(67);
 		pendingTracker_Table.getColumnModel().getColumn(3).setPreferredWidth(40);
 		pendingTracker_Table.getColumnModel().getColumn(3).setMaxWidth(40);
 		pendingTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -331,7 +331,7 @@ public class UserDashboardFrame extends JFrame {
 		table.getColumnModel().getColumn(0).setMaxWidth(118);
 		table.getColumnModel().getColumn(1).setMaxWidth(160);
 		table.getColumnModel().getColumn(2).setPreferredWidth(66);
-		table.getColumnModel().getColumn(2).setMaxWidth(66);
+		table.getColumnModel().getColumn(2).setMaxWidth(67);
 		table.getColumnModel().getColumn(3).setPreferredWidth(40);
 		table.getColumnModel().getColumn(3).setMaxWidth(40);
 		scrollPane.setViewportView(table);
