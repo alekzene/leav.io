@@ -67,14 +67,14 @@ public class AdminLeaveEndorsementGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 585);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 128, 255));
+		contentPane.setBackground(new Color(0, 0, 0, 1));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel BGpanel = new JPanel();
-		BGpanel.setBackground(new Color(255, 128, 255));
+		BGpanel.setBackground(new Color(0, 0, 0, 1));
 		BGpanel.setBounds(0, 0, 621, 546);
 		contentPane.add(BGpanel);
 		BGpanel.setLayout(null);
