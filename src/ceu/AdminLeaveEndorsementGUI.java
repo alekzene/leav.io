@@ -295,29 +295,34 @@ public class AdminLeaveEndorsementGUI extends JFrame {
 		btnReject.setBounds(490, 444, 121, 23);
 		BGpanel.add(btnReject);
 		
-		JPanel remarksType_1 = new JPanel();
-		remarksType_1.setLayout(null);
-		remarksType_1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		remarksType_1.setBackground(new Color(0, 0, 0, 50));
-		remarksType_1.setBounds(349, 284, 262, 146);
-		BGpanel.add(remarksType_1);
+		JPanel commentType = new JPanel();
+		commentType.setLayout(null);
+		commentType.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		commentType.setBackground(new Color(0, 0, 0, 50));
+		commentType.setBounds(349, 284, 262, 146);
+		BGpanel.add(commentType);
 		
 		JLabel lblRemarks_1 = new JLabel("Comment");
 		lblRemarks_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblRemarks_1.setBounds(10, 0, 91, 39);
-		remarksType_1.add(lblRemarks_1);
+		commentType.add(lblRemarks_1);
 		
 		textField = new JTextField();
 		textField.setHorizontalAlignment(SwingConstants.LEFT);
 		textField.setBackground(new Color(240, 240, 240));
 		textField.setBounds(10, 38, 242, 97);
-		remarksType_1.add(textField);
+		commentType.add(textField);
 		textField.setColumns(10);
 		
 		JTextArea textArea_1_1 = new JTextArea();
 		textArea_1_1.setBackground(UIManager.getColor("Button.background"));
 		textArea_1_1.setBounds(10, 38, 242, 97);
-		remarksType_1.add(textArea_1_1);
+		commentType.add(textArea_1_1);
+		
+		JLabel lblNewLabel_15 = new JLabel("");
+		lblNewLabel_15.setIcon(new ImageIcon("E:\\desktop\\OOP BG.png"));
+		lblNewLabel_15.setBounds(0, 0, 621, 480);
+		BGpanel.add(lblNewLabel_15);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 	}
