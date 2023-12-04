@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.util.*;
 
 
-class LeaveApplicationFormFrame{
+class LeaveApplicationFrame{
 	static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
     static JTable tblCalendar;
