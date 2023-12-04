@@ -1,26 +1,23 @@
+// FIXME:  Changes not showing when file is ran
+
 package ceu;
 
 import java.awt.*;
 
 import javax.swing.*;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicRadioButtonUI;
+import javax.swing.plaf.*;
+import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.border.*;
 import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicRadioButtonUI;
 import java.awt.*;
 import java.awt.event.*;
 
 public class LogInFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField UsernametextField;
+	private JTextField usernameTextField;
 	private JPasswordField passwordField;
-	private javax.swing.JLabel viewpass;
+	private javax.swing.JLabel viewPassword;
 
 	/**
 	 * Launch the application.
@@ -49,105 +46,121 @@ public class LogInFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel BGpanel = new JPanel();
-		BGpanel.setBounds(0, 0, 577, 496);
-		contentPane.add(BGpanel);
-		BGpanel.setLayout(null);
+		//  BACKGROUND PANEL
+		JPanel backgroundPanel = new JPanel();
+		backgroundPanel.setBounds(0, 0, 577, 496);
+		contentPane.add(backgroundPanel);
+		backgroundPanel.setLayout(null);
 		
-		JPanel Loginpanel = new JPanel();
-		Loginpanel.setBackground(new Color(0, 0, 0, 1));
-		Loginpanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		Loginpanel.setBounds(42, 53, 495, 326);	
-		BGpanel.add(Loginpanel);
-		Loginpanel.setLayout(null);
+		// LOGIN PANEL
+		JPanel logInPanel = new JPanel();
+		logInPanel.setBackground(new Color(0, 0, 0, 1));
+		logInPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		logInPanel.setBounds(42, 53, 495, 326);	
+		backgroundPanel.add(logInPanel);
+		logInPanel.setLayout(null);
 		
-		  viewpass = new JLabel("");
-		  viewpass.addMouseListener(new MouseAdapter() {
+		// WELCOME PANEL
+		JPanel welcomePanel = new JPanel();
+		welcomePanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		welcomePanel.setBackground(new Color(255, 128, 192));
+		welcomePanel.setBounds(0, 0, 495, 62);
+		logInPanel.add(welcomePanel);
+		welcomePanel.setLayout(null);
+		
+		// WELCOME LABEL
+		JLabel welcomeLabel = new JLabel("WELCOME");
+		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		welcomeLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
+		welcomeLabel.setBounds(0, 10, 495, 41);
+		logInPanel.add(welcomeLabel);
+		
+		// USERNAME LABEL
+		JLabel usernameLabel = new JLabel("Username");
+		usernameLabel.setIcon(new ImageIcon("src\\images\\icons8-username-24.png"));
+		usernameLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		usernameLabel.setBounds(74, 112, 113, 25);
+		logInPanel.add(usernameLabel);
+		
+		// USERNAME TEXT FIELD
+		usernameTextField = new JTextField();
+		usernameTextField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		usernameTextField.setBounds(204, 112, 208, 24);
+		logInPanel.add(usernameTextField);
+		usernameTextField.setColumns(10);
+		
+		// PASSWORD LABEL
+		JLabel passwordLabel = new JLabel("Password");
+		passwordLabel.setIcon(new ImageIcon("src\\images\\icons8-lock-24.png"));
+		passwordLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		passwordLabel.setBounds(73, 159, 113, 25);
+		logInPanel.add(passwordLabel);
+
+		// PASSWORD FIELD
+		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		passwordField.setBounds(204, 158, 208, 23);
+		logInPanel.add(passwordField);
+		
+		// VIEW PASSWORD ICON
+		viewPassword = new JLabel("");
+		viewPassword.addMouseListener(new MouseAdapter() {
 		      @Override
 		      public void mousePressed(MouseEvent e) {
 		          // Toggle password visibility
 		          passwordField.setEchoChar((passwordField.getEchoChar() == 0) ? '\u2022' : (char) 0);
-		          viewpass.setVisible(true);
+		          viewPassword.setVisible(true);
 		          
 		      }
 		  });
-		  viewpass.setIcon(new ImageIcon("src\\images\\icons8-view-24.png"));
-		  viewpass.setBounds(422, 159, 24, 21);
-		  Loginpanel.add(viewpass);
-				
-		JLabel LoginLabel = new JLabel("WELCOME");
-		LoginLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		LoginLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
-		LoginLabel.setBounds(0, 10, 495, 41);
-		Loginpanel.add(LoginLabel);
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panel.setBackground(new Color(255, 128, 192));
-		panel.setBounds(0, 0, 495, 62);
-		Loginpanel.add(panel);
-		panel.setLayout(null);
-		
-		JLabel UsernameLabel = new JLabel("Username");
-		UsernameLabel.setIcon(new ImageIcon("src\\images\\icons8-username-24.png"));
-		UsernameLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		UsernameLabel.setBounds(74, 112, 113, 25);
-		Loginpanel.add(UsernameLabel);
-		
-		JLabel PasswordLabel = new JLabel("Password");
-		PasswordLabel.setIcon(new ImageIcon("src\\images\\icons8-lock-24.png"));
-		PasswordLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		PasswordLabel.setBounds(73, 159, 113, 25);
-		Loginpanel.add(PasswordLabel);
-		
-		UsernametextField = new JTextField();
-		UsernametextField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		UsernametextField.setBounds(204, 112, 208, 24);
-		Loginpanel.add(UsernametextField);
-		UsernametextField.setColumns(10);
-		
-		JRadioButton RememberRadioButton = new JRadioButton("Remember me") {
+		  viewPassword.setIcon(new ImageIcon("src\\images\\icons8-view-24.png"));
+		  viewPassword.setBounds(422, 159, 24, 21);
+		  logInPanel.add(viewPassword);
+		  
+		// REMEMBER ME RADIO BUTTON
+        JRadioButton rememberMeRadioButton = new JRadioButton("Remember Me") {
             @Override
             protected void paintComponent(Graphics g) {
                 if (getModel().isSelected()) {
                     g.setColor(getForeground());
-                    g.fillOval(4, 4, 12, 12); // Adjust the position and size as needed
+                    g.fillOval(4, 4, 12, 12); 
+                } else {
+                    g.setColor(new Color(0, 0, 0, 0));
+                    g.fillRect(0, 0, getWidth(), getHeight());
                 }
+                super.paintComponent(g);
             }
         };
         
-		RememberRadioButton = new JRadioButton("Remember me");
-		RememberRadioButton.setOpaque(false); 
-		RememberRadioButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		RememberRadioButton.setBounds(71, 217, 131, 21);
-		Loginpanel.add(RememberRadioButton);
+		rememberMeRadioButton.setOpaque(false); 
+		rememberMeRadioButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		rememberMeRadioButton.setBounds(71, 217, 131, 21);
+		logInPanel.add(rememberMeRadioButton);
 		
-		JButton ResetPasswordButton = new JButton("Reset Password");
-		ResetPasswordButton.addActionListener(new ActionListener() {
+		// RESET PASSWORD BUTTON
+		JButton resetPasswordButton = new JButton("Reset PW");
+		resetPasswordButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		ResetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 9));
-		ResetPasswordButton.setForeground(Color.BLUE);
-		ResetPasswordButton.setBackground(new Color(240, 240, 240));
-		ResetPasswordButton.setBounds(291, 185, 122, 18);
-		Loginpanel.add(ResetPasswordButton);
+		resetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 9));
+		resetPasswordButton.setForeground(new Color(64, 64, 64));
+		resetPasswordButton.setBackground(new Color(240, 240, 240));
+		resetPasswordButton.setBounds(291, 185, 122, 18);
+		logInPanel.add(resetPasswordButton);
 		
-		JButton btnLogin = new JButton("LOGIN");
-		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnLogin.setBackground(new Color(255, 128, 192));
-		btnLogin.setBounds(274, 243, 139, 41);
-		Loginpanel.add(btnLogin);
+		// LOGIN BUTTON
+		JButton logInButton = new JButton("LOGIN");
+		logInButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		logInButton.setBackground(Color.BLACK);
+		logInButton.setBounds(274, 243, 139, 41);
+		logInPanel.add(logInButton);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		passwordField.setBounds(204, 158, 208, 23);
-		Loginpanel.add(passwordField);
-		
-		JLabel bglabel = new JLabel("");
-        bglabel.setIcon(new ImageIcon("src\\images\\bbg.png"));
-        bglabel.setBounds(0, 0, 577, 430);
-        BGpanel.add(bglabel);
+		// BACKGROUND
+		JLabel backgroundLabel = new JLabel("");
+        backgroundLabel.setIcon(new ImageIcon("src\\images\\bbg.png"));
+        backgroundLabel.setBounds(0, 0, 577, 430);
+        backgroundPanel.add(backgroundLabel);
 	       
  }
 	        	
