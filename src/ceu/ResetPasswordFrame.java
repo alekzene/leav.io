@@ -21,7 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ResetPasswordGUI extends JFrame {
+public class ResetPasswordFrame extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JPasswordField passwordField;
@@ -33,7 +33,7 @@ public class ResetPasswordGUI extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    ResetPasswordGUI frame = new ResetPasswordGUI();
+                    ResetPasswordFrame frame = new ResetPasswordFrame();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -42,7 +42,7 @@ public class ResetPasswordGUI extends JFrame {
         });
     }
 
-    public ResetPasswordGUI() {
+    public ResetPasswordFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 259);
         contentPane = new JPanel();
