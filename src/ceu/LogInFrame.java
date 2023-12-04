@@ -1,33 +1,25 @@
 package ceu;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import java.awt.Color;
 import java.awt.*;
-import javax.swing.border.MatteBorder;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.ImageIcon;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicRadioButtonUI;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicRadioButtonUI;
+import java.awt.*;
+import java.awt.event.*;
 
 public class LogInFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField UsernametextField;
 	private JPasswordField passwordField;
-	private javax.swing.JLabel hidepass;
 	private javax.swing.JLabel viewpass;
 
 	/**
@@ -45,7 +37,7 @@ public class LogInFrame extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -57,9 +49,8 @@ public class LogInFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		
 		JPanel BGpanel = new JPanel();
-		BGpanel.setBounds(0, 0, 569, 496);
+		BGpanel.setBounds(0, 0, 577, 496);
 		contentPane.add(BGpanel);
 		BGpanel.setLayout(null);
 		
@@ -70,9 +61,21 @@ public class LogInFrame extends JFrame {
 		BGpanel.add(Loginpanel);
 		Loginpanel.setLayout(null);
 		
-	
-		
-		JLabel LoginLabel = new JLabel("LOGIN");
+		  viewpass = new JLabel("");
+		  viewpass.addMouseListener(new MouseAdapter() {
+		      @Override
+		      public void mousePressed(MouseEvent e) {
+		          // Toggle password visibility
+		          passwordField.setEchoChar((passwordField.getEchoChar() == 0) ? '\u2022' : (char) 0);
+		          viewpass.setVisible(true);
+		          
+		      }
+		  });
+		  viewpass.setIcon(new ImageIcon("src\\images\\icons8-view-24.png"));
+		  viewpass.setBounds(422, 159, 24, 21);
+		  Loginpanel.add(viewpass);
+				
+		JLabel LoginLabel = new JLabel("WELCOME");
 		LoginLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		LoginLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
 		LoginLabel.setBounds(0, 10, 495, 41);
@@ -86,13 +89,13 @@ public class LogInFrame extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel UsernameLabel = new JLabel("Username");
-		UsernameLabel.setIcon(new ImageIcon("D:\\OOP\\icons8-username-24.png"));
+		UsernameLabel.setIcon(new ImageIcon("src\\images\\icons8-username-24.png"));
 		UsernameLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		UsernameLabel.setBounds(74, 112, 113, 25);
 		Loginpanel.add(UsernameLabel);
 		
 		JLabel PasswordLabel = new JLabel("Password");
-		PasswordLabel.setIcon(new ImageIcon("D:\\OOP\\icons8-lock-24.png"));
+		PasswordLabel.setIcon(new ImageIcon("src\\images\\icons8-lock-24.png"));
 		PasswordLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		PasswordLabel.setBounds(73, 159, 113, 25);
 		Loginpanel.add(PasswordLabel);
@@ -103,15 +106,18 @@ public class LogInFrame extends JFrame {
 		Loginpanel.add(UsernametextField);
 		UsernametextField.setColumns(10);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		passwordField.setBounds(204, 158, 208, 23);
-		Loginpanel.add(passwordField);
-		
-      
-		
-		JRadioButton RememberRadioButton = new JRadioButton("Remember me");
-		RememberRadioButton.setBackground(new Color(240, 240, 240));
+		JRadioButton RememberRadioButton = new JRadioButton("Remember me") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                if (getModel().isSelected()) {
+                    g.setColor(getForeground());
+                    g.fillOval(4, 4, 12, 12); // Adjust the position and size as needed
+                }
+            }
+        };
+        
+		RememberRadioButton = new JRadioButton("Remember me");
+		RememberRadioButton.setOpaque(false); 
 		RememberRadioButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		RememberRadioButton.setBounds(71, 217, 131, 21);
 		Loginpanel.add(RememberRadioButton);
@@ -133,27 +139,17 @@ public class LogInFrame extends JFrame {
 		btnLogin.setBounds(274, 243, 139, 41);
 		Loginpanel.add(btnLogin);
 		
-		 JLabel bglabel = new JLabel("");
-	        bglabel.setIcon(new ImageIcon("D:\\OOP\\bbg.png"));
-	        bglabel.setBounds(0, 0, 579, 430);
-	        BGpanel.add(bglabel);
+		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		passwordField.setBounds(204, 158, 208, 23);
+		Loginpanel.add(passwordField);
 		
-	      
-	        viewpass = new JLabel("");
-	        viewpass.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mousePressed(MouseEvent e) {
-	                // Toggle password visibility
-	                passwordField.setEchoChar((passwordField.getEchoChar() == 0) ? '\u2022' : (char) 0);
-	                viewpass.setVisible(true);
-	                
-	            }
-	        });
-	        viewpass.setIcon(new ImageIcon("D:\\OOP\\icons8-eye-30.png"));
-	        viewpass.setBounds(386, 156, 30, 30);
-	        Loginpanel.add(viewpass);
-
-	      
+		JLabel bglabel = new JLabel("");
+        bglabel.setIcon(new ImageIcon("src\\images\\bbg.png"));
+        bglabel.setBounds(0, 0, 577, 430);
+        BGpanel.add(bglabel);
 	       
-    }
+ }
+	        	
 }
+

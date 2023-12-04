@@ -15,6 +15,9 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class AdminDashboardFrame extends JFrame {
 
@@ -51,7 +54,7 @@ public class AdminDashboardFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 240, 245));
+		panel_1.setBackground(new Color(255, 255, 255, 150));
 		panel_1.setBounds(27, 109, 717, 351);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
@@ -100,12 +103,17 @@ public class AdminDashboardFrame extends JFrame {
 		lblNewLabel_2_1_2.setBounds(396, 2, 83, 36);
 		panel_2.add(lblNewLabel_2_1_2);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(658, 0, 17, 272);
+		panel_3.add(scrollPane);
+		
 		JScrollBar scrollBar = new JScrollBar();
+		scrollPane.setViewportView(scrollBar);
 		scrollBar.setMaximum(15);
 		scrollBar.setForeground(new Color(175, 238, 238));
 		scrollBar.setBackground(new Color(173, 216, 230));
-		scrollBar.setBounds(658, 11, 17, 240);
-		panel_3.add(scrollBar);
 		
 		JPanel panel_2_2 = new JPanel();
 		panel_2_2.setBounds(10, 63, 638, 41);
@@ -226,7 +234,7 @@ public class AdminDashboardFrame extends JFrame {
 		int pendingCount= 5;
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 240, 245));
+		panel.setBackground(new Color(255, 255, 255, 150));
 		panel.setBounds(27, 37, 717, 55);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -237,5 +245,10 @@ public class AdminDashboardFrame extends JFrame {
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		
+		JLabel bgIMG = new JLabel("");
+		bgIMG.setIcon(new ImageIcon("E:\\desktop\\OOP BG.png"));
+		bgIMG.setBounds(0, 0, 771, 481);
+		contentPane.add(bgIMG);
 	}
 }
