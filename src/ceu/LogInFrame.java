@@ -154,6 +154,8 @@ public class LogInFrame extends JFrame {
 	        Loginpanel.add(viewpass);
 
 	      
+	    
 	       
-    }
+ }
+	        	
 }

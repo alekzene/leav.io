@@ -7,8 +7,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-
-class LeaveApplicationFrame{
+class LeaveApplicationFrame  {
+	
 	static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
     static JTable tblCalendar;
@@ -19,9 +19,7 @@ class LeaveApplicationFrame{
     static JScrollPane stblCalendar; //The scrollpane
     static JPanel pnlCalendar;
     static int realYear, realMonth, realDay, currentYear, currentMonth;
-	
-	
-	
+
 	public static void main(String args[]){
 		//Another GUI Frame
 		JFrame frame = new JFrame("Leave Application Form");
