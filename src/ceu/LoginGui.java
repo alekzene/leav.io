@@ -146,8 +146,7 @@ public class LoginGui extends JFrame {
 	        viewpass.setBounds(386, 156, 30, 30);
 	        Loginpanel.add(viewpass);
 
-	    
+	      
 	       
- }
-	        	
+    }
 }
