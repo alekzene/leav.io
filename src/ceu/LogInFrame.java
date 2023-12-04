@@ -19,8 +19,10 @@ import javax.swing.JRadioButton;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class LoginGui extends JFrame {
+public class LogInFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField UsernametextField;
@@ -35,7 +37,7 @@ public class LoginGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginGui frame = new LoginGui();
+					LogInFrame frame = new LogInFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,9 +49,9 @@ public class LoginGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoginGui() {
+	public LogInFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 583, 523);
+		setBounds(100, 100, 593, 468);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -64,7 +66,7 @@ public class LoginGui extends JFrame {
 		JPanel Loginpanel = new JPanel();
 		Loginpanel.setBackground(new Color(0, 0, 0, 1));
 		Loginpanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		Loginpanel.setBounds(42, 53, 495, 388);	
+		Loginpanel.setBounds(42, 53, 495, 326);	
 		BGpanel.add(Loginpanel);
 		Loginpanel.setLayout(null);
 		
@@ -81,54 +83,59 @@ public class LoginGui extends JFrame {
 		panel.setBackground(new Color(255, 128, 192));
 		panel.setBounds(0, 0, 495, 62);
 		Loginpanel.add(panel);
+		panel.setLayout(null);
 		
 		JLabel UsernameLabel = new JLabel("Username");
 		UsernameLabel.setIcon(new ImageIcon("D:\\OOP\\icons8-username-24.png"));
 		UsernameLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		UsernameLabel.setBounds(55, 110, 113, 25);
+		UsernameLabel.setBounds(74, 112, 113, 25);
 		Loginpanel.add(UsernameLabel);
 		
 		JLabel PasswordLabel = new JLabel("Password");
 		PasswordLabel.setIcon(new ImageIcon("D:\\OOP\\icons8-lock-24.png"));
 		PasswordLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		PasswordLabel.setBounds(55, 156, 113, 25);
+		PasswordLabel.setBounds(73, 159, 113, 25);
 		Loginpanel.add(PasswordLabel);
 		
 		UsernametextField = new JTextField();
 		UsernametextField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		UsernametextField.setBounds(174, 110, 208, 24);
+		UsernametextField.setBounds(204, 112, 208, 24);
 		Loginpanel.add(UsernametextField);
 		UsernametextField.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		passwordField.setBounds(174, 159, 208, 23);
+		passwordField.setBounds(204, 158, 208, 23);
 		Loginpanel.add(passwordField);
 		
       
 		
 		JRadioButton RememberRadioButton = new JRadioButton("Remember me");
-		RememberRadioButton.setBackground(new Color(255, 217, 255));
+		RememberRadioButton.setBackground(new Color(240, 240, 240));
 		RememberRadioButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		RememberRadioButton.setBounds(87, 196, 131, 21);
+		RememberRadioButton.setBounds(71, 217, 131, 21);
 		Loginpanel.add(RememberRadioButton);
 		
 		JButton ResetPasswordButton = new JButton("Reset Password");
-		ResetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		ResetPasswordButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		ResetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 9));
 		ResetPasswordButton.setForeground(Color.BLUE);
-		ResetPasswordButton.setBackground(new Color(255, 217, 255));
-		ResetPasswordButton.setBounds(292, 197, 139, 21);
+		ResetPasswordButton.setBackground(new Color(240, 240, 240));
+		ResetPasswordButton.setBounds(291, 185, 122, 18);
 		Loginpanel.add(ResetPasswordButton);
 		
 		JButton btnLogin = new JButton("LOGIN");
 		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnLogin.setBackground(new Color(255, 128, 192));
-		btnLogin.setBounds(192, 257, 139, 41);
+		btnLogin.setBounds(274, 243, 139, 41);
 		Loginpanel.add(btnLogin);
 		
 		 JLabel bglabel = new JLabel("");
 	        bglabel.setIcon(new ImageIcon("D:\\OOP\\bbg.png"));
-	        bglabel.setBounds(0, 0, 569, 496);
+	        bglabel.setBounds(0, 0, 579, 430);
 	        BGpanel.add(bglabel);
 		
 	      

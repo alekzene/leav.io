@@ -44,18 +44,22 @@ public class UserDashboardFrame extends JFrame {
 		employeeInfoPanel.setBounds(10, 41, 223, 102);
 		employeeInfoPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(employeeInfoPanel);
+		employeeInfoPanel.setLayout(null);
 		
 		JLabel employeeName = new JLabel("Francisco, Earl Ace D.");
+		employeeName.setBounds(10, 19, 145, 17);
 		employeeName.setFont(new Font("Tahoma", Font.BOLD, 14));
-		employeeInfoPanel.add(employeeName, "cell 0 1");
+		employeeInfoPanel.add(employeeName);
 		
 		JLabel employee_ID = new JLabel("Employee ID: 136696130811\r\n");
+		employee_ID.setBounds(9, 39, 205, 17);
 		employee_ID.setFont(new Font("Tahoma", Font.BOLD, 14));
-		employeeInfoPanel.add(employee_ID, "cell 0 3");
+		employeeInfoPanel.add(employee_ID);
 		
 		JLabel employeePosition = new JLabel("Non-Teaching Library Staff");
+		employeePosition.setBounds(9, 60, 186, 17);
 		employeePosition.setFont(new Font("Tahoma", Font.BOLD, 14));
-		employeeInfoPanel.add(employeePosition, "cell 0 5");
+		employeeInfoPanel.add(employeePosition);
 		
 		JButton menuButton = new JButton("|||");
 		menuButton.setBounds(10, 4, 49, 28);

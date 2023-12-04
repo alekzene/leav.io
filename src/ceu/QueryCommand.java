@@ -1,3 +1,5 @@
+package ceu;
+
 // FIXME: Adjust
 import java.sql.Connection;
 import java.sql.PreparedStatement;

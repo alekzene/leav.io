@@ -16,7 +16,7 @@ import javax.swing.JScrollBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AdminDashboardGUI extends JFrame {
+public class AdminDashboardFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -28,7 +28,7 @@ public class AdminDashboardGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AdminDashboardGUI frame = new AdminDashboardGUI();
+					AdminDashboardFrame frame = new AdminDashboardFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +40,7 @@ public class AdminDashboardGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdminDashboardGUI() {
+	public AdminDashboardFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 783, 520);
 		contentPane = new JPanel();
