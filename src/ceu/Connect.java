@@ -8,10 +8,10 @@ class Connect {
     public Connection getConnection() {
         try {
             // Load the JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver"); // FIXME Change driver path
 
             // Establish a connection
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/orderingsystem", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/orderingsystem", "root", ""); // FIXME Change database name
 
             // Return the connection object
             return connection;
@@ -22,8 +22,8 @@ class Connect {
     }
     void Connection(String query) {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/orderingsystem", "root", "");
+            Class.forName("com.mysql.jdbc.Driver"); // FIXME Change driver path
+            Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/orderingsystem", "root", ""); // FIXME Change database name
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 preparedStatement.executeUpdate();
