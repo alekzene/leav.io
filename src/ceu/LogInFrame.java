@@ -148,7 +148,7 @@ public class LogInFrame extends JFrame {
 				String enteredUsername = usernameTextField.getText();
 				String enteredPassword = String.valueOf(passwordField.getPassword());
 				
-				// FIXME: STILL HARD-CODED. ADJUST ACCORDINGLY.
+				// FIXME: DATABASE DEPENDENCY. STILL HARD-CODED. ADJUST ACCORDINGLY.
 				boolean usernameFound = true;
 				boolean passwordCorrect = true;
 				

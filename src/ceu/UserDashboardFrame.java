@@ -166,12 +166,6 @@ public class UserDashboardFrame extends JFrame {
 		fileLeaveButton.setForeground(new Color(0, 210, 105));
 		fileLeaveButton.setBounds(908, 154, 251, 31);
 		contentPane.add(fileLeaveButton);
-		fileLeaveButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				//Nathaniel Codes insert here
-			}
-		});
 		fileLeaveButton.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
 		JLabel approveTracker_Label = new JLabel("Approved");
