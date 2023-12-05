@@ -359,7 +359,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         textField_2.setColumns(10);
         mtblCalendar.setColumnCount(7);
         mtblCalendar.setRowCount(6);
-
+        
         // Populate table
         for (int i = realYear - 100; i <= realYear + 100; i++) {
             cmbYear.addItem(String.valueOf(i));
@@ -368,6 +368,8 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         // Refresh calendar
         refreshCalendar(realMonth, realYear); // Refresh calendar
     }
+    
+    //Methods and Constructors
     private void refreshCalendar(int month, int year) {
         //Variables
         String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -405,7 +407,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
     }
     
-    //Methods
+ 
     private boolean isAllFieldsFilledUP() {
         return !textField.getText().isEmpty() &&
                 !textField_1.getText().isEmpty() &&
