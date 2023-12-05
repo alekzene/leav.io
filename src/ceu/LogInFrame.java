@@ -1,5 +1,3 @@
-// FIXME:  Changes not showing when file is ran
-
 package ceu;
 
 import java.awt.*;
@@ -28,11 +26,6 @@ public class LogInFrame extends JFrame {
 				try {
 					LogInFrame frame = new LogInFrame();
 					frame.setVisible(true);
-					
-					// GET ENTERED CREDENTIALS
-					String enteredUsername = frame.usernameTextField.getText();
-					String enteredPassword = String.valueOf(frame.passwordField.getPassword());
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -116,6 +109,11 @@ public class LogInFrame extends JFrame {
 		  
 		// REMEMBER ME RADIO BUTTON
         JRadioButton rememberMeRadioButton = new JRadioButton("Remember Me");
+        rememberMeRadioButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		// FIXME: ADD CODE HERE. MUST REMEMBER USER WHEN CLICKED.
+        	}
+        });
 		rememberMeRadioButton.setOpaque(false); 
 		rememberMeRadioButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		rememberMeRadioButton.setBounds(71, 217, 131, 21);
@@ -142,26 +140,46 @@ public class LogInFrame extends JFrame {
 		
 		// LOGIN BUTTON
 		JButton logInButton = new JButton("LOGIN");
-		logInButton.addMouseListener(new MouseAdapter() {
+		logInButton.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
+				
+				// GET ENTERED CREDENTIALS
+				String enteredUsername = usernameTextField.getText();
+				String enteredPassword = String.valueOf(passwordField.getPassword());
+				
+				// FIXME: STILL HARD-CODED. ADJUST ACCORDINGLY.
+				boolean usernameFound = true;
+				boolean passwordCorrect = true;
 				
 				// VALIDATE ENTERED CREDENTIALS
-				// ADD CODE HERE
-				
-				// GET USER TYPE
-				String userType = "EMPLOYEE"; // FIXME: Modify. Must get user type from database.
-				
-				if (userType == "EMPLOYEE") {
-					// OPEN USER DASHBOARD
-					UserDashboardFrame userDashboardFrame = new UserDashboardFrame();
-					userDashboardFrame.setVisible(true);
+				if ( enteredUsername == "" || enteredPassword == "" ) {
+					JOptionPane.showMessageDialog(null, "Credential fields cannot be empty.");
 				}
-				else if (userType == "ADMIN")
-				{
-					// OPEN ADMIN DASHBOARD
-					AdminDashboardFrame adminDashboardFrame = new AdminDashboardFrame();
-					adminDashboardFrame.setVisible(true);
+				else if ( usernameFound == false ) {
+					JOptionPane.showMessageDialog(null, "Account does not exist.");
+				}
+				else if ( passwordCorrect == false ) {
+					JOptionPane.showMessageDialog(null, "Incorrect Password");
+				}
+				else {
+					// CLOSE LOG IN FRAME
+					LogInFrame.this.dispose();
+					
+					// GET USER TYPE
+					String userType = "EMPLOYEE"; // FIXME: Modify. Must get user type from database.
+					
+					if (userType == "EMPLOYEE") {
+						// OPEN USER DASHBOARD
+						UserDashboardFrame userDashboardFrame = new UserDashboardFrame();
+						userDashboardFrame.setVisible(true);
+					}
+					else if (userType == "ADMIN")
+					{
+						// OPEN ADMIN DASHBOARD
+						AdminDashboardFrame adminDashboardFrame = new AdminDashboardFrame();
+						adminDashboardFrame.setVisible(true);
+					}
 				}
 					
 			}
@@ -184,7 +202,6 @@ public class LogInFrame extends JFrame {
         backgroundLabel.setIcon(new ImageIcon("src\\images\\bbg.png"));
         backgroundLabel.setBounds(0, 0, 577, 430);
         backgroundPanel.add(backgroundLabel);
-	       
  }
 	        	
 }
