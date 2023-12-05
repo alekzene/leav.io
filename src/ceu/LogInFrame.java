@@ -1,5 +1,3 @@
-// FIXME:  Changes not showing when file is ran
-
 package ceu;
 
 import java.awt.*;
@@ -60,14 +58,6 @@ public class LogInFrame extends JFrame {
 		backgroundPanel.add(logInPanel);
 		logInPanel.setLayout(null);
 		
-		// WELCOME PANEL
-		JPanel welcomePanel = new JPanel();
-		welcomePanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		welcomePanel.setBackground(new Color(255, 128, 192));
-		welcomePanel.setBounds(0, 0, 495, 62);
-		logInPanel.add(welcomePanel);
-		welcomePanel.setLayout(null);
-		
 		// WELCOME LABEL
 		JLabel welcomeLabel = new JLabel("WELCOME");
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -118,27 +108,26 @@ public class LogInFrame extends JFrame {
 		  logInPanel.add(viewPassword);
 		  
 		// REMEMBER ME RADIO BUTTON
-        JRadioButton rememberMeRadioButton = new JRadioButton("Remember Me") {
-            @Override
-            protected void paintComponent(Graphics g) {
-                if (getModel().isSelected()) {
-                    g.setColor(getForeground());
-                    g.fillOval(4, 4, 12, 12); 
-                } else {
-                    g.setColor(new Color(0, 0, 0, 0));
-                    g.fillRect(0, 0, getWidth(), getHeight());
-                }
-                super.paintComponent(g);
-            }
-        };
-        
+        JRadioButton rememberMeRadioButton = new JRadioButton("Remember Me");
+        rememberMeRadioButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		// FIXME: ADD CODE HERE. MUST REMEMBER USER WHEN CLICKED.
+        	}
+        });
 		rememberMeRadioButton.setOpaque(false); 
 		rememberMeRadioButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		rememberMeRadioButton.setBounds(71, 217, 131, 21);
 		logInPanel.add(rememberMeRadioButton);
 		
 		// RESET PASSWORD BUTTON
-		JButton resetPasswordButton = new JButton("Reset PW");
+		JButton resetPasswordButton = new JButton("Forgot Password?");
+		resetPasswordButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ResetPasswordFrame resetPasswordFrame = new ResetPasswordFrame();
+				resetPasswordFrame.setVisible(true);
+			}
+		});
 		resetPasswordButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -146,22 +135,73 @@ public class LogInFrame extends JFrame {
 		resetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 9));
 		resetPasswordButton.setForeground(new Color(64, 64, 64));
 		resetPasswordButton.setBackground(new Color(240, 240, 240));
-		resetPasswordButton.setBounds(291, 185, 122, 18);
+		resetPasswordButton.setBounds(274, 185, 139, 18);
 		logInPanel.add(resetPasswordButton);
 		
 		// LOGIN BUTTON
 		JButton logInButton = new JButton("LOGIN");
+		logInButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				// GET ENTERED CREDENTIALS
+				String enteredUsername = usernameTextField.getText();
+				String enteredPassword = String.valueOf(passwordField.getPassword());
+				
+				// FIXME: STILL HARD-CODED. ADJUST ACCORDINGLY.
+				boolean usernameFound = true;
+				boolean passwordCorrect = true;
+				
+				// VALIDATE ENTERED CREDENTIALS
+				if ( enteredUsername == "" || enteredPassword == "" ) {
+					JOptionPane.showMessageDialog(null, "Credential fields cannot be empty.");
+				}
+				else if ( usernameFound == false ) {
+					JOptionPane.showMessageDialog(null, "Account does not exist.");
+				}
+				else if ( passwordCorrect == false ) {
+					JOptionPane.showMessageDialog(null, "Incorrect Password");
+				}
+				else {
+					// CLOSE LOG IN FRAME
+					LogInFrame.this.dispose();
+					
+					// GET USER TYPE
+					String userType = "EMPLOYEE"; // FIXME: Modify. Must get user type from database.
+					
+					if (userType == "EMPLOYEE") {
+						// OPEN USER DASHBOARD
+						UserDashboardFrame userDashboardFrame = new UserDashboardFrame();
+						userDashboardFrame.setVisible(true);
+					}
+					else if (userType == "ADMIN")
+					{
+						// OPEN ADMIN DASHBOARD
+						AdminDashboardFrame adminDashboardFrame = new AdminDashboardFrame();
+						adminDashboardFrame.setVisible(true);
+					}
+				}
+					
+			}
+		});
 		logInButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		logInButton.setBackground(Color.BLACK);
+		logInButton.setBackground(new Color(255, 128, 192));
 		logInButton.setBounds(274, 243, 139, 41);
 		logInPanel.add(logInButton);
+		
+		// WELCOME PANEL
+		JPanel welcomePanel = new JPanel();
+		welcomePanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		welcomePanel.setBackground(new Color(255, 128, 192));
+		welcomePanel.setBounds(0, 0, 495, 62);
+		logInPanel.add(welcomePanel);
+		welcomePanel.setLayout(null);
 		
 		// BACKGROUND
 		JLabel backgroundLabel = new JLabel("");
         backgroundLabel.setIcon(new ImageIcon("src\\images\\bbg.png"));
         backgroundLabel.setBounds(0, 0, 577, 430);
         backgroundPanel.add(backgroundLabel);
-	       
  }
 	        	
 }

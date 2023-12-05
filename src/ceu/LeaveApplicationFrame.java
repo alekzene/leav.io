@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-class LeaveApplicationFrame  {
+class LeaveApplicationFrame extends JFrame {
 	
 	static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;

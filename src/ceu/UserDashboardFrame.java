@@ -157,6 +157,12 @@ public class UserDashboardFrame extends JFrame {
 		date_and_timePanel.add(lblSunday);
 		
 		JButton fileLeaveButton = new JButton("File New Leave");
+		fileLeaveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LeaveApplicationFormFrame2 leaveApplicationFrame = new LeaveApplicationFormFrame2();
+				leaveApplicationFrame.setVisible(true);
+			}
+		});
 		fileLeaveButton.setForeground(new Color(0, 210, 105));
 		fileLeaveButton.setBounds(908, 154, 251, 31);
 		contentPane.add(fileLeaveButton);
