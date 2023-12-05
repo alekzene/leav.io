@@ -247,7 +247,7 @@ public class AdminDashboardFrame extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		
 		JLabel bgIMG = new JLabel("");
-		bgIMG.setIcon(new ImageIcon("E:\\desktop\\OOP BG.png"));
+		bgIMG.setIcon(new ImageIcon(AdminDashboardFrame.class.getResource("/images/bbg.png")));
 		bgIMG.setBounds(0, 0, 771, 481);
 		contentPane.add(bgIMG);
 	}
