@@ -10,5 +10,4 @@ public class Main {
 	            logInFrame.setVisible(true);
 	        });
 	}
-
 }

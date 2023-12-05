@@ -5,15 +5,20 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class UserDashboardFrame extends JFrame {
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable approveTracker_Table;
 	private JTable pendingTracker_Table;
 	private JTable declinedTracker_Table;
-
+	private JLabel Time;
+	private Timer timer;
+	
+	Date_And_Time dateTime;
 	/**
 	 * Launch the application.
 	 */
@@ -29,11 +34,13 @@ public class UserDashboardFrame extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public UserDashboardFrame() {
+		Date_And_Time dateTime = new Date_And_Time();
+		
 		setTitle("Leave Application Form\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1156, 596);
@@ -168,24 +175,6 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.add(date_and_timePanel);
 		date_and_timePanel.setLayout(null);
 		
-		JLabel dataLabel = new JLabel("12 / 03 / 2003");
-		dataLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		dataLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		dataLabel.setBounds(49, 61, 150, 32);
-		date_and_timePanel.add(dataLabel);
-		
-		JLabel timeLabel = new JLabel("12 : 03");
-		timeLabel.setBounds(49, 87, 150, 32);
-		date_and_timePanel.add(timeLabel);
-		timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		timeLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		
-		JLabel lblSunday = new JLabel("Sunday");
-		lblSunday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSunday.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblSunday.setBounds(49, 33, 150, 32);
-		date_and_timePanel.add(lblSunday);
-		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(255, 128, 255));
 		panel_3.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -199,6 +188,29 @@ public class UserDashboardFrame extends JFrame {
 		day_monthLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		day_monthLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
+		JLabel Date = new JLabel(dateTime.getFormattedDate());
+		Date.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Date.setBounds(37, 40, 170, 30);
+		date_and_timePanel.add(Date);
+		
+		JLabel Day = new JLabel(dateTime.getFormattedDay());
+		Day.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Day.setBounds(83, 63, 63, 30);
+		date_and_timePanel.add(Day);
+		
+		Time = new JLabel(dateTime.getFormattedTime());
+        Time.setFont(new Font("Tahoma", Font.BOLD, 15));
+        Time.setBounds(64, 90, 106, 30);
+        date_and_timePanel.add(Time);
+
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateTime();
+            }
+        });
+        timer.start();
+        
 		JLabel lblNewLabel_3_1_1_1_2 = new JLabel("New label");
 		lblNewLabel_3_1_1_1_2.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
 		lblNewLabel_3_1_1_1_2.setBounds(1, 38, 234, 80);
@@ -422,4 +434,11 @@ public class UserDashboardFrame extends JFrame {
 		lblNewLabel_3.setBounds(0, 0, 1145, 559);
 		contentPane.add(lblNewLabel_3);
 	}
+	
+	 private void updateTime() {
+	        Date_And_Time dateTime = new Date_And_Time();
+	        String formattedTime = dateTime.getFormattedTime();
+	        Time.setText(formattedTime);
+	    }
+
 }
