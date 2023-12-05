@@ -9,9 +9,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.GregorianCalendar;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
+import com.toedter.calendar.JDateChooser;
+
+
 
 
 public class LeaveApplicationFormFrame2 extends JFrame {
@@ -34,6 +39,13 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     private JLabel lblNewLabel_4_1_1_3;
     private JComboBox comboBox_2;
     private JTextField textField_2;
+    
+    private JComboBox comboBox_1_1; 
+    private JComboBox comboBox_1; 
+    private JDateChooser startDateChooser; 
+    private JDateChooser endDateChooser; 
+    
+    
 
     /**
      * Launch the application.
@@ -167,30 +179,49 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         JLabel lblNewLabel_12 = new JLabel("Means of Contact:");
         lblNewLabel_12.setFont(new Font("Tahoma", Font.BOLD, 15));
-        lblNewLabel_12.setBounds(10, 418, 139, 20);
+        lblNewLabel_12.setBounds(10, 462, 139, 20);
         panel.add(lblNewLabel_12);
         
         JLabel lblNewLabel_13 = new JLabel("Name:");
         lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_13.setBounds(10, 449, 50, 14);
+        lblNewLabel_13.setBounds(10, 493, 50, 14);
         panel.add(lblNewLabel_13);
         
         JLabel lblNewLabel_13_1 = new JLabel("Address:");
         lblNewLabel_13_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_13_1.setBounds(10, 484, 86, 14);
+        lblNewLabel_13_1.setBounds(10, 528, 86, 14);
         panel.add(lblNewLabel_13_1);
         
         JLabel lblNewLabel_13_2 = new JLabel("Contact no.:");
         lblNewLabel_13_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_13_2.setBounds(10, 523, 86, 14);
+        lblNewLabel_13_2.setBounds(10, 567, 86, 14);
         panel.add(lblNewLabel_13_2);
         
         textField = new JTextField();
+        textField.addKeyListener(new KeyAdapter() {
+        	  public void keyTyped(KeyEvent e) {
+                  char inputChar = e.getKeyChar();
+                  if (!Character.isDigit(inputChar) && inputChar != KeyEvent.VK_BACK_SPACE) {
+                      e.consume(); // Ignore non-numeric input
+                  }
+              }
+          });
+        
         textField.setBounds(123, 156, 99, 20);
         panel.add(textField);
         textField.setColumns(10);
         
         textField_1 = new JTextField();
+        textField_1.addKeyListener(new KeyAdapter() {
+        	@Override
+        	public void keyTyped(KeyEvent e) {
+        		char name = e.getKeyChar();
+        		if (!Character.isAlphabetic(name) ) {
+        			e.consume();
+        		}
+        	}
+        });
+        
         textField_1.setColumns(10);
         textField_1.setBounds(123, 195, 99, 20);
         panel.add(textField_1);
@@ -201,18 +232,37 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         panel.add(textField_3);
         
         textField_6 = new JTextField();
+        textField_6.addKeyListener(new KeyAdapter() {
+        	@Override
+        	public void keyTyped(KeyEvent e) {
+        		char name = e.getKeyChar();
+        		if (!Character.isAlphabetic(name)) {
+        			e.consume();
+        		}
+        	}
+        });
         textField_6.setColumns(10);
-        textField_6.setBounds(123, 449, 116, 20);
+        textField_6.setBounds(123, 493, 116, 20);
         panel.add(textField_6);
         
         textField_7 = new JTextField();
         textField_7.setColumns(10);
-        textField_7.setBounds(123, 483, 116, 20);
+        textField_7.setBounds(123, 527, 116, 20);
         panel.add(textField_7);
         
         textField_8 = new JTextField();
+        textField_8.addKeyListener(new KeyAdapter() {
+        	@Override
+        	public void keyTyped(KeyEvent e) {
+        		char inputNumber = e.getKeyChar();
+        		if (!Character.isDigit(inputNumber)) {
+        			e.consume();
+        		}
+        	}
+        });
+        
         textField_8.setColumns(10);
-        textField_8.setBounds(123, 522, 116, 20);
+        textField_8.setBounds(123, 566, 116, 20);
         panel.add(textField_8);
         
         JLabel lblNewLabel_4_1 = new JLabel("Leave Type:");
@@ -240,7 +290,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         lblNewLabel_4_1_1_2_1.setBounds(10, 311, 165, 25);
         panel.add(lblNewLabel_4_1_1_2_1);
         
-        JComboBox comboBox_1 = new JComboBox();
+        comboBox_1 = new JComboBox();
         comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Select Campus", "Manila ", "Makati ", "Malalolos"}));
         comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
         comboBox_1.setBackground(Color.WHITE);
@@ -259,23 +309,27 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         comboBox_2.setBounds(123, 270, 99, 21);
         panel.add(comboBox_2);
         
-        JComboBox comboBox_1_1 = new JComboBox();
-        comboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Sick Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
+        comboBox_1_1 = new JComboBox();
+        comboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
         comboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
         comboBox_1_1.setBackground(Color.WHITE);
         comboBox_1_1.setBounds(123, 120, 99, 21);
         panel.add(comboBox_1_1);
         
-        JPanel panel_1 = new JPanel();
-        panel_1.setBorder(new TitledBorder(null, "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-        panel_1.setBounds(496, 442, 443, 237);
-        contentPane.add(panel_1);
-        panel_1.setLayout(null);
+        startDateChooser = new JDateChooser();
+        startDateChooser.setBounds(123, 361, 116, 20);
+        panel.add(startDateChooser);
         
-        textField_2 = new JTextField();
-        textField_2.setBounds(10, 22, 423, 205);
-        panel_1.add(textField_2);
-        textField_2.setColumns(10);
+        endDateChooser = new JDateChooser();
+        endDateChooser.setBounds(123, 411, 116, 20);
+        panel.add(endDateChooser);
+        
+        JLabel lblNewLabel_13_3 = new JLabel("To");
+        lblNewLabel_13_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_13_3.setBounds(163, 390, 27, 14);
+        panel.add(lblNewLabel_13_3);
+        
+
         
         JButton btnNewButton = new JButton("SUBMIT\r\n");
         btnNewButton.setBounds(642, 689, 150, 76);
@@ -287,8 +341,16 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         contentPane.add(Background);
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		JOptionPane.showMessageDialog(null, "Successfully Submitted!");
+        		if (isAllFieldsFilledUP()) {
+        			JOptionPane.showMessageDialog(null, "Successfully Submitted!");
+        		}
+        		else {
+        			JOptionPane.showMessageDialog(null, "Please fill up the required Informations.");
+        		}
+        		
+        		
         	}
+
         });
         mtblCalendar.setColumnCount(7);
         mtblCalendar.setRowCount(6);
@@ -337,6 +399,22 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         //Apply renderers
         tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
     }
+    
+    //Methods
+    private boolean isAllFieldsFilledUP() {
+        return !textField.getText().isEmpty() &&
+                !textField_1.getText().isEmpty() &&
+                !textField_3.getText().isEmpty() &&
+                !textField_6.getText().isEmpty() &&
+                !textField_7.getText().isEmpty() &&
+                !textField_8.getText().isEmpty() &&
+                comboBox_1.getSelectedIndex() != 0 &&
+                comboBox_1_1.getSelectedIndex() != 0 &&
+                comboBox_2.getSelectedIndex() != 0 &&
+                startDateChooser.getDate() != null &&
+                endDateChooser.getDate() != null;
+    }
+
     private class tblCalendarRenderer extends DefaultTableCellRenderer{
         public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column){
             super.getTableCellRendererComponent(table, value, selected, focused, row, column);

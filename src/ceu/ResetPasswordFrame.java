@@ -52,19 +52,22 @@ public class ResetPasswordFrame extends JFrame {
         backgroundPanel.add(resetPasswordLabel);
 
         // OLD PASSWORD LABEL
-        JLabel oldPasswordLabel = new JLabel("Old Password:");
-        oldPasswordLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        oldPasswordLabel.setBounds(10, 78, 165, 14);
-        backgroundPanel.add(oldPasswordLabel);
+        JLabel employee_Id = new JLabel("Employee ID:");
+        employee_Id.setHorizontalAlignment(SwingConstants.CENTER);
+        employee_Id.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        employee_Id.setBounds(20, 80, 155, 14);
+        backgroundPanel.add(employee_Id);
 
         // NEW PASSWORD LABEL
         JLabel newPasswordLabel = new JLabel("New Password:");
+        newPasswordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         newPasswordLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         newPasswordLabel.setBounds(10, 104, 165, 14);
         backgroundPanel.add(newPasswordLabel);
 
         // CONFIRM NEW PASSWORD LABEL
         JLabel confirmNewPasswordLabel = new JLabel("Confirm New Password:");
+        confirmNewPasswordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         confirmNewPasswordLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         confirmNewPasswordLabel.setBounds(10, 130, 165, 14);
         backgroundPanel.add(confirmNewPasswordLabel);
