@@ -78,6 +78,13 @@ public class ResetPasswordFrame extends JFrame {
 
         // CANCEL BUTTON
         JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(cancelButton);
+                currentFrame.dispose();
+        	}
+        });
+        
         cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
         cancelButton.setBounds(335, 179, 89, 23);
         backgroundPanel.add(cancelButton);
@@ -96,6 +103,16 @@ public class ResetPasswordFrame extends JFrame {
         confirmNewPasswordField = new JPasswordField();
         confirmNewPasswordField.setBounds(185, 129, 239, 20);
         backgroundPanel.add(confirmNewPasswordField);
+        
+        JLabel userName = new JLabel("[insert username]");
+        userName.setFont(new Font("Tahoma", Font.BOLD, 14));
+        userName.setBounds(10, 47, 239, 14);
+        backgroundPanel.add(userName);
+        
+        JLabel lblNewLabel = new JLabel("");
+        lblNewLabel.setIcon(new ImageIcon(ResetPasswordFrame.class.getResource("/images/bbg.png")));
+        lblNewLabel.setBounds(0, 0, 434, 261);
+        backgroundPanel.add(lblNewLabel);
 
         // FIXME: LOGIC
         passwords.add("password");
@@ -124,13 +141,6 @@ public class ResetPasswordFrame extends JFrame {
 
                 updatePassword(oldPassword, newPassword);
                 JOptionPane.showMessageDialog(null, "Password updated successfully.");
-            }
-        });
-
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Add code for cancel button action, if needed
             }
         });
     }

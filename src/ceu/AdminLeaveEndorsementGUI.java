@@ -5,37 +5,26 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
+import javax.swing.UIManager;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 import java.awt.Color;
-import javax.swing.JMenu;
+import java.awt.Font;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JScrollBar;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.MouseWheelEvent;
-import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
-import javax.swing.ImageIcon;
-import javax.swing.JRadioButton;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.Choice;
-import javax.swing.UIManager;
 
 public class AdminLeaveEndorsementGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -57,6 +46,7 @@ public class AdminLeaveEndorsementGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public AdminLeaveEndorsementGUI() {
+		setBackground(new Color(25, 25, 112));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 516);
@@ -67,156 +57,166 @@ public class AdminLeaveEndorsementGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel BGpanel = new JPanel();
-		BGpanel.setBackground(new Color(0, 0, 0, 1));
-		BGpanel.setBounds(0, 0, 621, 546);
-		contentPane.add(BGpanel);
-		BGpanel.setLayout(null);
+		JPanel bgPanel = new JPanel();
+		bgPanel.setBackground(new Color(0, 0, 0, 1));
+		bgPanel.setBounds(0, 0, 621, 546);
+		contentPane.add(bgPanel);
+		bgPanel.setLayout(null);
 		
 		JPanel ApplicationForm = new JPanel();
 		ApplicationForm.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		ApplicationForm.setBackground(new Color(0, 0 , 0, 50));
 		ApplicationForm.setLayout(null);
 		ApplicationForm.setBounds(10, 37, 329, 430);
-		BGpanel.add(ApplicationForm);
+		bgPanel.add(ApplicationForm);
 		
 		JLabel lblForm = new JLabel("Accomplished Leave Application Form");
 		lblForm.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblForm.setBounds(10, 11, 309, 14);
 		ApplicationForm.add(lblForm);
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBounds(10, 36, 309, 383);
-		ApplicationForm.add(panel);
+		JPanel leaveFormPanel = new JPanel();
+		leaveFormPanel.setLayout(null);
+		leaveFormPanel.setBounds(10, 36, 309, 383);
+		ApplicationForm.add(leaveFormPanel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Leave Application");
-		lblNewLabel_1.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(89, 30, 117, 14);
-		panel.add(lblNewLabel_1);
+		JLabel lblTitleForm = new JLabel("Leave Application");
+		lblTitleForm.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblTitleForm.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitleForm.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTitleForm.setBounds(89, 30, 117, 14);
+		leaveFormPanel.add(lblTitleForm);
 		
-		JLabel lblNewLabel_2 = new JLabel("Center Scholar University");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2.setBounds(74, 11, 154, 14);
-		panel.add(lblNewLabel_2);
+		JLabel lblCompany = new JLabel("Center Scholar University");
+		lblCompany.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCompany.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblCompany.setBounds(74, 11, 154, 14);
+		leaveFormPanel.add(lblCompany);
 		
-		JLabel lblNewLabel_4 = new JLabel("Date:");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_4.setBounds(10, 68, 46, 14);
-		panel.add(lblNewLabel_4);
+		JLabel lblDate = new JLabel("Date:");
+		lblDate.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblDate.setBounds(10, 68, 86, 14);
+		leaveFormPanel.add(lblDate);
 		
-		JLabel lblNewLabel_3 = new JLabel("Leave Type:");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_3.setBounds(10, 89, 60, 14);
-		panel.add(lblNewLabel_3);
+		JLabel lblLeaveType = new JLabel("Leave Type:");
+		lblLeaveType.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblLeaveType.setBounds(10, 89, 99, 14);
+		leaveFormPanel.add(lblLeaveType);
 		
 		JLabel lblEmployeeNo = new JLabel("Employee No.:");
+		lblEmployeeNo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblEmployeeNo.setBounds(10, 111, 99, 14);
-		panel.add(lblEmployeeNo);
+		leaveFormPanel.add(lblEmployeeNo);
 		
-		JLabel lblNewLabel_5 = new JLabel("Name:");
-		lblNewLabel_5.setBounds(10, 130, 46, 14);
-		panel.add(lblNewLabel_5);
+		JLabel lblName = new JLabel("Name:");
+		lblName.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblName.setBounds(10, 130, 60, 14);
+		leaveFormPanel.add(lblName);
 		
-		JLabel lblNewLabel_6 = new JLabel("Campus & Office:");
-		lblNewLabel_6.setBounds(10, 151, 99, 14);
-		panel.add(lblNewLabel_6);
+		JLabel lblOffice = new JLabel("Campus & Office:");
+		lblOffice.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblOffice.setBounds(10, 151, 99, 14);
+		leaveFormPanel.add(lblOffice);
 		
-		JLabel lblNewLabel_7 = new JLabel("Specific Purpose:");
-		lblNewLabel_7.setBounds(10, 171, 99, 14);
-		panel.add(lblNewLabel_7);
+		JLabel lblPurpose = new JLabel("Specific Purpose:");
+		lblPurpose.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblPurpose.setBounds(10, 171, 99, 14);
+		leaveFormPanel.add(lblPurpose);
 		
-		JLabel lblNewLabel_8 = new JLabel("Period Applied");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_8.setBounds(10, 206, 99, 14);
-		panel.add(lblNewLabel_8);
+		JLabel lblPeriodApplied = new JLabel("Period Applied");
+		lblPeriodApplied.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPeriodApplied.setBounds(10, 206, 99, 14);
+		leaveFormPanel.add(lblPeriodApplied);
 		
-		JLabel lblNewLabel_9 = new JLabel("From");
-		lblNewLabel_9.setBounds(10, 227, 46, 14);
-		panel.add(lblNewLabel_9);
+		JLabel lblFrom = new JLabel("From");
+		lblFrom.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblFrom.setBounds(10, 227, 46, 14);
+		leaveFormPanel.add(lblFrom);
 		
-		JLabel lblNewLabel_10 = new JLabel("To");
-		lblNewLabel_10.setBounds(119, 227, 17, 14);
-		panel.add(lblNewLabel_10);
+		JLabel lblTo = new JLabel("To");
+		lblTo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTo.setBounds(119, 227, 17, 14);
+		leaveFormPanel.add(lblTo);
 		
-		JLabel lblNewLabel_11 = new JLabel("Total no. of Days:");
-		lblNewLabel_11.setBounds(10, 246, 109, 14);
-		panel.add(lblNewLabel_11);
+		JLabel lblTotalDays = new JLabel("Total no. of Days:");
+		lblTotalDays.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTotalDays.setBounds(10, 246, 109, 14);
+		leaveFormPanel.add(lblTotalDays);
 		
-		JLabel lblNewLabel_12 = new JLabel("Means of Contact:");
-		lblNewLabel_12.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_12.setBounds(10, 281, 117, 14);
-		panel.add(lblNewLabel_12);
+		JLabel lblContact = new JLabel("Means of Contact:");
+		lblContact.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblContact.setBounds(10, 281, 117, 14);
+		leaveFormPanel.add(lblContact);
 		
-		JLabel lblNewLabel_13 = new JLabel("Name:");
-		lblNewLabel_13.setBounds(10, 306, 46, 14);
-		panel.add(lblNewLabel_13);
+		JLabel lblContactName = new JLabel("Name:");
+		lblContactName.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblContactName.setBounds(10, 306, 46, 14);
+		leaveFormPanel.add(lblContactName);
 		
-		JLabel lblNewLabel_13_1 = new JLabel("Address:");
-		lblNewLabel_13_1.setBounds(10, 326, 86, 14);
-		panel.add(lblNewLabel_13_1);
+		JLabel lblContactAddress = new JLabel("Address:");
+		lblContactAddress.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblContactAddress.setBounds(10, 326, 86, 14);
+		leaveFormPanel.add(lblContactAddress);
 		
-		JLabel lblNewLabel_13_2 = new JLabel("Contact no.:");
-		lblNewLabel_13_2.setBounds(10, 346, 86, 14);
-		panel.add(lblNewLabel_13_2);
+		JLabel lblContactNo = new JLabel("Contact no.:");
+		lblContactNo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblContactNo.setBounds(10, 346, 86, 14);
+		leaveFormPanel.add(lblContactNo);
 		
-		JLabel lblNewLabel_14 = new JLabel("New label");
-		lblNewLabel_14.setBounds(119, 68, 46, 14);
-		panel.add(lblNewLabel_14);
+		JLabel lblDate2 = new JLabel("New label");
+		lblDate2.setBounds(119, 68, 180, 14);
+		leaveFormPanel.add(lblDate2);
 		
-		JLabel lblNewLabel_14_1 = new JLabel("New label");
-		lblNewLabel_14_1.setBounds(119, 130, 46, 14);
-		panel.add(lblNewLabel_14_1);
+		JLabel lblName2 = new JLabel("New label");
+		lblName2.setBounds(119, 130, 180, 14);
+		leaveFormPanel.add(lblName2);
 		
-		JLabel lblNewLabel_14_1_1 = new JLabel("New label");
-		lblNewLabel_14_1_1.setBounds(119, 151, 46, 14);
-		panel.add(lblNewLabel_14_1_1);
+		JLabel lblOffice2 = new JLabel("New label");
+		lblOffice2.setBounds(119, 151, 180, 14);
+		leaveFormPanel.add(lblOffice2);
 		
-		JLabel lblNewLabel_14_1_1_1 = new JLabel("New label");
-		lblNewLabel_14_1_1_1.setBounds(119, 171, 46, 14);
-		panel.add(lblNewLabel_14_1_1_1);
+		JLabel lblPurpose2 = new JLabel("New label");
+		lblPurpose2.setBounds(119, 171, 180, 14);
+		leaveFormPanel.add(lblPurpose2);
 		
-		JLabel lblNewLabel_14_1_2 = new JLabel("New label");
-		lblNewLabel_14_1_2.setBounds(119, 111, 46, 14);
-		panel.add(lblNewLabel_14_1_2);
+		JLabel lblEmpNo2 = new JLabel("New label");
+		lblEmpNo2.setBounds(119, 111, 180, 14);
+		leaveFormPanel.add(lblEmpNo2);
 		
-		JLabel lblNewLabel_14_1_2_1 = new JLabel("New label");
-		lblNewLabel_14_1_2_1.setBounds(119, 89, 46, 14);
-		panel.add(lblNewLabel_14_1_2_1);
+		JLabel lblLeaveTyp2 = new JLabel("New label");
+		lblLeaveTyp2.setBounds(119, 89, 180, 14);
+		leaveFormPanel.add(lblLeaveTyp2);
 		
-		JLabel lblNewLabel_14_1_1_1_1 = new JLabel("New label");
-		lblNewLabel_14_1_1_1_1.setBounds(52, 227, 46, 14);
-		panel.add(lblNewLabel_14_1_1_1_1);
+		JLabel lblFrom2 = new JLabel("New label");
+		lblFrom2.setBounds(52, 227, 60, 14);
+		leaveFormPanel.add(lblFrom2);
 		
-		JLabel lblNewLabel_14_1_3 = new JLabel("New label");
-		lblNewLabel_14_1_3.setBounds(144, 227, 46, 14);
-		panel.add(lblNewLabel_14_1_3);
+		JLabel lblTo2 = new JLabel("New label");
+		lblTo2.setBounds(144, 227, 155, 14);
+		leaveFormPanel.add(lblTo2);
 		
-		JLabel lblNewLabel_14_1_1_1_2 = new JLabel("New label");
-		lblNewLabel_14_1_1_1_2.setBounds(119, 246, 46, 14);
-		panel.add(lblNewLabel_14_1_1_1_2);
+		JLabel lblDays = new JLabel("New label");
+		lblDays.setBounds(119, 246, 76, 14);
+		leaveFormPanel.add(lblDays);
 		
-		JLabel lblNewLabel_14_1_1_2 = new JLabel("New label");
-		lblNewLabel_14_1_1_2.setBounds(119, 306, 46, 14);
-		panel.add(lblNewLabel_14_1_1_2);
+		JLabel contactName = new JLabel("New label");
+		contactName.setBounds(119, 306, 180, 14);
+		leaveFormPanel.add(contactName);
 		
-		JLabel lblNewLabel_14_1_1_2_1 = new JLabel("New label");
-		lblNewLabel_14_1_1_2_1.setBounds(119, 326, 46, 14);
-		panel.add(lblNewLabel_14_1_1_2_1);
+		JLabel contactAddress = new JLabel("New label");
+		contactAddress.setBounds(119, 326, 180, 14);
+		leaveFormPanel.add(contactAddress);
 		
-		JLabel lblNewLabel_14_1_1_2_1_1 = new JLabel("New label");
-		lblNewLabel_14_1_1_2_1_1.setBounds(119, 346, 46, 14);
-		panel.add(lblNewLabel_14_1_1_2_1_1);
+		JLabel contactNo = new JLabel("New label");
+		contactNo.setBounds(119, 346, 180, 14);
+		leaveFormPanel.add(contactNo);
 		
 		JPanel remarksType = new JPanel();
 		remarksType.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		remarksType.setBackground(new Color(0, 0, 0, 50));
 		remarksType.setLayout(null);
 		remarksType.setBounds(349, 37, 262, 239);
-		BGpanel.add(remarksType);
+		bgPanel.add(remarksType);
 		
 		JLabel lblRemarks = new JLabel("Employee Remarks");
 		lblRemarks.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -228,101 +228,111 @@ public class AdminLeaveEndorsementGUI extends JFrame {
 		remarksType.add(lblNewLabel_14_2_1);
 		lblNewLabel_14_2_1.setVerticalAlignment(SwingConstants.TOP);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 36, 242, 192);
-		remarksType.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel panelRemarks = new JPanel();
+		panelRemarks.setBounds(10, 36, 242, 192);
+		remarksType.add(panelRemarks);
+		panelRemarks.setLayout(null);
 		
-		JLabel lblNewLabel_14_2 = new JLabel("New label");
-		lblNewLabel_14_2.setBounds(10, 11, 222, 170);
-		panel_1.add(lblNewLabel_14_2);
-		lblNewLabel_14_2.setVerticalAlignment(SwingConstants.TOP);
+		JLabel lblRemarksForm = new JLabel("New label");
+		lblRemarksForm.setBounds(10, 11, 222, 170);
+		panelRemarks.add(lblRemarksForm);
+		lblRemarksForm.setVerticalAlignment(SwingConstants.TOP);
 		
-		JPanel Name = new JPanel();
-		Name.setBackground(new Color(0, 0, 0, 1));
+		JPanel panelName = new JPanel();
+		panelName.setBackground(new Color(0, 0, 0, 1));
 		
 		JPopupMenu popupMenu = new JPopupMenu();
-		addPopup(Name, popupMenu);
+		addPopup(panelName, popupMenu);
 		popupMenu.setBounds(-6, 0, 145, 32);
-		Name.setLayout(null);
-		Name.setBounds(10, 11, 329, 15);
-		BGpanel.add(Name);
+		panelName.setLayout(null);
+		panelName.setBounds(10, 11, 329, 15);
+		bgPanel.add(panelName);
 		
 		JLabel lblNewLabel = new JLabel(">");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNewLabel.setBounds(140, 0, 20, 14);
-		Name.add(lblNewLabel);
+		panelName.add(lblNewLabel);
 		
-		JLabel lblName = new JLabel("Francisco, Earl Ace");
-		lblName.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblName.setBounds(20, 0, 125, 14);
-		Name.add(lblName);
+		JLabel lblAdminName = new JLabel("Francisco, Earl Ace");
+		lblAdminName.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblAdminName.setBounds(20, 0, 140, 14);
+		panelName.add(lblAdminName);
 		
 		JLabel lblLeaveApplication = new JLabel("Vacation Leave");
 		lblLeaveApplication.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblLeaveApplication.setBounds(155, 0, 105, 14);
-		Name.add(lblLeaveApplication);
+		panelName.add(lblLeaveApplication);
 		
 		JButton btnApprove = new JButton("Approve");
-		btnApprove.setForeground(new Color(255, 255, 255));
-		btnApprove.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		btnApprove.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-			}
-		});
+		btnApprove.setForeground(Color.WHITE);
 		btnApprove.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirm Approval", JOptionPane.YES_NO_OPTION);
+
+		        if (confirmation == JOptionPane.YES_OPTION) {
+		            JOptionPane.showMessageDialog(null, "Application Approved."); 
+		            JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(btnApprove);
+		            currentFrame.dispose();
+		        } else {
+		            
+		        }
+		    }
 		});
 		btnApprove.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnApprove.setBackground(new Color(0, 123, 183));
 		btnApprove.setBounds(349, 444, 131, 23);
-		BGpanel.add(btnApprove);
+		bgPanel.add(btnApprove);
 		
 		JButton btnReject = new JButton("Reject");
-		btnReject.setForeground(new Color(255, 255, 255));
+		btnReject.setForeground(Color.WHITE);
 		btnReject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
+				int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirm Leave Rejection", JOptionPane.YES_NO_OPTION);
+
+		        if (confirmation == JOptionPane.YES_OPTION) {
+		            JOptionPane.showMessageDialog(null, "Application Rejected."); 
+		            JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(btnReject);
+		            currentFrame.dispose();
+		        } else {
+		            
+		        }
+		    }
 		});
 		btnReject.setBackground(new Color(232, 60, 94));
 		btnReject.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnReject.setBounds(490, 444, 121, 23);
-		BGpanel.add(btnReject);
+		bgPanel.add(btnReject);
 		
-		JPanel commentType = new JPanel();
-		commentType.setLayout(null);
-		commentType.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		commentType.setBackground(new Color(0, 0, 0, 50));
-		commentType.setBounds(349, 284, 262, 146);
-		BGpanel.add(commentType);
+		JPanel commentPanel = new JPanel();
+		commentPanel.setLayout(null);
+		commentPanel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		commentPanel.setBackground(new Color(0, 0, 0, 50));
+		commentPanel.setBounds(349, 284, 262, 146);
+		bgPanel.add(commentPanel);
 		
-		JLabel lblRemarks_1 = new JLabel("Comment");
-		lblRemarks_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblRemarks_1.setBounds(10, 0, 91, 39);
-		commentType.add(lblRemarks_1);
+		JLabel lblComment = new JLabel("Comment");
+		lblComment.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblComment.setBounds(10, 0, 91, 39);
+		commentPanel.add(lblComment);
 		
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.LEFT);
-		textField.setBackground(new Color(240, 240, 240));
-		textField.setBounds(10, 38, 242, 97);
-		commentType.add(textField);
-		textField.setColumns(10);
+		JTextArea typeComment = new JTextArea();
+		typeComment.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		typeComment.setLineWrap(true);
+		typeComment.setWrapStyleWord(true);
+		typeComment.setColumns(10);
+		typeComment.setBackground(UIManager.getColor("Button.background"));
+		typeComment.setBounds(20, 50, 221, 74);
+		commentPanel.add(typeComment);
 		
-		JTextArea textArea_1_1 = new JTextArea();
-		textArea_1_1.setBackground(UIManager.getColor("Button.background"));
-		textArea_1_1.setBounds(10, 38, 242, 97);
-		commentType.add(textArea_1_1);
+		JPanel panelComment = new JPanel();
+		panelComment.setBounds(10, 39, 242, 96);
+		commentPanel.add(panelComment);
+		panelComment.setLayout(null);
 		
-		JLabel lblNewLabel_15 = new JLabel("");
-		lblNewLabel_15.setIcon(new ImageIcon("E:\\desktop\\OOP BG.png"));
-		lblNewLabel_15.setBounds(0, 0, 621, 480);
-		BGpanel.add(lblNewLabel_15);
+		JLabel backgroundIMG = new JLabel("");
+		backgroundIMG.setIcon(new ImageIcon(AdminLeaveEndorsementGUI.class.getResource("/images/bbg.png")));
+		backgroundIMG.setBounds(0, 0, 621, 480);
+		bgPanel.add(backgroundIMG);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 	}
