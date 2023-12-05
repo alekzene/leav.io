@@ -16,7 +16,7 @@ public class LogInFrame extends JFrame {
 	private JTextField usernameTextField;
 	private JPasswordField passwordField;
 	private javax.swing.JLabel viewPassword;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -46,7 +46,7 @@ public class LogInFrame extends JFrame {
 		
 		//  BACKGROUND PANEL
 		JPanel backgroundPanel = new JPanel();
-		backgroundPanel.setBounds(0, 0, 577, 496);
+		backgroundPanel.setBounds(0, 0, 577, 431);
 		contentPane.add(backgroundPanel);
 		backgroundPanel.setLayout(null);
 		
@@ -66,21 +66,21 @@ public class LogInFrame extends JFrame {
 		logInPanel.add(welcomeLabel);
 		
 		// USERNAME LABEL
-		JLabel usernameLabel = new JLabel("Username");
+		JLabel usernameLabel = new JLabel("Username:");
 		usernameLabel.setIcon(new ImageIcon("src\\images\\icons8-username-24.png"));
 		usernameLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		usernameLabel.setBounds(74, 112, 113, 25);
+		usernameLabel.setBounds(73, 112, 113, 25);
 		logInPanel.add(usernameLabel);
 		
 		// USERNAME TEXT FIELD
 		usernameTextField = new JTextField();
 		usernameTextField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		usernameTextField.setBounds(204, 112, 208, 24);
+		usernameTextField.setBounds(170, 114, 208, 24);
 		logInPanel.add(usernameTextField);
 		usernameTextField.setColumns(10);
 		
 		// PASSWORD LABEL
-		JLabel passwordLabel = new JLabel("Password");
+		JLabel passwordLabel = new JLabel("Password:");
 		passwordLabel.setIcon(new ImageIcon("src\\images\\icons8-lock-24.png"));
 		passwordLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		passwordLabel.setBounds(73, 159, 113, 25);
@@ -89,7 +89,7 @@ public class LogInFrame extends JFrame {
 		// PASSWORD FIELD
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		passwordField.setBounds(204, 158, 208, 23);
+		passwordField.setBounds(170, 161, 208, 23);
 		logInPanel.add(passwordField);
 		
 		// VIEW PASSWORD ICON
@@ -103,8 +103,8 @@ public class LogInFrame extends JFrame {
 		          
 		      }
 		  });
-		  viewPassword.setIcon(new ImageIcon("src\\images\\icons8-view-24.png"));
-		  viewPassword.setBounds(422, 159, 24, 21);
+		  viewPassword.setIcon(new ImageIcon(LogInFrame.class.getResource("/images/icons8-eye-24.png")));
+		  viewPassword.setBounds(388, 163, 24, 21);
 		  logInPanel.add(viewPassword);
 		  
 		// REMEMBER ME RADIO BUTTON
@@ -115,8 +115,8 @@ public class LogInFrame extends JFrame {
         	}
         });
 		rememberMeRadioButton.setOpaque(false); 
-		rememberMeRadioButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		rememberMeRadioButton.setBounds(71, 217, 131, 21);
+		rememberMeRadioButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		rememberMeRadioButton.setBounds(67, 192, 131, 21);
 		logInPanel.add(rememberMeRadioButton);
 		
 		// RESET PASSWORD BUTTON
@@ -132,10 +132,10 @@ public class LogInFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		resetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 9));
+		resetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		resetPasswordButton.setForeground(new Color(64, 64, 64));
 		resetPasswordButton.setBackground(new Color(240, 240, 240));
-		resetPasswordButton.setBounds(274, 185, 139, 18);
+		resetPasswordButton.setBounds(203, 195, 175, 18);
 		logInPanel.add(resetPasswordButton);
 		
 		// LOGIN BUTTON
@@ -186,7 +186,7 @@ public class LogInFrame extends JFrame {
 		});
 		logInButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		logInButton.setBackground(new Color(255, 128, 192));
-		logInButton.setBounds(274, 243, 139, 41);
+		logInButton.setBounds(170, 244, 139, 41);
 		logInPanel.add(logInButton);
 		
 		// WELCOME PANEL
@@ -199,10 +199,9 @@ public class LogInFrame extends JFrame {
 		
 		// BACKGROUND
 		JLabel backgroundLabel = new JLabel("");
-        backgroundLabel.setIcon(new ImageIcon("src\\images\\bbg.png"));
+        backgroundLabel.setIcon(new ImageIcon(LogInFrame.class.getResource("/images/bbg.png")));
         backgroundLabel.setBounds(0, 0, 577, 430);
         backgroundPanel.add(backgroundLabel);
  }
-	        	
 }
 

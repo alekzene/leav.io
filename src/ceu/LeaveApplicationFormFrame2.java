@@ -59,7 +59,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         setResizable(true);
         setTitle("Leave Application Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(500, 100, 1445, 1053);
+        setBounds(500, 100, 963, 812);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(255, 128, 128));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -98,7 +98,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         pnlCalendar.add(stblCalendar);
 
         // Set bounds
-        pnlCalendar.setBounds(602, 127, 443, 396);
+        pnlCalendar.setBounds(496, 24, 443, 396);
         lblMonth.setBounds(150 - lblMonth.getPreferredSize().width / 2, 11, 120, 32);
         lblYear.setBounds(10, 365, 80, 20);
         cmbYear.setBounds(200, 365, 80, 20);
@@ -137,21 +137,22 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         tblCalendar.setRowHeight(38);
         
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(255, 255, 255));
         panel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-        panel.setBounds(40, 127, 466, 647);
+        panel.setBounds(10, 24, 466, 741);
         contentPane.add(panel);
         panel.setLayout(null);
         
         JLabel lblNewLabel = new JLabel("Center Scholar University");
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-        lblNewLabel.setBounds(136, 11, 165, 20);
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+        lblNewLabel.setBounds(105, 21, 266, 20);
         panel.add(lblNewLabel);
         
         JLabel lblNewLabel_1 = new JLabel("Leave Application");
         lblNewLabel_1.setVerticalAlignment(SwingConstants.BOTTOM);
         lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-        lblNewLabel_1.setBounds(156, 30, 117, 14);
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+        lblNewLabel_1.setBounds(85, 40, 286, 25);
         panel.add(lblNewLabel_1);
         
         JLabel lblNewLabel_4 = new JLabel("Date:");
@@ -239,10 +240,6 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         lblNewLabel_4_1_1_2_1.setBounds(10, 311, 165, 25);
         panel.add(lblNewLabel_4_1_1_2_1);
         
-        JLabel lblNewLabel_2 = new JLabel("New label");
-        lblNewLabel_2.setBounds(129, 92, 46, 14);
-        panel.add(lblNewLabel_2);
-        
         JComboBox comboBox_1 = new JComboBox();
         comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Select Campus", "Manila ", "Makati ", "Malalolos"}));
         comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -269,25 +266,30 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         comboBox_1_1.setBounds(123, 120, 99, 21);
         panel.add(comboBox_1_1);
         
+        JPanel panel_1 = new JPanel();
+        panel_1.setBorder(new TitledBorder(null, "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+        panel_1.setBounds(496, 442, 443, 237);
+        contentPane.add(panel_1);
+        panel_1.setLayout(null);
+        
+        textField_2 = new JTextField();
+        textField_2.setBounds(10, 22, 423, 205);
+        panel_1.add(textField_2);
+        textField_2.setColumns(10);
+        
         JButton btnNewButton = new JButton("SUBMIT\r\n");
+        btnNewButton.setBounds(642, 689, 150, 76);
+        contentPane.add(btnNewButton);
+        
+        JLabel Background = new JLabel("New label");
+        Background.setIcon(new ImageIcon(LeaveApplicationFormFrame2.class.getResource("/images/bbg.png")));
+        Background.setBounds(0, 0, 948, 774);
+        contentPane.add(Background);
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		JOptionPane.showMessageDialog(null, "Successfully Submitted!");
         	}
         });
-        btnNewButton.setBounds(768, 829, 150, 76);
-        contentPane.add(btnNewButton);
-        
-        JPanel panel_1 = new JPanel();
-        panel_1.setBorder(new TitledBorder(null, "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-        panel_1.setBounds(602, 586, 443, 188);
-        contentPane.add(panel_1);
-        panel_1.setLayout(null);
-        
-        textField_2 = new JTextField();
-        textField_2.setBounds(10, 21, 423, 156);
-        panel_1.add(textField_2);
-        textField_2.setColumns(10);
         mtblCalendar.setColumnCount(7);
         mtblCalendar.setRowCount(6);
 
