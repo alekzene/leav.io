@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
@@ -47,6 +49,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     private JLabel lblNewLabel_2;
     
     private Date_And_Time dateTime;
+    private JPanel panel_1;
 
     /**
      * Launch the application.
@@ -70,17 +73,25 @@ public class LeaveApplicationFormFrame2 extends JFrame {
 	 */
     public LeaveApplicationFormFrame2() {
     	
-    	Date_And_Time dateTime = new Date_And_Time();
-    	
         setResizable(true);
         setTitle("Leave Application Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(500, 100, 963, 812);
         contentPane = new JPanel();
-        contentPane.setBackground(new Color(255, 128, 128));
+        contentPane.setBackground(new Color(255, 255, 255));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBounds(496, 481, 428, 144);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(10, 23, 408, 110);
+		panel_1.add(textArea);
 		
 		//Calendar Code
 		pnlCalendar = new JPanel(null);
@@ -333,13 +344,20 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         lblNewLabel_13_3.setBounds(163, 390, 27, 14);
         panel.add(lblNewLabel_13_3);
         
-		JLabel lblNewLabel_2 = new JLabel(dateTime.getFormattedDate());
-        lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_2.setBounds(123, 85, 131, 25);
-        panel.add(lblNewLabel_2);
+		JLabel currentDateLabel = new JLabel(getCurrentDate());
+		currentDateLabel.setHorizontalAlignment(JLabel.CENTER);
+		Timer timer = new Timer(1000, e -> currentDateLabel.setText(getCurrentDate()));
+        timer.start();
+        
+        Date_And_Time dateTime = new Date_And_Time();
+		
+        currentDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        currentDateLabel.setBounds(109, 85, 165, 25);
+        panel.add(currentDateLabel);
+       
         
         JButton btnNewButton = new JButton("SUBMIT\r\n");
-        btnNewButton.setBounds(642, 689, 150, 76);
+        btnNewButton.setBounds(641, 670, 150, 76);
         contentPane.add(btnNewButton);
         
         JLabel Background = new JLabel("New label");
@@ -372,6 +390,12 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     }
     
     //Methods and Constructors
+    
+    private static String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(new Date());
+    }
+   
     private void refreshCalendar(int month, int year) {
         //Variables
         String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
