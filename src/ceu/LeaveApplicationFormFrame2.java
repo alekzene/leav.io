@@ -1,565 +1,396 @@
 package ceu;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import javax.swing.JInternalFrame;
-import javax.swing.JTable;
-import javax.swing.Box;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
-import javax.swing.JList;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
 
 
 public class LeaveApplicationFormFrame2 extends JFrame {
+    private JPanel contentPane;
+    private JLabel lblMonth, lblYear;
+    private JComboBox cmbYear;
+    private JButton btnPrev, btnNext;
+    private DefaultTableModel mtblCalendar;
+    private JTable tblCalendar;
+    private JScrollPane stblCalendar;
+    private JPanel pnlCalendar;
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textField_1;
-	private JTable table;
-	private JTable table_1;
+    private static int realDay, realMonth, realYear, currentMonth, currentYear;
+    private JTextField textField;
+    private JTextField textField_1;
+    private JTextField textField_3;
+    private JTextField textField_6;
+    private JTextField textField_7;
+    private JTextField textField_8;
+    private JLabel lblNewLabel_4_1_1_3;
+    private JComboBox comboBox_2;
+    private JTextField textField_2;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LeaveApplicationFormFrame2 frame = new LeaveApplicationFormFrame2();
-					frame.setVisible(true);
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); //Fullscreen GUI
-					frame.setVisible(true); //Fullscreen GUI
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    LeaveApplicationFormFrame2 frame = new LeaveApplicationFormFrame2();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        
+    }
 
 	/**
 	 * Create the frame.
 	 */
-	public LeaveApplicationFormFrame2() {
-		setTitle("Leave Application Form");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 100, 1300, 930);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+    public LeaveApplicationFormFrame2() {
+        setResizable(true);
+        setTitle("Leave Application Form");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(500, 100, 1445, 1053);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(255, 128, 128));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+		
+		//Calendar Code
+		pnlCalendar = new JPanel(null);
+        pnlCalendar.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Calendar", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+        contentPane.add(pnlCalendar);
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JButton btnNewButton = new JButton("SUBMIT");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		btnNewButton.setBounds(954, 887, 417, 142);
-		contentPane.add(btnNewButton);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(330, 15, 227, 53);
-		comboBox.addItem("Sick Leave");
-		comboBox.addItem("Vacation Leave");
-		comboBox.addItem("Maternity Leave");
-		comboBox.addItem("Paternity Leave");
-		comboBox.setSelectedItem(null);
-		contentPane.add(comboBox);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(27, 79, 886, 982);
-		panel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Leave Application Form");
-		lblNewLabel.setBounds(255, 0, 269, 32);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		panel.add(lblNewLabel);
-		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Faculty Member");
-		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		chckbxNewCheckBox.setBounds(53, 49, 176, 23);
-		panel.add(chckbxNewCheckBox);
-		
-		JCheckBox chckbxNon = new JCheckBox("Non-Teaching Employee");
-		chckbxNon.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		chckbxNon.setBounds(250, 49, 241, 23);
-		panel.add(chckbxNon);
-		
-		JCheckBox chckbxTopmiddleManager = new JCheckBox("Top/Middle Manager");
-		chckbxTopmiddleManager.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		chckbxTopmiddleManager.setBounds(519, 49, 209, 23);
-		panel.add(chckbxTopmiddleManager);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		panel_3.setBounds(10, 105, 832, 73);
-		panel.add(panel_3);
-		panel_3.setLayout(null);
-		
-		JLabel lblNewLabel_4 = new JLabel("Leave Type (Check one): ");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(10, 11, 204, 22);
-		panel_3.add(lblNewLabel_4);
-		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Vacation");
-		chckbxNewCheckBox_1.setBounds(220, 11, 97, 23);
-		panel_3.add(chckbxNewCheckBox_1);
-		
-		JCheckBox chckbxNewCheckBox_1_1 = new JCheckBox("Sick");
-		chckbxNewCheckBox_1_1.setBounds(220, 37, 97, 23);
-		panel_3.add(chckbxNewCheckBox_1_1);
-		
-		JCheckBox chckbxNewCheckBox_1_2 = new JCheckBox("Nuptial");
-		chckbxNewCheckBox_1_2.setBounds(319, 14, 97, 23);
-		panel_3.add(chckbxNewCheckBox_1_2);
-		
-		JCheckBox chckbxNewCheckBox_1_3 = new JCheckBox("Birthday Leave");
-		chckbxNewCheckBox_1_3.setBounds(319, 37, 97, 23);
-		panel_3.add(chckbxNewCheckBox_1_3);
-		
-		JCheckBox chckbxNewCheckBox_1_4 = new JCheckBox("Emergency");
-		chckbxNewCheckBox_1_4.setBounds(436, 14, 97, 23);
-		panel_3.add(chckbxNewCheckBox_1_4);
-		
-		JCheckBox chckbxNewCheckBox_1_5 = new JCheckBox("Union");
-		chckbxNewCheckBox_1_5.setBounds(436, 37, 97, 23);
-		panel_3.add(chckbxNewCheckBox_1_5);
-		
-		JCheckBox chckbxNewCheckBox_1_6 = new JCheckBox("Paternity");
-		chckbxNewCheckBox_1_6.setBounds(546, 14, 97, 23);
-		panel_3.add(chckbxNewCheckBox_1_6);
-		
-		JCheckBox chckbxNewCheckBox_1_7 = new JCheckBox("Parental/Solo Parent");
-		chckbxNewCheckBox_1_7.setBounds(546, 37, 125, 23);
-		panel_3.add(chckbxNewCheckBox_1_7);
-		
-		JCheckBox chckbxNewCheckBox_1_8 = new JCheckBox("Special Leave for Women");
-		chckbxNewCheckBox_1_8.setBounds(670, 14, 156, 23);
-		panel_3.add(chckbxNewCheckBox_1_8);
-		
-		JPanel panel_3_1 = new JPanel();
-		panel_3_1.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		panel_3_1.setBounds(10, 176, 832, 48);
-		panel.add(panel_3_1);
-		panel_3_1.setLayout(null);
-		
-		JLabel lblNewLabel_5 = new JLabel("Employee Number");
-		lblNewLabel_5.setBounds(10, 0, 145, 21);
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3_1.add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_5_1 = new JLabel("Name (Last Name, First Name, Middle Name) ");
-		lblNewLabel_5_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_1.setBounds(225, 0, 364, 21);
-		panel_3_1.add(lblNewLabel_5_1);
-		
-		JLabel lblNewLabel_5_2 = new JLabel("Signature");
-		lblNewLabel_5_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_2.setBounds(662, 0, 145, 21);
-		panel_3_1.add(lblNewLabel_5_2);
-		
-		JTextArea textArea_1_4_2 = new JTextArea();
-		textArea_1_4_2.setBounds(10, 21, 202, 16);
-		panel_3_1.add(textArea_1_4_2);
-		
-		JTextArea textArea_1_4_2_1 = new JTextArea();
-		textArea_1_4_2_1.setBounds(235, 21, 413, 16);
-		panel_3_1.add(textArea_1_4_2_1);
-		
-		JPanel panel_3_2 = new JPanel();
-		panel_3_2.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		panel_3_2.setBounds(10, 220, 832, 48);
-		panel.add(panel_3_2);
-		panel_3_2.setLayout(null);
-		
-		JLabel lblNewLabel_5_3 = new JLabel("Campus & Office/School/College/Department");
-		lblNewLabel_5_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3.setBounds(10, 0, 350, 21);
-		panel_3_2.add(lblNewLabel_5_3);
-		
-		JLabel lblNewLabel_5_3_1 = new JLabel("Specific Purpose of Leave");
-		lblNewLabel_5_3_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_1.setBounds(378, 0, 350, 21);
-		panel_3_2.add(lblNewLabel_5_3_1);
-		
-		JTextArea textArea_1_4 = new JTextArea();
-		textArea_1_4.setBounds(10, 21, 398, 16);
-		panel_3_2.add(textArea_1_4);
-		
-		JTextArea textArea_1_4_1 = new JTextArea();
-		textArea_1_4_1.setBounds(424, 21, 398, 16);
-		panel_3_2.add(textArea_1_4_1);
-		
-		JPanel panel_3_3 = new JPanel();
-		panel_3_3.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		panel_3_3.setBounds(10, 266, 832, 53);
-		panel.add(panel_3_3);
-		panel_3_3.setLayout(null);
-		
-		JLabel lblNewLabel_5_3_2 = new JLabel("PERIOD APPLIED FROM OFFICE");
-		lblNewLabel_5_3_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_2.setBounds(10, 0, 247, 21);
-		panel_3_3.add(lblNewLabel_5_3_2);
-		
-		JLabel lblNewLabel_5_3_2_1 = new JLabel("From");
-		lblNewLabel_5_3_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_2_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_2_1.setBounds(10, 24, 48, 21);
-		panel_3_3.add(lblNewLabel_5_3_2_1);
-		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(56, 29, 131, 16);
-		panel_3_3.add(textArea_1);
-		
-		JLabel lblNewLabel_5_3_2_1_1 = new JLabel("To");
-		lblNewLabel_5_3_2_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_2_1_1.setBounds(175, 24, 48, 21);
-		panel_3_3.add(lblNewLabel_5_3_2_1_1);
-		
-		JTextArea textArea_1_1 = new JTextArea();
-		textArea_1_1.setBounds(212, 29, 131, 16);
-		panel_3_3.add(textArea_1_1);
-		
-		JLabel lblNewLabel_5_3_2_1_1_1 = new JLabel("Total No. of Day/s");
-		lblNewLabel_5_3_2_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_2_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_2_1_1_1.setBounds(418, 24, 144, 21);
-		panel_3_3.add(lblNewLabel_5_3_2_1_1_1);
-		
-		JTextArea textArea_1_1_1 = new JTextArea();
-		textArea_1_1_1.setBounds(565, 29, 131, 16);
-		panel_3_3.add(textArea_1_1_1);
-		
-		JPanel panel_3_4 = new JPanel();
-		panel_3_4.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		panel_3_4.setBounds(10, 316, 832, 53);
-		panel.add(panel_3_4);
-		panel_3_4.setLayout(null);
-		
-		JLabel lblNewLabel_5_3_2_2 = new JLabel("PERIOD APPLIED FROM TEACHING");
-		lblNewLabel_5_3_2_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_2_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_2_2.setBounds(10, 0, 265, 21);
-		panel_3_4.add(lblNewLabel_5_3_2_2);
-		
-		JLabel lblNewLabel_5_3_2_1_2 = new JLabel("From");
-		lblNewLabel_5_3_2_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_2_1_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_2_1_2.setBounds(10, 23, 48, 21);
-		panel_3_4.add(lblNewLabel_5_3_2_1_2);
-		
-		JTextArea textArea_1_2 = new JTextArea();
-		textArea_1_2.setBounds(56, 28, 131, 16);
-		panel_3_4.add(textArea_1_2);
-		
-		JLabel lblNewLabel_5_3_2_1_1_2 = new JLabel("To");
-		lblNewLabel_5_3_2_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_2_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_2_1_1_2.setBounds(175, 23, 48, 21);
-		panel_3_4.add(lblNewLabel_5_3_2_1_1_2);
-		
-		JTextArea textArea_1_1_2 = new JTextArea();
-		textArea_1_1_2.setBounds(212, 28, 131, 16);
-		panel_3_4.add(textArea_1_1_2);
-		
-		JLabel lblNewLabel_5_3_2_1_1_1_1 = new JLabel("Total No. of Hour/s");
-		lblNewLabel_5_3_2_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_2_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_2_1_1_1_1.setBounds(418, 23, 144, 21);
-		panel_3_4.add(lblNewLabel_5_3_2_1_1_1_1);
-		
-		JTextArea textArea_1_1_1_1 = new JTextArea();
-		textArea_1_1_1_1.setBounds(565, 28, 131, 16);
-		panel_3_4.add(textArea_1_1_1_1);
-		
-		JLabel lblNewLabel_3 = new JLabel("Date: ");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_3.setBounds(10, 79, 47, 14);
-		panel.add(lblNewLabel_3);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(53, 81, 96, 16);
-		panel.add(textArea);
-		
-		JPanel panel_3_4_1 = new JPanel();
-		panel_3_4_1.setLayout(null);
-		panel_3_4_1.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		panel_3_4_1.setBounds(10, 367, 832, 227);
-		panel.add(panel_3_4_1);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 812, 208);
-		panel_3_4_1.add(scrollPane);
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Regular Load", null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{"Overload", null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Subject / Class", "Date", "Time", "No. of Hour/s", "Lecture", "Laboratory", "Clinic"
-			}
-		));
-		table.getColumnModel().getColumn(3).setPreferredWidth(106);
-		table.setBorder(null);
-		
-		JPanel panel_3_4_2 = new JPanel();
-		panel_3_4_2.setBounds(10, 593, 832, 59);
-		panel.add(panel_3_4_2);
-		panel_3_4_2.setLayout(null);
-		panel_3_4_2.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		
-		JLabel lblNewLabel_5_3_3 = new JLabel("Means of contact (Applicable only to employee on long leave):");
-		lblNewLabel_5_3_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_3.setBounds(0, 0, 482, 21);
-		panel_3_4_2.add(lblNewLabel_5_3_3);
-		
-		JLabel lblNewLabel_3_1 = new JLabel("Name");
-		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_3_1.setBounds(10, 33, 47, 14);
-		panel_3_4_2.add(lblNewLabel_3_1);
-		
-		JTextArea textArea_1_3 = new JTextArea();
-		textArea_1_3.setBounds(56, 32, 131, 16);
-		panel_3_4_2.add(textArea_1_3);
-		
-		JLabel lblNewLabel_3_1_1 = new JLabel("Address");
-		lblNewLabel_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_3_1_1.setBounds(231, 33, 67, 14);
-		panel_3_4_2.add(lblNewLabel_3_1_1);
-		
-		JTextArea textArea_1_3_1 = new JTextArea();
-		textArea_1_3_1.setBounds(294, 32, 211, 16);
-		panel_3_4_2.add(textArea_1_3_1);
-		
-		JLabel lblNewLabel_3_1_1_1 = new JLabel("Contact No.");
-		lblNewLabel_3_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_3_1_1_1.setBounds(555, 33, 95, 14);
-		panel_3_4_2.add(lblNewLabel_3_1_1_1);
-		
-		JTextArea textArea_1_3_2 = new JTextArea();
-		textArea_1_3_2.setBounds(648, 32, 131, 16);
-		panel_3_4_2.add(textArea_1_3_2);
-		
-		JPanel panel_3_4_3 = new JPanel();
-		panel_3_4_3.setBounds(10, 716, 832, 139);
-		panel.add(panel_3_4_3);
-		panel_3_4_3.setLayout(null);
-		panel_3_4_3.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		
-		JLabel lblNewLabel_5_3_3_1 = new JLabel("Applicant's Leave Credits (To be filled up by Human Resource Department)");
-		lblNewLabel_5_3_3_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_3_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_3_1.setBounds(10, 0, 557, 21);
-		panel_3_4_3.add(lblNewLabel_5_3_3_1);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 26, 812, 75);
-		panel_3_4_3.add(scrollPane_1);
-		
-		table_1 = new JTable();
-		scrollPane_1.setViewportView(table_1);
-		table_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Unused Leave Before this Application", null, null, null, null, null, null, null, null, null},
-				{"Less: Leave Applied for", null, null, null, null, null, null, null, null, null},
-				{"Total Leave Credits Available", null, null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"", "Vacation Leave", "Sick Leave", "Nuptial Leave", "Birthday Leave", "Emergency Leave", "Union Leave", "Paternity Leave", "Parental/Solo Leave", "Special Leave for Women"
-			}
-		));
-		
-		JCheckBox chckbxWithPay = new JCheckBox("With pay");
-		chckbxWithPay.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		chckbxWithPay.setBounds(90, 108, 110, 23);
-		panel_3_4_3.add(chckbxWithPay);
-		
-		JCheckBox chckbxWithoutPay = new JCheckBox("Without pay");
-		chckbxWithoutPay.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		chckbxWithoutPay.setBounds(297, 108, 148, 23);
-		panel_3_4_3.add(chckbxWithoutPay);
-		
-		JLabel lblNewLabel_3_1_2_1 = new JLabel("HR Assistant/Date:");
-		lblNewLabel_3_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_3_1_2_1.setBounds(543, 111, 165, 20);
-		panel_3_4_3.add(lblNewLabel_3_1_2_1);
-		
-		JTextArea textArea_1_3_3 = new JTextArea();
-		textArea_1_3_3.setBounds(669, 115, 153, 16);
-		panel_3_4_3.add(textArea_1_3_3);
-		
-		JPanel panel_3_4_2_1 = new JPanel();
-		panel_3_4_2_1.setLayout(null);
-		panel_3_4_2_1.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		panel_3_4_2_1.setBounds(10, 651, 832, 67);
-		panel.add(panel_3_4_2_1);
-		
-		JLabel lblNewLabel_5_3_3_2 = new JLabel("Recommending Approval (for Faculty and Non-Teaching):");
-		lblNewLabel_5_3_3_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_3_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_3_2.setBounds(0, 0, 482, 21);
-		panel_3_4_2_1.add(lblNewLabel_5_3_3_2);
-		
-		JLabel lblNewLabel_3_1_2 = new JLabel("Head/Date");
-		lblNewLabel_3_1_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_3_1_2.setBounds(66, 42, 74, 25);
-		panel_3_4_2_1.add(lblNewLabel_3_1_2);
-		
-		JLabel lblNewLabel_3_1_1_2 = new JLabel("Dean/Date");
-		lblNewLabel_3_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_3_1_1_2.setBounds(353, 42, 87, 25);
-		panel_3_4_2_1.add(lblNewLabel_3_1_1_2);
-		
-		JLabel lblNewLabel_3_1_1_1_1 = new JLabel("University Official Concerned/Date");
-		lblNewLabel_3_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_3_1_1_1_1.setBounds(559, 42, 221, 25);
-		panel_3_4_2_1.add(lblNewLabel_3_1_1_1_1);
-		
-		JLabel lblNewLabel_5_3_3_2_1 = new JLabel("Approved by (for Top/ Middle Manager):");
-		lblNewLabel_5_3_3_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_3_2_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_3_2_1.setBounds(501, 0, 321, 21);
-		panel_3_4_2_1.add(lblNewLabel_5_3_3_2_1);
-		
-		JTextArea textArea_1_3_2_1 = new JTextArea();
-		textArea_1_3_2_1.setBounds(559, 30, 221, 16);
-		panel_3_4_2_1.add(textArea_1_3_2_1);
-		
-		JTextArea textArea_1_3_2_1_1 = new JTextArea();
-		textArea_1_3_2_1_1.setBounds(288, 30, 221, 16);
-		panel_3_4_2_1.add(textArea_1_3_2_1_1);
-		
-		JTextArea textArea_1_3_2_1_2 = new JTextArea();
-		textArea_1_3_2_1_2.setBounds(10, 30, 221, 16);
-		panel_3_4_2_1.add(textArea_1_3_2_1_2);
-		
-		JPanel panel_3_4_4 = new JPanel();
-		panel_3_4_4.setBounds(10, 851, 832, 105);
-		panel.add(panel_3_4_4);
-		panel_3_4_4.setLayout(null);
-		panel_3_4_4.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		
-		JLabel lblNewLabel_5_3_3_1_1 = new JLabel("Action Taken:");
-		lblNewLabel_5_3_3_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblNewLabel_5_3_3_1_1.setBounds(0, 0, 129, 21);
-		panel_3_4_4.add(lblNewLabel_5_3_3_1_1);
-		
-		JLabel lblNewLabel_5_3_3_1_1_1 = new JLabel("For Faculty and Non-Teaching:");
-		lblNewLabel_5_3_3_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_3_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_5_3_3_1_1_1.setBounds(10, 21, 245, 21);
-		panel_3_4_4.add(lblNewLabel_5_3_3_1_1_1);
-		
-		JLabel lblNewLabel_5_3_3_1_1_1_1 = new JLabel("For Top/Middle Manager:");
-		lblNewLabel_5_3_3_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_3_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_5_3_3_1_1_1_1.setBounds(17, 42, 193, 21);
-		panel_3_4_4.add(lblNewLabel_5_3_3_1_1_1_1);
-		
-		JCheckBox chckbxAp = new JCheckBox("Approved");
-		chckbxAp.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		chckbxAp.setBounds(248, 22, 110, 23);
-		panel_3_4_4.add(chckbxAp);
-		
-		JCheckBox chckbxNoted = new JCheckBox("Noted");
-		chckbxNoted.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		chckbxNoted.setBounds(248, 49, 110, 23);
-		panel_3_4_4.add(chckbxNoted);
-		
-		JCheckBox chckbxDisspproved = new JCheckBox("Disapproved, Reason");
-		chckbxDisspproved.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		chckbxDisspproved.setBounds(441, 22, 228, 23);
-		panel_3_4_4.add(chckbxDisspproved);
-		
-		JTextArea textArea_1_3_3_1 = new JTextArea();
-		textArea_1_3_3_1.setBounds(653, 26, 153, 16);
-		panel_3_4_4.add(textArea_1_3_3_1);
-		
-		JLabel lblNewLabel_5_3_3_1_1_2 = new JLabel("Head, Human Resource Department");
-		lblNewLabel_5_3_3_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_3_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_5_3_3_1_1_2.setBounds(40, 84, 268, 21);
-		panel_3_4_4.add(lblNewLabel_5_3_3_1_1_2);
-		
-		JTextArea textArea_1_3_3_1_1 = new JTextArea();
-		textArea_1_3_3_1_1.setBounds(102, 70, 153, 16);
-		panel_3_4_4.add(textArea_1_3_3_1_1);
-		
-		JLabel lblNewLabel_5_3_3_1_1_2_1 = new JLabel("Date");
-		lblNewLabel_5_3_3_1_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5_3_3_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_5_3_3_1_1_2_1.setBounds(453, 84, 268, 21);
-		panel_3_4_4.add(lblNewLabel_5_3_3_1_1_2_1);
-		
-		JTextArea textArea_1_3_3_1_1_1 = new JTextArea();
-		textArea_1_3_3_1_1_1.setBounds(522, 70, 153, 16);
-		panel_3_4_4.add(textArea_1_3_3_1_1_1);
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(85);
-		table_1.getColumnModel().getColumn(4).setPreferredWidth(82);
-		table_1.getColumnModel().getColumn(5).setPreferredWidth(95);
-		table_1.getColumnModel().getColumn(7).setPreferredWidth(92);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(954, 428, 417, 416);
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel lblNewLabel_1 = new JLabel("COMMENT");
-		lblNewLabel_1.setBounds(150, 11, 121, 32);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		panel_1.add(lblNewLabel_1);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(10, 48, 397, 357);
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(954, 27, 417, 198);
-		panel_2.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		contentPane.add(panel_2);
-		panel_2.setLayout(null);
-		
-		JLabel lblNewLabel_2 = new JLabel("CALENDAR");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblNewLabel_2.setBounds(151, 11, 134, 43);
-		panel_2.add(lblNewLabel_2);
-	}
+        lblMonth = new JLabel("January");
+        lblYear = new JLabel("Change year:");
+        cmbYear = new JComboBox();
+        btnPrev = new JButton("<<");
+        btnNext = new JButton(">>");
+        mtblCalendar = new DefaultTableModel() {
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+                return false;
+            }
+        };
+        tblCalendar = new JTable(mtblCalendar);
+        stblCalendar = new JScrollPane(tblCalendar);
+
+        // Register action listeners
+        btnPrev.addActionListener(new btnPrev_Action());
+        btnNext.addActionListener(new btnNext_Action());
+        cmbYear.addActionListener(new cmbYear_Action());
+
+        // Add controls to calendar panel
+        pnlCalendar.add(lblMonth);
+        pnlCalendar.add(lblYear);
+        pnlCalendar.add(cmbYear);
+        pnlCalendar.add(btnPrev);
+        pnlCalendar.add(btnNext);
+        pnlCalendar.add(stblCalendar);
+
+        // Set bounds
+        pnlCalendar.setBounds(602, 127, 443, 396);
+        lblMonth.setBounds(150 - lblMonth.getPreferredSize().width / 2, 11, 120, 32);
+        lblYear.setBounds(10, 365, 80, 20);
+        cmbYear.setBounds(200, 365, 80, 20);
+        btnPrev.setBounds(10, 11, 50, 25);
+        btnNext.setBounds(380, 11, 50, 25);
+        stblCalendar.setBounds(10, 50, 423, 250);
+
+        // Make frame visible
+        setVisible(true);
+
+        // Get real month/year
+        GregorianCalendar cal = new GregorianCalendar(); // Create calendar
+        realDay = cal.get(GregorianCalendar.DAY_OF_MONTH); // Get day
+        realMonth = cal.get(GregorianCalendar.MONTH); // Get month
+        realYear = cal.get(GregorianCalendar.YEAR); // Get year
+        currentMonth = realMonth; // Match month and year
+
+        // Add headers
+        String[] headers = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}; // All headers
+        for (int i = 0; i < 7; i++) {
+            mtblCalendar.addColumn(headers[i]);
+        }
+
+        tblCalendar.getParent().setBackground(tblCalendar.getBackground()); // Set background
+
+        // No resize/reorder
+        tblCalendar.getTableHeader().setResizingAllowed(false);
+        tblCalendar.getTableHeader().setReorderingAllowed(false);
+
+        // Single cell selection
+        tblCalendar.setColumnSelectionAllowed(true);
+        tblCalendar.setRowSelectionAllowed(true);
+        tblCalendar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Set row/column count
+        tblCalendar.setRowHeight(38);
+        
+        JPanel panel = new JPanel();
+        panel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
+        panel.setBounds(40, 127, 466, 647);
+        contentPane.add(panel);
+        panel.setLayout(null);
+        
+        JLabel lblNewLabel = new JLabel("Center Scholar University");
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+        lblNewLabel.setBounds(136, 11, 165, 20);
+        panel.add(lblNewLabel);
+        
+        JLabel lblNewLabel_1 = new JLabel("Leave Application");
+        lblNewLabel_1.setVerticalAlignment(SwingConstants.BOTTOM);
+        lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+        lblNewLabel_1.setBounds(156, 30, 117, 14);
+        panel.add(lblNewLabel_1);
+        
+        JLabel lblNewLabel_4 = new JLabel("Date:");
+        lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_4.setBounds(10, 85, 72, 25);
+        panel.add(lblNewLabel_4);
+        
+        JLabel lblNewLabel_8 = new JLabel("Period Applied");
+        lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblNewLabel_8.setBounds(10, 361, 131, 20);
+        panel.add(lblNewLabel_8);
+        
+        JLabel lblNewLabel_12 = new JLabel("Means of Contact:");
+        lblNewLabel_12.setFont(new Font("Tahoma", Font.BOLD, 15));
+        lblNewLabel_12.setBounds(10, 418, 139, 20);
+        panel.add(lblNewLabel_12);
+        
+        JLabel lblNewLabel_13 = new JLabel("Name:");
+        lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_13.setBounds(10, 449, 50, 14);
+        panel.add(lblNewLabel_13);
+        
+        JLabel lblNewLabel_13_1 = new JLabel("Address:");
+        lblNewLabel_13_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_13_1.setBounds(10, 484, 86, 14);
+        panel.add(lblNewLabel_13_1);
+        
+        JLabel lblNewLabel_13_2 = new JLabel("Contact no.:");
+        lblNewLabel_13_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_13_2.setBounds(10, 523, 86, 14);
+        panel.add(lblNewLabel_13_2);
+        
+        textField = new JTextField();
+        textField.setBounds(123, 156, 99, 20);
+        panel.add(textField);
+        textField.setColumns(10);
+        
+        textField_1 = new JTextField();
+        textField_1.setColumns(10);
+        textField_1.setBounds(123, 195, 99, 20);
+        panel.add(textField_1);
+        
+        textField_3 = new JTextField();
+        textField_3.setColumns(10);
+        textField_3.setBounds(123, 315, 99, 20);
+        panel.add(textField_3);
+        
+        textField_6 = new JTextField();
+        textField_6.setColumns(10);
+        textField_6.setBounds(123, 449, 116, 20);
+        panel.add(textField_6);
+        
+        textField_7 = new JTextField();
+        textField_7.setColumns(10);
+        textField_7.setBounds(123, 483, 116, 20);
+        panel.add(textField_7);
+        
+        textField_8 = new JTextField();
+        textField_8.setColumns(10);
+        textField_8.setBounds(123, 522, 116, 20);
+        panel.add(textField_8);
+        
+        JLabel lblNewLabel_4_1 = new JLabel("Leave Type:");
+        lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_4_1.setBounds(10, 117, 121, 25);
+        panel.add(lblNewLabel_4_1);
+        
+        JLabel lblNewLabel_4_1_1 = new JLabel("Employee No.:");
+        lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_4_1_1.setBounds(10, 152, 139, 25);
+        panel.add(lblNewLabel_4_1_1);
+        
+        JLabel lblNewLabel_4_1_1_1 = new JLabel("Name:");
+        lblNewLabel_4_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_4_1_1_1.setBounds(10, 191, 86, 25);
+        panel.add(lblNewLabel_4_1_1_1);
+        
+        JLabel lblNewLabel_4_1_1_2 = new JLabel("Campus:");
+        lblNewLabel_4_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_4_1_1_2.setBounds(10, 227, 99, 25);
+        panel.add(lblNewLabel_4_1_1_2);
+        
+        JLabel lblNewLabel_4_1_1_2_1 = new JLabel("Specific Purpose:");
+        lblNewLabel_4_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_4_1_1_2_1.setBounds(10, 311, 165, 25);
+        panel.add(lblNewLabel_4_1_1_2_1);
+        
+        JLabel lblNewLabel_2 = new JLabel("New label");
+        lblNewLabel_2.setBounds(129, 92, 46, 14);
+        panel.add(lblNewLabel_2);
+        
+        JComboBox comboBox_1 = new JComboBox();
+        comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Select Campus", "Manila ", "Makati ", "Malalolos"}));
+        comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        comboBox_1.setBackground(Color.WHITE);
+        comboBox_1.setBounds(123, 226, 99, 21);
+        panel.add(comboBox_1);
+        
+        lblNewLabel_4_1_1_3 = new JLabel("Department:");
+        lblNewLabel_4_1_1_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_4_1_1_3.setBounds(10, 267, 99, 25);
+        panel.add(lblNewLabel_4_1_1_3);
+        
+        comboBox_2 = new JComboBox();
+        comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "CSIT", "Medtech", "Pharmacy", "Nursing"}));
+        comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        comboBox_2.setBackground(new Color(255, 255, 255));
+        comboBox_2.setBounds(123, 270, 99, 21);
+        panel.add(comboBox_2);
+        
+        JComboBox comboBox_1_1 = new JComboBox();
+        comboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Sick Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
+        comboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        comboBox_1_1.setBackground(Color.WHITE);
+        comboBox_1_1.setBounds(123, 120, 99, 21);
+        panel.add(comboBox_1_1);
+        
+        JButton btnNewButton = new JButton("SUBMIT\r\n");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		JOptionPane.showMessageDialog(null, "Successfully Submitted!");
+        	}
+        });
+        btnNewButton.setBounds(768, 829, 150, 76);
+        contentPane.add(btnNewButton);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBorder(new TitledBorder(null, "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+        panel_1.setBounds(602, 586, 443, 188);
+        contentPane.add(panel_1);
+        panel_1.setLayout(null);
+        
+        textField_2 = new JTextField();
+        textField_2.setBounds(10, 21, 423, 156);
+        panel_1.add(textField_2);
+        textField_2.setColumns(10);
+        mtblCalendar.setColumnCount(7);
+        mtblCalendar.setRowCount(6);
+
+        // Populate table
+        for (int i = realYear - 100; i <= realYear + 100; i++) {
+            cmbYear.addItem(String.valueOf(i));
+        }
+
+        // Refresh calendar
+        refreshCalendar(realMonth, realYear); // Refresh calendar
+    }
+    private void refreshCalendar(int month, int year) {
+        //Variables
+        String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        int nod, som; //Number Of Days, Start Of Month
+        
+        //Allow/disallow buttons
+        btnPrev.setEnabled(true);
+        btnNext.setEnabled(true);
+        if (month == 0 && year <= realYear-10){btnPrev.setEnabled(false);} //Too early
+        if (month == 11 && year >= realYear+100){btnNext.setEnabled(false);} //Too late
+        lblMonth.setText(months[month]); //Refresh the month label (at the top)
+        lblMonth.setBounds(160-lblMonth.getPreferredSize().width/2, 25, 180, 25); //Re-align label with calendar
+        cmbYear.setSelectedItem(String.valueOf(year)); //Select the correct year in the combo box
+        
+        //Clear table
+        for (int i=0; i<6; i++){
+            for (int j=0; j<7; j++){
+                mtblCalendar.setValueAt(null, i, j);
+            }
+        }
+        
+        //Get first day of month and number of days
+        GregorianCalendar cal = new GregorianCalendar(year, month, 1);
+        nod = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+        som = cal.get(GregorianCalendar.DAY_OF_WEEK);
+        
+        //Draw calendar
+        for (int i=1; i<=nod; i++){
+            int row = new Integer((i+som-2)/7);
+            int column  =  (i+som-2)%7;
+            mtblCalendar.setValueAt(i, row, column);
+        }
+        
+        //Apply renderers
+        tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
+    }
+    private class tblCalendarRenderer extends DefaultTableCellRenderer{
+        public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column){
+            super.getTableCellRendererComponent(table, value, selected, focused, row, column);
+            if (column == 0 || column == 6){ //Week-end
+                setBackground(new Color(255, 220, 220));
+            }
+            else{ //Week
+                setBackground(new Color(255, 255, 255));
+            }
+            if (value != null){
+                if (Integer.parseInt(value.toString()) == realDay && currentMonth == realMonth && currentYear == realYear){ //Today
+                    setBackground(new Color(220, 220, 255));
+                }
+            }
+            setBorder(null);
+            setForeground(Color.black);
+            return this;
+        }
+    }
+    
+    private class btnPrev_Action implements ActionListener {
+        @Override
+        public void actionPerformed (ActionEvent e){
+            if (currentMonth == 0){ //Back one year
+                currentMonth = 11;
+                currentYear -= 1;
+            }
+            else{ //Back one month
+                currentMonth -= 1;
+            }
+            refreshCalendar(currentMonth, currentYear);
+        }
+    }
+
+    private class btnNext_Action implements ActionListener {
+        @Override
+        public void actionPerformed (ActionEvent e){
+            if (currentMonth == 11){ //Foward one year
+                currentMonth = 0;
+                currentYear += 1;
+            }
+            else{ //Foward one month
+                currentMonth += 1;
+            }
+            refreshCalendar(currentMonth, currentYear);
+        }
+    }
+
+    private class cmbYear_Action implements ActionListener {
+        @Override
+        public void actionPerformed (ActionEvent e){
+            if (cmbYear.getSelectedItem() != null){
+                String b = cmbYear.getSelectedItem().toString();
+                currentYear = Integer.parseInt(b);
+                refreshCalendar(currentMonth, currentYear);
+            }
+        }
+    }
 }
