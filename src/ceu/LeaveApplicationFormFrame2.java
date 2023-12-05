@@ -44,8 +44,9 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     private JComboBox comboBox_1; 
     private JDateChooser startDateChooser; 
     private JDateChooser endDateChooser; 
+    private JLabel lblNewLabel_2;
     
-    
+    private Date_And_Time dateTime;
 
     /**
      * Launch the application.
@@ -68,6 +69,9 @@ public class LeaveApplicationFormFrame2 extends JFrame {
 	 * Create the frame.
 	 */
     public LeaveApplicationFormFrame2() {
+    	
+    	Date_And_Time dateTime = new Date_And_Time();
+    	
         setResizable(true);
         setTitle("Leave Application Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -329,7 +333,10 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         lblNewLabel_13_3.setBounds(163, 390, 27, 14);
         panel.add(lblNewLabel_13_3);
         
-
+		JLabel lblNewLabel_2 = new JLabel(dateTime.getFormattedDate());
+        lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel_2.setBounds(123, 85, 131, 25);
+        panel.add(lblNewLabel_2);
         
         JButton btnNewButton = new JButton("SUBMIT\r\n");
         btnNewButton.setBounds(642, 689, 150, 76);
