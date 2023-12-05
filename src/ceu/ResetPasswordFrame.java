@@ -147,7 +147,7 @@ public class ResetPasswordFrame extends JFrame {
         
         JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setIcon(new ImageIcon(ResetPasswordFrame.class.getResource("/images/bbg.png")));
-        lblNewLabel.setBounds(0, 0, 434, 261);
+        lblNewLabel.setBounds(-10, 0, 493, 277);
         backgroundPanel.add(lblNewLabel);
 
         // FIXME: LOGIC

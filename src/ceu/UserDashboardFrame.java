@@ -18,7 +18,7 @@ public class UserDashboardFrame extends JFrame {
 	private JLabel Time;
 	private Timer timer;
 	
-	Date_And_Time dateTime;
+	private Date_And_Time dateTime;
 	/**
 	 * Launch the application.
 	 */
@@ -195,7 +195,7 @@ public class UserDashboardFrame extends JFrame {
 		
 		JLabel Day = new JLabel(dateTime.getFormattedDay());
 		Day.setFont(new Font("Tahoma", Font.BOLD, 15));
-		Day.setBounds(83, 65, 63, 30);
+		Day.setBounds(75, 61, 88, 30);
 		date_and_timePanel.add(Day);
 		
 		Time = new JLabel(dateTime.getFormattedTime());
