@@ -115,7 +115,7 @@ public class ResetPasswordFrame extends JFrame {
         backgroundPanel.add(lblNewLabel);
 
         // FIXME: LOGIC
-        passwords.add("samplepass");
+        passwords.add("password");
 
         okButton.addActionListener(new ActionListener() {
             @Override

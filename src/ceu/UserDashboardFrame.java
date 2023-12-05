@@ -5,15 +5,20 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class UserDashboardFrame extends JFrame {
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable approveTracker_Table;
 	private JTable pendingTracker_Table;
-	private JTable table;
-
+	private JTable declinedTracker_Table;
+	private JLabel Time;
+	private Timer timer;
+	
+	Date_And_Time dateTime;
 	/**
 	 * Launch the application.
 	 */
@@ -29,14 +34,16 @@ public class UserDashboardFrame extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public UserDashboardFrame() {
+		Date_And_Time dateTime = new Date_And_Time();
+		
 		setTitle("Leave Application Form\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1323, 587);
+		setBounds(100, 100, 1156, 596);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 128, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,28 +52,29 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel employeeInfoPanel = new JPanel();
-		employeeInfoPanel.setBounds(22, 25, 419, 160);
+		employeeInfoPanel.setBackground(new Color(255, 255, 255));
+		employeeInfoPanel.setBounds(22, 25, 359, 160);
 		employeeInfoPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(employeeInfoPanel);
 		employeeInfoPanel.setLayout(null);
 		
 		JLabel employeeName = new JLabel("Francisco, Earl Ace D.");
-		employeeName.setBounds(93, 78, 206, 17);
+		employeeName.setBounds(85, 76, 206, 25);
 		employeeName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employeeName);
 		
 		JLabel employee_ID = new JLabel("136696130811\r\n");
-		employee_ID.setBounds(155, 51, 265, 17);
+		employee_ID.setBounds(155, 45, 265, 25);
 		employee_ID.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employee_ID);
 		
 		JLabel employeePosition = new JLabel("Non-Teaching Library Staff");
-		employeePosition.setBounds(102, 115, 265, 17);
+		employeePosition.setBounds(102, 111, 265, 25);
 		employeePosition.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employeePosition);
 		
 		JLabel Leave_RemainingLabel = new JLabel("Employee Information");
-		Leave_RemainingLabel.setBounds(60, 10, 290, 25);
+		Leave_RemainingLabel.setBounds(30, 10, 290, 25);
 		employeeInfoPanel.add(Leave_RemainingLabel);
 		Leave_RemainingLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		Leave_RemainingLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -86,8 +94,21 @@ public class UserDashboardFrame extends JFrame {
 		lblNewLabel_2.setBounds(10, 111, 135, 25);
 		employeeInfoPanel.add(lblNewLabel_2);
 		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 128, 255));
+		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		panel.setBounds(0, 0, 359, 41);
+		employeeInfoPanel.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_3_1_1 = new JLabel("New label");
+		lblNewLabel_3_1_1.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
+		lblNewLabel_3_1_1.setBounds(1, 41, 357, 118);
+		employeeInfoPanel.add(lblNewLabel_3_1_1);
+		
 		JPanel remainingLeaveCreditPanel = new JPanel();
-		remainingLeaveCreditPanel.setBounds(725, 25, 197, 160);
+		remainingLeaveCreditPanel.setBackground(new Color(255, 255, 255));
+		remainingLeaveCreditPanel.setBounds(625, 25, 197, 160);
 		remainingLeaveCreditPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(remainingLeaveCreditPanel);
 		remainingLeaveCreditPanel.setLayout(null);
@@ -104,14 +125,27 @@ public class UserDashboardFrame extends JFrame {
 		Leave_RemainingLabel_1.setBounds(5, 10, 187, 28);
 		remainingLeaveCreditPanel.add(Leave_RemainingLabel_1);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 128, 255));
+		panel_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		panel_1.setBounds(0, 0, 197, 38);
+		remainingLeaveCreditPanel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_3_1_1_1 = new JLabel("New label");
+		lblNewLabel_3_1_1_1.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
+		lblNewLabel_3_1_1_1.setBounds(1, 38, 195, 121);
+		remainingLeaveCreditPanel.add(lblNewLabel_3_1_1_1);
+		
 		JPanel usedCreditsPanel = new JPanel();
-		usedCreditsPanel.setBounds(513, 25, 188, 160);
+		usedCreditsPanel.setBackground(new Color(255, 255, 255));
+		usedCreditsPanel.setBounds(427, 25, 188, 160);
 		usedCreditsPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(usedCreditsPanel);
 		usedCreditsPanel.setLayout(null);
 		
 		JLabel used_LeaveCount = new JLabel("2");
-		used_LeaveCount.setBounds(10, 48, 150, 85);
+		used_LeaveCount.setBounds(15, 50, 150, 85);
 		usedCreditsPanel.add(used_LeaveCount);
 		used_LeaveCount.setHorizontalAlignment(SwingConstants.CENTER);
 		used_LeaveCount.setFont(new Font("Tahoma", Font.BOLD, 90));
@@ -122,35 +156,65 @@ public class UserDashboardFrame extends JFrame {
 		used_LeaveLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		used_LeaveLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(255, 128, 255));
+		panel_2.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		panel_2.setBounds(0, 0, 188, 38);
+		usedCreditsPanel.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblNewLabel_3_1_1_1_1 = new JLabel("New label");
+		lblNewLabel_3_1_1_1_1.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
+		lblNewLabel_3_1_1_1_1.setBounds(1, 38, 186, 121);
+		usedCreditsPanel.add(lblNewLabel_3_1_1_1_1);
+		
 		JPanel date_and_timePanel = new JPanel();
-		date_and_timePanel.setBounds(981, 25, 251, 119);
+		date_and_timePanel.setBackground(new Color(255, 255, 255));
+		date_and_timePanel.setBounds(870, 25, 235, 119);
 		date_and_timePanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(date_and_timePanel);
 		date_and_timePanel.setLayout(null);
 		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(255, 128, 255));
+		panel_3.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		panel_3.setBounds(0, 0, 235, 38);
+		date_and_timePanel.add(panel_3);
+		panel_3.setLayout(null);
+		
 		JLabel day_monthLabel = new JLabel("Date and Time");
+		day_monthLabel.setBounds(44, 6, 146, 25);
+		panel_3.add(day_monthLabel);
 		day_monthLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		day_monthLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		day_monthLabel.setBounds(60, 0, 150, 32);
-		date_and_timePanel.add(day_monthLabel);
 		
-		JLabel dataLabel = new JLabel("12 / 03 / 2003");
-		dataLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		dataLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		dataLabel.setBounds(60, 60, 150, 32);
-		date_and_timePanel.add(dataLabel);
+		JLabel Date = new JLabel(dateTime.getFormattedDate());
+		Date.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Date.setBounds(37, 40, 170, 30);
+		date_and_timePanel.add(Date);
 		
-		JLabel timeLabel = new JLabel("12 : 03");
-		timeLabel.setBounds(60, 87, 150, 32);
-		date_and_timePanel.add(timeLabel);
-		timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		timeLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		JLabel Day = new JLabel(dateTime.getFormattedDay());
+		Day.setFont(new Font("Tahoma", Font.BOLD, 15));
+		Day.setBounds(83, 63, 63, 30);
+		date_and_timePanel.add(Day);
 		
-		JLabel lblSunday = new JLabel("Sunday");
-		lblSunday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSunday.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblSunday.setBounds(60, 30, 150, 32);
-		date_and_timePanel.add(lblSunday);
+		Time = new JLabel(dateTime.getFormattedTime());
+        Time.setFont(new Font("Tahoma", Font.BOLD, 15));
+        Time.setBounds(64, 90, 106, 30);
+        date_and_timePanel.add(Time);
+
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateTime();
+            }
+        });
+        timer.start();
+        
+		JLabel lblNewLabel_3_1_1_1_2 = new JLabel("New label");
+		lblNewLabel_3_1_1_1_2.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
+		lblNewLabel_3_1_1_1_2.setBounds(1, 38, 234, 80);
+		date_and_timePanel.add(lblNewLabel_3_1_1_1_2);
 		
 		JButton fileLeaveButton = new JButton("File New Leave");
 		fileLeaveButton.addActionListener(new ActionListener() {
@@ -160,14 +224,8 @@ public class UserDashboardFrame extends JFrame {
 			}
 		});
 		fileLeaveButton.setForeground(new Color(0, 210, 105));
-		fileLeaveButton.setBounds(981, 154, 251, 31);
+		fileLeaveButton.setBounds(870, 154, 235, 31);
 		contentPane.add(fileLeaveButton);
-		fileLeaveButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				//Nathaniel Codes insert here
-			}
-		});
 		fileLeaveButton.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
 		JLabel approveTracker_Label = new JLabel("Approved");
@@ -196,9 +254,9 @@ public class UserDashboardFrame extends JFrame {
 		approveTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
 		approveTracker_Table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Sick Leave", "12-03-23 | 12-10-23", "In Effect", "View"},
-				{"Annual Leave", "10-12-23 | 10-15-23", "Finished", "View"},
-				{"Paternity Leave", "09-16-23 | 09-23-23", "Finished", "View"},
+				{"Sick Leave", "12-03-23", "12-10-23", "In Effect"},
+				{"Annual Leave", "10-12-23", "10-15-23", "Finished"},
+				{"Paternity Leave", "09-16-23", "09-23-23", "Finished"},
 				{null, null, null, null},
 				{null, null, null, null},
 				{null, null, null, null},
@@ -218,128 +276,163 @@ public class UserDashboardFrame extends JFrame {
 				{null, null, null, null},
 			},
 			new String[] {
-				"Type of Leave", "Duration", "Status", "View"
+				"Type of Leave", "Start", "End", "Status"
 			}
 		) {
-			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, String.class
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
 			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
 			}
 		});
-		approveTracker_Table.getColumnModel().getColumn(0).setMaxWidth(118);
-		approveTracker_Table.getColumnModel().getColumn(1).setMaxWidth(160);
-		approveTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(50);
-		approveTracker_Table.getColumnModel().getColumn(2).setMinWidth(50);
-		approveTracker_Table.getColumnModel().getColumn(2).setMaxWidth(67);
-		approveTracker_Table.getColumnModel().getColumn(3).setPreferredWidth(35);
-		approveTracker_Table.getColumnModel().getColumn(3).setMaxWidth(40);
+		approveTracker_Table.getColumnModel().getColumn(0).setResizable(false);
+		approveTracker_Table.getColumnModel().getColumn(0).setMaxWidth(150);
+		approveTracker_Table.getColumnModel().getColumn(1).setResizable(false);
+		approveTracker_Table.getColumnModel().getColumn(1).setPreferredWidth(60);
+		approveTracker_Table.getColumnModel().getColumn(1).setMinWidth(45);
+		approveTracker_Table.getColumnModel().getColumn(1).setMaxWidth(80);
+		approveTracker_Table.getColumnModel().getColumn(2).setResizable(false);
+		approveTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(60);
+		approveTracker_Table.getColumnModel().getColumn(2).setMinWidth(45);
+		approveTracker_Table.getColumnModel().getColumn(2).setMaxWidth(80);
+		approveTracker_Table.getColumnModel().getColumn(3).setResizable(false);
+		approveTracker_Table.getColumnModel().getColumn(3).setMinWidth(50);
+		approveTracker_Table.getColumnModel().getColumn(3).setMaxWidth(80);
+		approveTracker_Table.setRowHeight(50);
 		approveTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		
 		JLabel pendingTracker_Label = new JLabel("Pending");
 		pendingTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 30));
-		pendingTracker_Label.setBounds(451, 222, 395, 37);
+		pendingTracker_Label.setBounds(460, 222, 395, 37);
 		contentPane.add(pendingTracker_Label);
 		
 		JPanel pendingTracker_Panel = new JPanel();
 		pendingTracker_Panel.setBackground(new Color(255, 255, 255));
 		pendingTracker_Panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		pendingTracker_Panel.setBounds(451, 259, 395, 281);
+		pendingTracker_Panel.setBounds(460, 259, 320, 281);
 		contentPane.add(pendingTracker_Panel);
 		pendingTracker_Panel.setLayout(null);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 0, 395, 281);
+		scrollPane_2.setBounds(0, 0, 320, 281);
 		pendingTracker_Panel.add(scrollPane_2);
 		
 		pendingTracker_Table = new JTable();
 		pendingTracker_Table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
 			},
 			new String[] {
-				"Type of Leave", "Date", "Status", "View"
+				"Type of Leave", "Date Applied"
 			}
-		));
-		pendingTracker_Table.getColumnModel().getColumn(0).setMaxWidth(118);
-		pendingTracker_Table.getColumnModel().getColumn(1).setMaxWidth(160);
-		pendingTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(66);
-		pendingTracker_Table.getColumnModel().getColumn(2).setMaxWidth(67);
-		pendingTracker_Table.getColumnModel().getColumn(3).setPreferredWidth(40);
-		pendingTracker_Table.getColumnModel().getColumn(3).setMaxWidth(40);
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		pendingTracker_Table.getColumnModel().getColumn(0).setResizable(false);
+		pendingTracker_Table.getColumnModel().getColumn(0).setMaxWidth(150);
+		pendingTracker_Table.getColumnModel().getColumn(1).setResizable(false);
+		pendingTracker_Table.getColumnModel().getColumn(1).setMaxWidth(150);
 		pendingTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
+		pendingTracker_Table.setRowHeight(50);
 		pendingTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		
 		scrollPane_2.setViewportView(pendingTracker_Table);
 		
 		JLabel declinedTracker_Label = new JLabel("Declined");
 		declinedTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 30));
-		declinedTracker_Label.setBounds(894, 222, 395, 37);
+		declinedTracker_Label.setBounds(820, 222, 395, 37);
 		contentPane.add(declinedTracker_Label);
 		
 		JPanel declinedTracker_Panel = 	new JPanel();
 		declinedTracker_Panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		declinedTracker_Panel.setLayout(null);
-		declinedTracker_Panel.setBounds(894, 259, 395, 281);
+		declinedTracker_Panel.setBounds(820, 259, 303, 281);
 		contentPane.add(declinedTracker_Panel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 395, 281);
+		scrollPane.setBounds(0, 0, 302, 281);
 		declinedTracker_Panel.add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		declinedTracker_Table = new JTable();
+		declinedTracker_Table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
 			},
 			new String[] {
-				"Type of Leave", "Date", "Status", "View"
+				"Type of Leave", "Date Applied"
 			}
-		));
-		table.getColumnModel().getColumn(0).setMaxWidth(118);
-		table.getColumnModel().getColumn(1).setMaxWidth(160);
-		table.getColumnModel().getColumn(2).setPreferredWidth(66);
-		table.getColumnModel().getColumn(2).setMaxWidth(67);
-		table.getColumnModel().getColumn(3).setPreferredWidth(40);
-		table.getColumnModel().getColumn(3).setMaxWidth(40);
-		scrollPane.setViewportView(table);
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		declinedTracker_Table.getColumnModel().getColumn(0).setResizable(false);
+		declinedTracker_Table.getColumnModel().getColumn(0).setMaxWidth(150);
+		declinedTracker_Table.getColumnModel().getColumn(1).setResizable(false);
+		declinedTracker_Table.getColumnModel().getColumn(1).setMinWidth(45);
+		declinedTracker_Table.getColumnModel().getColumn(1).setMaxWidth(150);
+		declinedTracker_Table.setRowHeight(50);
+		declinedTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		
+		scrollPane.setViewportView(declinedTracker_Table);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
+		lblNewLabel_3.setBounds(0, 0, 1145, 559);
+		contentPane.add(lblNewLabel_3);
 	}
+	
+	 private void updateTime() {
+	        Date_And_Time dateTime = new Date_And_Time();
+	        String formattedTime = dateTime.getFormattedTime();
+	        Time.setText(formattedTime);
+	    }
+
 }
