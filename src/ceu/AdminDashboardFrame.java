@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class AdminDashboardFrame extends JFrame {
 
@@ -60,7 +62,7 @@ public class AdminDashboardFrame extends JFrame {
 		panel_1.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Leave Requests");
-		lblNewLabel_1.setBounds(21, 17, 163, 36);
+		lblNewLabel_1.setBounds(21, 17, 199, 36);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
 		panel_1.add(lblNewLabel_1);
@@ -231,6 +233,27 @@ public class AdminDashboardFrame extends JFrame {
 		lblNewLabel_2_1_2_1_1_1_1.setBounds(396, 2, 83, 36);
 		panel_2_2_1_1_1.add(lblNewLabel_2_1_2_1_1_1_1);
 		
+		JButton btnNewButton = new JButton("+  New Leave Type");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JTextField leaveTypeField = new JTextField();
+                Object[] message = {
+                        "Enter new leave type:", leaveTypeField
+                };
+
+                int option = JOptionPane.showConfirmDialog(null, message,
+                        "New Leave Type", JOptionPane.OK_CANCEL_OPTION);
+
+                if (option == JOptionPane.OK_OPTION) {
+                
+                }
+            }
+        });
+		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnNewButton.setBounds(495, 17, 175, 29);
+		panel_1.add(btnNewButton);
+		
 		int pendingCount= 5;
 		
 		JPanel panel = new JPanel();
@@ -247,7 +270,7 @@ public class AdminDashboardFrame extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		
 		JLabel bgIMG = new JLabel("");
-		bgIMG.setIcon(new ImageIcon("E:\\desktop\\OOP BG.png"));
+		bgIMG.setIcon(new ImageIcon("src\\images\\bbg.png"));
 		bgIMG.setBounds(0, 0, 771, 481);
 		contentPane.add(bgIMG);
 	}
