@@ -221,7 +221,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
               }
           });
         
-        textField.setBounds(128, 156, 99, 20);
+        textField.setBounds(296, 163, 99, 20);
         panel.add(textField);
         textField.setColumns(10);
         
@@ -237,12 +237,12 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         });
         
         textField_1.setColumns(10);
-        textField_1.setBounds(128, 195, 99, 20);
+        textField_1.setBounds(296, 202, 99, 20);
         panel.add(textField_1);
         
         textField_3 = new JTextField();
         textField_3.setColumns(10);
-        textField_3.setBounds(128, 315, 99, 20);
+        textField_3.setBounds(296, 322, 99, 20);
         panel.add(textField_3);
         
         textField_6 = new JTextField();
@@ -256,12 +256,12 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         	}
         });
         textField_6.setColumns(10);
-        textField_6.setBounds(128, 493, 116, 20);
+        textField_6.setBounds(296, 500, 116, 20);
         panel.add(textField_6);
         
         textField_7 = new JTextField();
         textField_7.setColumns(10);
-        textField_7.setBounds(128, 527, 116, 20);
+        textField_7.setBounds(296, 534, 116, 20);
         panel.add(textField_7);
         
         textField_8 = new JTextField();
@@ -276,7 +276,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         });
         
         textField_8.setColumns(10);
-        textField_8.setBounds(128, 566, 116, 20);
+        textField_8.setBounds(296, 573, 116, 20);
         panel.add(textField_8);
         
         JLabel lblNewLabel_4_1 = new JLabel("Leave Type:");
@@ -308,7 +308,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Select Campus", "Manila ", "Makati ", "Malalolos"}));
         comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
         comboBox_1.setBackground(Color.WHITE);
-        comboBox_1.setBounds(128, 226, 99, 21);
+        comboBox_1.setBounds(296, 233, 99, 21);
         panel.add(comboBox_1);
         
         lblNewLabel_4_1_1_3 = new JLabel("Department:");
@@ -320,27 +320,27 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "Library", "Canteen", "Accounting & Cash section"}));
         comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
         comboBox_2.setBackground(new Color(255, 255, 255));
-        comboBox_2.setBounds(128, 270, 99, 21);
+        comboBox_2.setBounds(296, 277, 99, 21);
         panel.add(comboBox_2);
         
         comboBox_1_1 = new JComboBox();
         comboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
         comboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
         comboBox_1_1.setBackground(Color.WHITE);
-        comboBox_1_1.setBounds(128, 120, 99, 21);
+        comboBox_1_1.setBounds(296, 127, 99, 21);
         panel.add(comboBox_1_1);
         
         startDateChooser = new JDateChooser();
-        startDateChooser.setBounds(128, 361, 116, 20);
+        startDateChooser.setBounds(296, 368, 116, 20);
         panel.add(startDateChooser);
         
         endDateChooser = new JDateChooser();
-        endDateChooser.setBounds(128, 411, 116, 20);
+        endDateChooser.setBounds(296, 418, 116, 20);
         panel.add(endDateChooser);
         
         JLabel lblNewLabel_13_3 = new JLabel("To");
         lblNewLabel_13_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_13_3.setBounds(163, 390, 27, 14);
+        lblNewLabel_13_3.setBounds(331, 397, 27, 14);
         panel.add(lblNewLabel_13_3);
         
 		JLabel currentDateLabel = new JLabel(getCurrentDate());
@@ -351,7 +351,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         Date_And_Time dateTime = new Date_And_Time();
 		
         currentDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        currentDateLabel.setBounds(100, 85, 165, 25);
+        currentDateLabel.setBounds(268, 92, 165, 25);
         panel.add(currentDateLabel);
        
         
