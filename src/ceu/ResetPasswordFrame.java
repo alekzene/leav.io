@@ -179,6 +179,14 @@ public class ResetPasswordFrame extends JFrame {
                 }
                 updatePassword(newPassword);
                 JOptionPane.showMessageDialog(null, "Password updated successfully.");
+                
+                Window window = SwingUtilities.getWindowAncestor((Component) e.getSource());
+                if (window instanceof JDialog) {
+                    JDialog dialog = (JDialog) window;
+                    dialog.dispose();
+                }
+                
+                dispose();
             }
         });
     }
