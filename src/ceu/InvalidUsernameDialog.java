@@ -65,9 +65,9 @@ public class InvalidUsernameDialog extends JDialog {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		contentPanel.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\OOP_Repo\\Leave-Application-System\\src\\images\\bbg.png"));
-		lblNewLabel_2.setBounds(0, -18, 444, 280);
-		contentPanel.add(lblNewLabel_2);
+		JLabel Background = new JLabel("");
+		Background.setIcon(new ImageIcon("C:\\OOP_Repo\\Leave-Application-System\\src\\images\\bbg.png"));
+		Background.setBounds(0, -18, 444, 280);
+		contentPanel.add(Background);
 	}
 }

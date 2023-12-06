@@ -17,6 +17,7 @@ import java.util.GregorianCalendar;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import com.toedter.calendar.JDateChooser;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 
 
@@ -73,19 +74,19 @@ public class LeaveApplicationFormFrame2 extends JFrame {
 	 */
     public LeaveApplicationFormFrame2() {
     	
-        setResizable(true);
+        setResizable(false);
         setTitle("Leave Application Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(500, 100, 963, 812);
+        setBounds(500, 100, 976, 812);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(255, 255, 255));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
-        contentPane.setLayout(null);
+		contentPane.setLayout(null);
 		
 		panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBounds(496, 481, 428, 144);
+		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -95,6 +96,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
 		
 		//Calendar Code
 		pnlCalendar = new JPanel(null);
+		pnlCalendar.setBounds(496, 24, 443, 396);
         pnlCalendar.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Calendar", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
         contentPane.add(pnlCalendar);
 
@@ -123,9 +125,6 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         pnlCalendar.add(btnPrev);
         pnlCalendar.add(btnNext);
         pnlCalendar.add(stblCalendar);
-
-        // Set bounds
-        pnlCalendar.setBounds(496, 24, 443, 396);
         lblMonth.setBounds(150 - lblMonth.getPreferredSize().width / 2, 11, 120, 32);
         lblYear.setBounds(10, 365, 80, 20);
         cmbYear.setBounds(200, 365, 80, 20);
@@ -164,9 +163,9 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         tblCalendar.setRowHeight(38);
         
         JPanel panel = new JPanel();
+        panel.setBounds(10, 24, 466, 741);
         panel.setBackground(new Color(255, 255, 255));
         panel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-        panel.setBounds(10, 24, 466, 741);
         contentPane.add(panel);
         panel.setLayout(null);
         
@@ -222,7 +221,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
               }
           });
         
-        textField.setBounds(123, 156, 99, 20);
+        textField.setBounds(128, 156, 99, 20);
         panel.add(textField);
         textField.setColumns(10);
         
@@ -238,12 +237,12 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         });
         
         textField_1.setColumns(10);
-        textField_1.setBounds(123, 195, 99, 20);
+        textField_1.setBounds(128, 195, 99, 20);
         panel.add(textField_1);
         
         textField_3 = new JTextField();
         textField_3.setColumns(10);
-        textField_3.setBounds(123, 315, 99, 20);
+        textField_3.setBounds(128, 315, 99, 20);
         panel.add(textField_3);
         
         textField_6 = new JTextField();
@@ -257,12 +256,12 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         	}
         });
         textField_6.setColumns(10);
-        textField_6.setBounds(123, 493, 116, 20);
+        textField_6.setBounds(128, 493, 116, 20);
         panel.add(textField_6);
         
         textField_7 = new JTextField();
         textField_7.setColumns(10);
-        textField_7.setBounds(123, 527, 116, 20);
+        textField_7.setBounds(128, 527, 116, 20);
         panel.add(textField_7);
         
         textField_8 = new JTextField();
@@ -277,7 +276,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         });
         
         textField_8.setColumns(10);
-        textField_8.setBounds(123, 566, 116, 20);
+        textField_8.setBounds(128, 566, 116, 20);
         panel.add(textField_8);
         
         JLabel lblNewLabel_4_1 = new JLabel("Leave Type:");
@@ -309,7 +308,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Select Campus", "Manila ", "Makati ", "Malalolos"}));
         comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
         comboBox_1.setBackground(Color.WHITE);
-        comboBox_1.setBounds(123, 226, 99, 21);
+        comboBox_1.setBounds(128, 226, 99, 21);
         panel.add(comboBox_1);
         
         lblNewLabel_4_1_1_3 = new JLabel("Department:");
@@ -321,22 +320,22 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "CSIT", "Medtech", "Pharmacy", "Nursing"}));
         comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
         comboBox_2.setBackground(new Color(255, 255, 255));
-        comboBox_2.setBounds(123, 270, 99, 21);
+        comboBox_2.setBounds(128, 270, 99, 21);
         panel.add(comboBox_2);
         
         comboBox_1_1 = new JComboBox();
         comboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
         comboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
         comboBox_1_1.setBackground(Color.WHITE);
-        comboBox_1_1.setBounds(123, 120, 99, 21);
+        comboBox_1_1.setBounds(128, 120, 99, 21);
         panel.add(comboBox_1_1);
         
         startDateChooser = new JDateChooser();
-        startDateChooser.setBounds(123, 361, 116, 20);
+        startDateChooser.setBounds(128, 361, 116, 20);
         panel.add(startDateChooser);
         
         endDateChooser = new JDateChooser();
-        endDateChooser.setBounds(123, 411, 116, 20);
+        endDateChooser.setBounds(128, 411, 116, 20);
         panel.add(endDateChooser);
         
         JLabel lblNewLabel_13_3 = new JLabel("To");
@@ -352,7 +351,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         Date_And_Time dateTime = new Date_And_Time();
 		
         currentDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        currentDateLabel.setBounds(109, 85, 165, 25);
+        currentDateLabel.setBounds(100, 85, 165, 25);
         panel.add(currentDateLabel);
        
         
@@ -361,9 +360,10 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         contentPane.add(btnNewButton);
         
         JLabel Background = new JLabel("New label");
+        Background.setBounds(0, 0, 981, 774);
         Background.setIcon(new ImageIcon(LeaveApplicationFormFrame2.class.getResource("/images/bbg.png")));
-        Background.setBounds(0, 0, 948, 774);
         contentPane.add(Background);
+        setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{contentPane, panel_1, textArea, pnlCalendar, lblMonth, lblYear, cmbYear, btnPrev, btnNext, stblCalendar, tblCalendar, panel, lblNewLabel, lblNewLabel_1, lblNewLabel_4, lblNewLabel_8, lblNewLabel_12, lblNewLabel_13, lblNewLabel_13_1, lblNewLabel_13_2, textField, textField_1, textField_3, textField_6, textField_7, textField_8, lblNewLabel_4_1, lblNewLabel_4_1_1, lblNewLabel_4_1_1_1, lblNewLabel_4_1_1_2, lblNewLabel_4_1_1_2_1, comboBox_1, lblNewLabel_4_1_1_3, comboBox_2, comboBox_1_1, startDateChooser, startDateChooser.getCalendarButton(), endDateChooser, endDateChooser.getCalendarButton(), lblNewLabel_13_3, currentDateLabel, btnNewButton, Background}));
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if (isAllFieldsFilledUP()) {
