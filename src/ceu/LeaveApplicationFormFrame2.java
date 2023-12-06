@@ -317,7 +317,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         panel.add(lblNewLabel_4_1_1_3);
         
         comboBox_2 = new JComboBox();
-        comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "CSIT", "Medtech", "Pharmacy", "Nursing"}));
+        comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "Library", "Canteen", "Accounting & Cash section"}));
         comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
         comboBox_2.setBackground(new Color(255, 255, 255));
         comboBox_2.setBounds(128, 270, 99, 21);
