@@ -33,24 +33,24 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     private JPanel pnlCalendar;
 
     private static int realDay, realMonth, realYear, currentMonth, currentYear;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_3;
-    private JTextField textField_6;
-    private JTextField textField_7;
-    private JTextField textField_8;
-    private JLabel lblNewLabel_4_1_1_3;
-    private JComboBox comboBox_2;
+    private JTextField employeeNoText;
+    private JTextField nameText;
+    private JTextField purposeText;
+    private JTextField contactNameText;
+    private JTextField contactAddressText;
+    private JTextField contactNoText;
+    private JLabel deptLabel;
+    private JComboBox departmentSelect;
     private JTextField textField_2;
     
-    private JComboBox comboBox_1_1; 
-    private JComboBox comboBox_1; 
+    private JComboBox leaveTypeSelect; 
+    private JComboBox campusSelect; 
     private JDateChooser startDateChooser; 
     private JDateChooser endDateChooser; 
     private JLabel lblNewLabel_2;
     
     private Date_And_Time dateTime;
-    private JPanel panel_1;
+    private JPanel commentPanel;
 
     /**
      * Launch the application.
@@ -84,15 +84,18 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		panel_1 = new JPanel();
-		panel_1.setBounds(496, 481, 428, 144);
-		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
+		commentPanel = new JPanel();
+		commentPanel.setBounds(496, 481, 428, 144);
+		commentPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		contentPane.add(commentPanel);
+		commentPanel.setLayout(null);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 23, 408, 110);
-		panel_1.add(textArea);
+		JTextArea textAreaComments = new JTextArea();
+		textAreaComments.setLineWrap(true);
+		textAreaComments.setWrapStyleWord(true);
+		textAreaComments.setBounds(10, 23, 408, 110);
+		textAreaComments.setColumns(10);
+		commentPanel.add(textAreaComments);
 		
 		//Calendar Code
 		pnlCalendar = new JPanel(null);
@@ -162,57 +165,57 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         // Set row/column count
         tblCalendar.setRowHeight(38);
         
-        JPanel panel = new JPanel();
-        panel.setBounds(10, 24, 466, 741);
-        panel.setBackground(new Color(255, 255, 255));
-        panel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-        contentPane.add(panel);
-        panel.setLayout(null);
+        JPanel formPanel = new JPanel();
+        formPanel.setBounds(10, 24, 466, 741);
+        formPanel.setBackground(new Color(255, 255, 255));
+        formPanel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
+        contentPane.add(formPanel);
+        formPanel.setLayout(null);
         
         JLabel lblNewLabel = new JLabel("Center Scholar University");
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
         lblNewLabel.setBounds(105, 21, 266, 20);
-        panel.add(lblNewLabel);
+        formPanel.add(lblNewLabel);
         
         JLabel lblNewLabel_1 = new JLabel("Leave Application");
         lblNewLabel_1.setVerticalAlignment(SwingConstants.BOTTOM);
         lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
         lblNewLabel_1.setBounds(85, 40, 286, 25);
-        panel.add(lblNewLabel_1);
+        formPanel.add(lblNewLabel_1);
         
-        JLabel lblNewLabel_4 = new JLabel("Date:");
-        lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_4.setBounds(10, 85, 72, 25);
-        panel.add(lblNewLabel_4);
+        JLabel dateLabel = new JLabel("Date:");
+        dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        dateLabel.setBounds(10, 85, 72, 25);
+        formPanel.add(dateLabel);
         
-        JLabel lblNewLabel_8 = new JLabel("Period Applied");
-        lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 15));
-        lblNewLabel_8.setBounds(10, 361, 131, 20);
-        panel.add(lblNewLabel_8);
+        JLabel periodApplied = new JLabel("Period Applied");
+        periodApplied.setFont(new Font("Tahoma", Font.BOLD, 15));
+        periodApplied.setBounds(10, 361, 131, 20);
+        formPanel.add(periodApplied);
         
-        JLabel lblNewLabel_12 = new JLabel("Means of Contact:");
-        lblNewLabel_12.setFont(new Font("Tahoma", Font.BOLD, 15));
-        lblNewLabel_12.setBounds(10, 462, 139, 20);
-        panel.add(lblNewLabel_12);
+        JLabel contactLabel = new JLabel("Means of Contact:");
+        contactLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+        contactLabel.setBounds(10, 462, 139, 20);
+        formPanel.add(contactLabel);
         
-        JLabel lblNewLabel_13 = new JLabel("Name:");
-        lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_13.setBounds(10, 493, 50, 14);
-        panel.add(lblNewLabel_13);
+        JLabel contactName = new JLabel("Name:");
+        contactName.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        contactName.setBounds(10, 493, 50, 14);
+        formPanel.add(contactName);
         
-        JLabel lblNewLabel_13_1 = new JLabel("Address:");
-        lblNewLabel_13_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_13_1.setBounds(10, 528, 86, 14);
-        panel.add(lblNewLabel_13_1);
+        JLabel contactAddress = new JLabel("Address:");
+        contactAddress.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        contactAddress.setBounds(10, 528, 86, 14);
+        formPanel.add(contactAddress);
         
-        JLabel lblNewLabel_13_2 = new JLabel("Contact no.:");
-        lblNewLabel_13_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_13_2.setBounds(10, 567, 86, 14);
-        panel.add(lblNewLabel_13_2);
+        JLabel contactNumber = new JLabel("Contact no.:");
+        contactNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        contactNumber.setBounds(10, 567, 86, 14);
+        formPanel.add(contactNumber);
         
-        textField = new JTextField();
-        textField.addKeyListener(new KeyAdapter() {
+        employeeNoText = new JTextField();
+        employeeNoText.addKeyListener(new KeyAdapter() {
         	  public void keyTyped(KeyEvent e) {
                   char inputChar = e.getKeyChar();
                   if (!Character.isDigit(inputChar) && inputChar != KeyEvent.VK_BACK_SPACE) {
@@ -221,12 +224,12 @@ public class LeaveApplicationFormFrame2 extends JFrame {
               }
           });
         
-        textField.setBounds(296, 163, 99, 20);
-        panel.add(textField);
-        textField.setColumns(10);
+        employeeNoText.setBounds(132, 156, 239, 20);
+        formPanel.add(employeeNoText);
+        employeeNoText.setColumns(10);
         
-        textField_1 = new JTextField();
-        textField_1.addKeyListener(new KeyAdapter() {
+        nameText = new JTextField();
+        nameText.addKeyListener(new KeyAdapter() {
         	@Override
         	public void keyTyped(KeyEvent e) {
         		char name = e.getKeyChar();
@@ -236,17 +239,17 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         	}
         });
         
-        textField_1.setColumns(10);
-        textField_1.setBounds(296, 202, 99, 20);
-        panel.add(textField_1);
+        nameText.setColumns(10);
+        nameText.setBounds(132, 195, 239, 20);
+        formPanel.add(nameText);
         
-        textField_3 = new JTextField();
-        textField_3.setColumns(10);
-        textField_3.setBounds(296, 322, 99, 20);
-        panel.add(textField_3);
+        purposeText = new JTextField();
+        purposeText.setColumns(10);
+        purposeText.setBounds(132, 315, 239, 20);
+        formPanel.add(purposeText);
         
-        textField_6 = new JTextField();
-        textField_6.addKeyListener(new KeyAdapter() {
+        contactNameText = new JTextField();
+        contactNameText.addKeyListener(new KeyAdapter() {
         	@Override
         	public void keyTyped(KeyEvent e) {
         		char name = e.getKeyChar();
@@ -255,17 +258,17 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         		}
         	}
         });
-        textField_6.setColumns(10);
-        textField_6.setBounds(296, 500, 116, 20);
-        panel.add(textField_6);
+        contactNameText.setColumns(10);
+        contactNameText.setBounds(132, 493, 239, 20);
+        formPanel.add(contactNameText);
         
-        textField_7 = new JTextField();
-        textField_7.setColumns(10);
-        textField_7.setBounds(296, 534, 116, 20);
-        panel.add(textField_7);
+        contactAddressText = new JTextField();
+        contactAddressText.setColumns(10);
+        contactAddressText.setBounds(132, 527, 239, 20);
+        formPanel.add(contactAddressText);
         
-        textField_8 = new JTextField();
-        textField_8.addKeyListener(new KeyAdapter() {
+        contactNoText = new JTextField();
+        contactNoText.addKeyListener(new KeyAdapter() {
         	@Override
         	public void keyTyped(KeyEvent e) {
         		char inputNumber = e.getKeyChar();
@@ -275,73 +278,73 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         	}
         });
         
-        textField_8.setColumns(10);
-        textField_8.setBounds(296, 573, 116, 20);
-        panel.add(textField_8);
+        contactNoText.setColumns(10);
+        contactNoText.setBounds(132, 566, 239, 20);
+        formPanel.add(contactNoText);
         
-        JLabel lblNewLabel_4_1 = new JLabel("Leave Type:");
-        lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_4_1.setBounds(10, 117, 121, 25);
-        panel.add(lblNewLabel_4_1);
+        JLabel leaveTypeLabel = new JLabel("Leave Type:");
+        leaveTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        leaveTypeLabel.setBounds(10, 117, 121, 25);
+        formPanel.add(leaveTypeLabel);
         
-        JLabel lblNewLabel_4_1_1 = new JLabel("Employee No.:");
-        lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_4_1_1.setBounds(10, 152, 139, 25);
-        panel.add(lblNewLabel_4_1_1);
+        JLabel employeeNoLabel = new JLabel("Employee No.:");
+        employeeNoLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        employeeNoLabel.setBounds(10, 152, 139, 25);
+        formPanel.add(employeeNoLabel);
         
-        JLabel lblNewLabel_4_1_1_1 = new JLabel("Name:");
-        lblNewLabel_4_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_4_1_1_1.setBounds(10, 191, 86, 25);
-        panel.add(lblNewLabel_4_1_1_1);
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        nameLabel.setBounds(10, 191, 86, 25);
+        formPanel.add(nameLabel);
         
-        JLabel lblNewLabel_4_1_1_2 = new JLabel("Campus:");
-        lblNewLabel_4_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_4_1_1_2.setBounds(10, 227, 99, 25);
-        panel.add(lblNewLabel_4_1_1_2);
+        JLabel campusLabel = new JLabel("Campus:");
+        campusLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        campusLabel.setBounds(10, 227, 99, 25);
+        formPanel.add(campusLabel);
         
-        JLabel lblNewLabel_4_1_1_2_1 = new JLabel("Specific Purpose:");
-        lblNewLabel_4_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_4_1_1_2_1.setBounds(10, 311, 165, 25);
-        panel.add(lblNewLabel_4_1_1_2_1);
+        JLabel purposeLabel = new JLabel("Specific Purpose:");
+        purposeLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        purposeLabel.setBounds(10, 311, 165, 25);
+        formPanel.add(purposeLabel);
         
-        comboBox_1 = new JComboBox();
-        comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Select Campus", "Manila ", "Makati ", "Malalolos"}));
-        comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        comboBox_1.setBackground(Color.WHITE);
-        comboBox_1.setBounds(296, 233, 99, 21);
-        panel.add(comboBox_1);
+        campusSelect = new JComboBox();
+        campusSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Campus", "Manila ", "Makati ", "Malalolos"}));
+        campusSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        campusSelect.setBackground(Color.WHITE);
+        campusSelect.setBounds(132, 226, 239, 21);
+        formPanel.add(campusSelect);
         
-        lblNewLabel_4_1_1_3 = new JLabel("Department:");
-        lblNewLabel_4_1_1_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_4_1_1_3.setBounds(10, 267, 99, 25);
-        panel.add(lblNewLabel_4_1_1_3);
+        deptLabel = new JLabel("Department:");
+        deptLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        deptLabel.setBounds(10, 267, 99, 25);
+        formPanel.add(deptLabel);
         
-        comboBox_2 = new JComboBox();
-        comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "Library", "Canteen", "Accounting & Cash section"}));
-        comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        comboBox_2.setBackground(new Color(255, 255, 255));
-        comboBox_2.setBounds(296, 277, 99, 21);
-        panel.add(comboBox_2);
+        departmentSelect = new JComboBox();
+        departmentSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "Library", "Canteen", "Accounting & Cash Section"}));
+        departmentSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        departmentSelect.setBackground(new Color(255, 255, 255));
+        departmentSelect.setBounds(132, 270, 239, 21);
+        formPanel.add(departmentSelect);
         
-        comboBox_1_1 = new JComboBox();
-        comboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
-        comboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        comboBox_1_1.setBackground(Color.WHITE);
-        comboBox_1_1.setBounds(296, 127, 99, 21);
-        panel.add(comboBox_1_1);
+        leaveTypeSelect = new JComboBox();
+        leaveTypeSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
+        leaveTypeSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        leaveTypeSelect.setBackground(Color.WHITE);
+        leaveTypeSelect.setBounds(132, 120, 239, 21);
+        formPanel.add(leaveTypeSelect);
         
         startDateChooser = new JDateChooser();
-        startDateChooser.setBounds(296, 368, 116, 20);
-        panel.add(startDateChooser);
+        startDateChooser.setBounds(132, 361, 239, 20);
+        formPanel.add(startDateChooser);
         
         endDateChooser = new JDateChooser();
-        endDateChooser.setBounds(296, 418, 116, 20);
-        panel.add(endDateChooser);
+        endDateChooser.setBounds(132, 411, 239, 20);
+        formPanel.add(endDateChooser);
         
-        JLabel lblNewLabel_13_3 = new JLabel("To");
-        lblNewLabel_13_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_13_3.setBounds(331, 397, 27, 14);
-        panel.add(lblNewLabel_13_3);
+        JLabel toLabel = new JLabel("To");
+        toLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        toLabel.setBounds(167, 390, 204, 14);
+        formPanel.add(toLabel);
         
 		JLabel currentDateLabel = new JLabel(getCurrentDate());
 		currentDateLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -351,23 +354,26 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         Date_And_Time dateTime = new Date_And_Time();
 		
         currentDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        currentDateLabel.setBounds(268, 92, 165, 25);
-        panel.add(currentDateLabel);
+        currentDateLabel.setBounds(105, 85, 339, 25);
+        formPanel.add(currentDateLabel);
        
         
-        JButton btnNewButton = new JButton("SUBMIT\r\n");
-        btnNewButton.setBounds(641, 670, 150, 76);
-        contentPane.add(btnNewButton);
+        JButton btnSubmit = new JButton("SUBMIT\r\n");
+        btnSubmit.setBounds(641, 670, 150, 76);
+        contentPane.add(btnSubmit);
         
         JLabel Background = new JLabel("New label");
         Background.setBounds(0, 0, 981, 774);
         Background.setIcon(new ImageIcon(LeaveApplicationFormFrame2.class.getResource("/images/bbg.png")));
         contentPane.add(Background);
-        setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{contentPane, panel_1, textArea, pnlCalendar, lblMonth, lblYear, cmbYear, btnPrev, btnNext, stblCalendar, tblCalendar, panel, lblNewLabel, lblNewLabel_1, lblNewLabel_4, lblNewLabel_8, lblNewLabel_12, lblNewLabel_13, lblNewLabel_13_1, lblNewLabel_13_2, textField, textField_1, textField_3, textField_6, textField_7, textField_8, lblNewLabel_4_1, lblNewLabel_4_1_1, lblNewLabel_4_1_1_1, lblNewLabel_4_1_1_2, lblNewLabel_4_1_1_2_1, comboBox_1, lblNewLabel_4_1_1_3, comboBox_2, comboBox_1_1, startDateChooser, startDateChooser.getCalendarButton(), endDateChooser, endDateChooser.getCalendarButton(), lblNewLabel_13_3, currentDateLabel, btnNewButton, Background}));
-        btnNewButton.addActionListener(new ActionListener() {
+        setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{contentPane, commentPanel, textAreaComments, pnlCalendar, lblMonth, lblYear, cmbYear, btnPrev, btnNext, stblCalendar, tblCalendar, formPanel, lblNewLabel, lblNewLabel_1, dateLabel, periodApplied, contactLabel, contactName, contactAddress, contactNumber, employeeNoText, nameText, purposeText, contactNameText, contactAddressText, contactNoText, leaveTypeLabel, employeeNoLabel, nameLabel, campusLabel, purposeLabel, campusSelect, deptLabel, departmentSelect, leaveTypeSelect, startDateChooser, startDateChooser.getCalendarButton(), endDateChooser, endDateChooser.getCalendarButton(), toLabel, currentDateLabel, btnSubmit, Background}));
+        
+        btnSubmit.addActionListener(new ActionListener() {	
         	public void actionPerformed(ActionEvent e) {
         		if (isAllFieldsFilledUP()) {
         			JOptionPane.showMessageDialog(null, "Successfully Submitted!");
+        			JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(btnSubmit);
+		            currentFrame.dispose();
         		}
         		else {
         			JOptionPane.showMessageDialog(null, "Please fill up the required Informations.");
@@ -435,15 +441,15 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     
  
     private boolean isAllFieldsFilledUP() {
-        return !textField.getText().isEmpty() &&
-                !textField_1.getText().isEmpty() &&
-                !textField_3.getText().isEmpty() &&
-                !textField_6.getText().isEmpty() &&
-                !textField_7.getText().isEmpty() &&
-                !textField_8.getText().isEmpty() &&
-                comboBox_1.getSelectedIndex() != 0 &&
-                comboBox_1_1.getSelectedIndex() != 0 &&
-                comboBox_2.getSelectedIndex() != 0 &&
+        return !employeeNoText.getText().isEmpty() &&
+                !nameText.getText().isEmpty() &&
+                !purposeText.getText().isEmpty() &&
+                !contactNameText.getText().isEmpty() &&
+                !contactAddressText.getText().isEmpty() &&
+                !contactNoText.getText().isEmpty() &&
+                campusSelect.getSelectedIndex() != 0 &&
+                leaveTypeSelect.getSelectedIndex() != 0 &&
+                departmentSelect.getSelectedIndex() != 0 &&
                 startDateChooser.getDate() != null &&
                 endDateChooser.getDate() != null;
     }
