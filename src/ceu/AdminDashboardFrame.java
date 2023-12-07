@@ -82,14 +82,14 @@ public class AdminDashboardFrame extends JFrame {
 		
 		JPanel users = new JPanel();
 		users.setBackground(new Color(255, 255, 255));
-		users.setBounds(21, 69, 675, 272);
+		users.setBounds(21, 69, 675, 224);
 		panel_1.add(users);
 		users.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(0, 0, 675, 272);
+		scrollPane.setBounds(0, 0, 675, 225);
 		users.add(scrollPane);
 
 		table = new JTable();
@@ -99,7 +99,7 @@ public class AdminDashboardFrame extends JFrame {
 			new Object[][] {
 				{"Francisco, Earl Ace", "Library", "Vacation Leave", null },
 				{"Gallano, Matt Joshua", "Canteen", "Vacation Leave", null },
-				{"Arrojo, Jomari", "Security", " Sick Leave", null },
+				{"Arrojo, Jomari", "Security", "Sick Leave", null },
 				{"Padilla, Daniel", "HR", "Paternal Leave", null},
 				{"Brilantes, Andrea", "HR", "Maternal Leave", null},
 				{null, null, null, null},
@@ -156,8 +156,15 @@ public class AdminDashboardFrame extends JFrame {
         });
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setBounds(495, 17, 175, 29);
+		btnNewButton.setBounds(503, 18, 175, 29);
 		panel_1.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("LOG OUT");
+		btnNewButton_1.setForeground(Color.WHITE);
+		btnNewButton_1.setBackground(new Color(255, 108, 108));
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btnNewButton_1.setBounds(299, 311, 126, 29);
+		panel_1.add(btnNewButton_1);
 		
 		int pendingCount= 5;
 		
