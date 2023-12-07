@@ -54,6 +54,28 @@ public class UserDashboardFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JButton LogOutbutton = new JButton("LOGOUT");
+		LogOutbutton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+		        int option = JOptionPane.showConfirmDialog(null, "Are you sure to Logout?", "Confirm to Logout", JOptionPane.YES_NO_OPTION);
+
+		        if (option == JOptionPane.YES_OPTION) {
+		            dispose(); // This will dispose of the UserDashboardFrame
+		            LogInFrame frame = new LogInFrame();
+					frame.setVisible(true);	
+		        }
+		    }
+		});
+		LogOutbutton.setBackground(new Color(255,108,108));
+		LogOutbutton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		LogOutbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		LogOutbutton.setBounds(980, 514, 125, 35);
+		contentPane.add(LogOutbutton);
+		
 		JPanel employeeInfoPanel = new JPanel();
 		employeeInfoPanel.setBackground(new Color(255, 255, 255));
 		employeeInfoPanel.setBounds(22, 25, 359, 160);
@@ -235,17 +257,17 @@ public class UserDashboardFrame extends JFrame {
 		approveTracker_Label.setBounds(22, 212, 395, 37);
 		contentPane.add(approveTracker_Label);
 		approveTracker_Label.setHorizontalAlignment(SwingConstants.LEFT);
-		approveTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 30));
+		approveTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));
 		
 		JPanel approvedTracker_Panel = new JPanel();
 		approvedTracker_Panel.setBackground(new Color(255, 255, 255));
-		approvedTracker_Panel.setBounds(20, 259, 430, 281);
+		approvedTracker_Panel.setBounds(20, 259, 430, 251);
 		approvedTracker_Panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		contentPane.add(approvedTracker_Panel);
 		approvedTracker_Panel.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 0, 429, 281);
+		scrollPane_1.setBounds(0, 0, 429, 250);
 		approvedTracker_Panel.add(scrollPane_1);
 		
 		approveTracker_Table = new JTable();
@@ -310,19 +332,19 @@ public class UserDashboardFrame extends JFrame {
 		approveTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		
 		JLabel pendingTracker_Label = new JLabel("Pending");
-		pendingTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 30));
+		pendingTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));
 		pendingTracker_Label.setBounds(490, 212, 395, 37);
 		contentPane.add(pendingTracker_Label);
 		
 		JPanel pendingTracker_Panel = new JPanel();
 		pendingTracker_Panel.setBackground(new Color(255, 255, 255));
 		pendingTracker_Panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		pendingTracker_Panel.setBounds(490, 259, 284, 281);
+		pendingTracker_Panel.setBounds(490, 259, 284, 245);
 		contentPane.add(pendingTracker_Panel);
 		pendingTracker_Panel.setLayout(null);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 0, 284, 281);
+		scrollPane_2.setBounds(0, 0, 284, 250);
 		pendingTracker_Panel.add(scrollPane_2);
 		
 		pendingTracker_Table = new JTable();
@@ -376,18 +398,18 @@ public class UserDashboardFrame extends JFrame {
 		scrollPane_2.setViewportView(pendingTracker_Table);
 		
 		JLabel declinedTracker_Label = new JLabel("Declined");
-		declinedTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 30));
+		declinedTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));
 		declinedTracker_Label.setBounds(820, 212, 395, 37);
 		contentPane.add(declinedTracker_Label);
 		
 		JPanel declinedTracker_Panel = 	new JPanel();
 		declinedTracker_Panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		declinedTracker_Panel.setLayout(null);
-		declinedTracker_Panel.setBounds(820, 259, 284, 281);
+		declinedTracker_Panel.setBounds(820, 259, 284, 245);
 		contentPane.add(declinedTracker_Panel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 284, 281);
+		scrollPane.setBounds(0, 0, 284, 250);
 		declinedTracker_Panel.add(scrollPane);
 		
 		declinedTracker_Table = new JTable();
@@ -450,5 +472,4 @@ public class UserDashboardFrame extends JFrame {
 	        String formattedTime = dateTime.getFormattedTime();
 	        Time.setText(formattedTime);
 	    }
-
 }
