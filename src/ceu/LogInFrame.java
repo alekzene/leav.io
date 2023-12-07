@@ -70,7 +70,7 @@ public class LogInFrame extends JFrame {
 		JLabel usernameLabel = new JLabel("Username:");
 		usernameLabel.setIcon(new ImageIcon("src\\images\\icons8-username-24.png"));
 		usernameLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		usernameLabel.setBounds(73, 112, 113, 25);
+		usernameLabel.setBounds(45, 112, 150, 25);
 		logInPanel.add(usernameLabel);
 		
 		// USERNAME TEXT FIELD
@@ -84,7 +84,7 @@ public class LogInFrame extends JFrame {
 		JLabel passwordLabel = new JLabel("Password:");
 		passwordLabel.setIcon(new ImageIcon("src\\images\\icons8-lock-24.png"));
 		passwordLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		passwordLabel.setBounds(73, 159, 113, 25);
+		passwordLabel.setBounds(45, 159, 113, 25);
 		logInPanel.add(passwordLabel);
 
 		// PASSWORD FIELD
