@@ -110,6 +110,8 @@ public class LogInFrame extends JFrame {
 		  
 		// REMEMBER ME RADIO BUTTON
         JRadioButton rememberMeRadioButton = new JRadioButton("Remember Me");
+        rememberMeRadioButton.setBackground(new Color(239, 186, 235));
+        rememberMeRadioButton.setForeground(Color.BLACK);
         rememberMeRadioButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		// FIXME: ADD CODE HERE. MUST REMEMBER USER WHEN CLICKED.
@@ -117,7 +119,7 @@ public class LogInFrame extends JFrame {
         });
 		rememberMeRadioButton.setOpaque(false); 
 		rememberMeRadioButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		rememberMeRadioButton.setBounds(67, 192, 131, 21);
+		rememberMeRadioButton.setBounds(48, 192, 131, 21);
 		logInPanel.add(rememberMeRadioButton);
 		
 		// RESET PASSWORD BUTTON
@@ -136,7 +138,7 @@ public class LogInFrame extends JFrame {
 		resetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		resetPasswordButton.setForeground(new Color(64, 64, 64));
 		resetPasswordButton.setBackground(new Color(240, 240, 240));
-		resetPasswordButton.setBounds(203, 195, 175, 18);
+		resetPasswordButton.setBounds(185, 195, 175, 18);
 		logInPanel.add(resetPasswordButton);
 		
 		// LOGIN BUTTON
