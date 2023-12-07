@@ -320,7 +320,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         formPanel.add(deptLabel);
         
         departmentSelect = new JComboBox();
-        departmentSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "Library", "Canteen", "Accounting & Cash Section"}));
+        departmentSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "Canteen", "Library", "Faculty", "Security", "Accounting Office"}));
         departmentSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
         departmentSelect.setBackground(new Color(255, 255, 255));
         departmentSelect.setBounds(132, 270, 239, 21);
@@ -334,16 +334,16 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         formPanel.add(leaveTypeSelect);
         
         startDateChooser = new JDateChooser();
-        startDateChooser.setBounds(132, 361, 239, 20);
+        startDateChooser.setBounds(132, 388, 239, 20);
         formPanel.add(startDateChooser);
         
         endDateChooser = new JDateChooser();
-        endDateChooser.setBounds(132, 411, 239, 20);
+        endDateChooser.setBounds(132, 431, 239, 20);
         formPanel.add(endDateChooser);
         
         JLabel toLabel = new JLabel("To");
         toLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        toLabel.setBounds(167, 390, 204, 14);
+        toLabel.setBounds(76, 437, 33, 14);
         formPanel.add(toLabel);
         
 		JLabel currentDateLabel = new JLabel(getCurrentDate());
@@ -356,6 +356,11 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         currentDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         currentDateLabel.setBounds(105, 85, 339, 25);
         formPanel.add(currentDateLabel);
+        
+        JLabel lblFrom = new JLabel("From");
+        lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblFrom.setBounds(74, 392, 50, 14);
+        formPanel.add(lblFrom);
        
         
         JButton btnSubmit = new JButton("SUBMIT\r\n");
