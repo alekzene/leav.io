@@ -1,21 +1,31 @@
 package ceu;
 
-import java.awt.EventQueue;
-
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ResetPasswordFrame extends JFrame {
     private static final long serialVersionUID = 1L;
+    
+    // JAVA SWING
     private JPanel contentPane;
     private JPasswordField newPasswordField;
     private JPasswordField confirmNewPasswordField;
     private ArrayList<String> passwords = new ArrayList<>();
-    private JTextField EmployeeIdTextField;
+    private JTextField employeeIDTextField;
+    
+    // DATABASE
+    private Connection connection;
+    private QueryCommand qc;
+    private String employeeIDDB;
+    private String passwordDB;
 
+    // MAIN
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -29,11 +39,14 @@ public class ResetPasswordFrame extends JFrame {
         });
     }
 
-    public ResetPasswordFrame() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 259);
+    public ResetPasswordFrame() {        
+        // DATABASE
+    	connection = DatabaseConnection.getConnection();
+    	qc = new QueryCommand();
         
         // CONTENT PANE
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 450, 259);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -45,48 +58,48 @@ public class ResetPasswordFrame extends JFrame {
         contentPane.add(backgroundPanel);
         backgroundPanel.setLayout(null);
         
-        //Icon
-        JLabel ConfirmPassViewIcon = new JLabel("New label");
-        ConfirmPassViewIcon.addMouseListener(new MouseAdapter() {
+        // NEW PASSWORD VIEW ICON
+        JLabel newPasswordViewIcon = new JLabel("New label");
+        newPasswordViewIcon.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		  // Toggle password visibility
-        		confirmNewPasswordField.setEchoChar((confirmNewPasswordField.getEchoChar() == 0) ? '\u2022' : (char) 0);
-        		ConfirmPassViewIcon.setVisible(true);
-		          
-        	}
-        });
-        ConfirmPassViewIcon.setIcon(new ImageIcon(ResetPasswordFrame.class.getResource("/images/icons8-eye-24.png")));
-        ConfirmPassViewIcon.setBounds(397, 129, 24, 22);
-        backgroundPanel.add(ConfirmPassViewIcon);
-        
-        //Icon
-        JLabel NewPassViewIcon = new JLabel("New label");
-        NewPassViewIcon.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		  // Toggle password visibility
+        		// TOGGLE NEW PASSWORD VISIBILITY
         		newPasswordField.setEchoChar((newPasswordField.getEchoChar() == 0) ? '\u2022' : (char) 0);
-		          NewPassViewIcon.setVisible(true);
+		          newPasswordViewIcon.setVisible(true);
 		          
         	}
         });
-        NewPassViewIcon.setIcon(new ImageIcon(ResetPasswordFrame.class.getResource("/images/icons8-eye-24.png")));
-        NewPassViewIcon.setBounds(397, 97, 24, 22);
-        backgroundPanel.add(NewPassViewIcon);
+        newPasswordViewIcon.setIcon(new ImageIcon(ResetPasswordFrame.class.getResource("/images/icons8-eye-24.png")));
+        newPasswordViewIcon.setBounds(397, 97, 24, 22);
+        backgroundPanel.add(newPasswordViewIcon);
         
-        EmployeeIdTextField = new JTextField();
-        EmployeeIdTextField.addKeyListener(new KeyAdapter() {
+        // CONFIRM PASSWORD VIEW ICON
+        JLabel confirmPasswordViewIcon = new JLabel("New label");
+        confirmPasswordViewIcon.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		// TOGGLE CONFIRMED NEW PASSWORD VISIBILITY
+        		confirmNewPasswordField.setEchoChar((confirmNewPasswordField.getEchoChar() == 0) ? '\u2022' : (char) 0);
+        		confirmPasswordViewIcon.setVisible(true);
+        	}
+        });
+        confirmPasswordViewIcon.setIcon(new ImageIcon(ResetPasswordFrame.class.getResource("/images/icons8-eye-24.png")));
+        confirmPasswordViewIcon.setBounds(397, 129, 24, 22);
+        backgroundPanel.add(confirmPasswordViewIcon);
+        
+        // EMPLOYEE ID TEXT FIELD
+        employeeIDTextField = new JTextField();
+        employeeIDTextField.addKeyListener(new KeyAdapter() {
       	  public void keyTyped(KeyEvent e) {
                 char inputChar = e.getKeyChar();
                 if (!Character.isDigit(inputChar) && inputChar != KeyEvent.VK_BACK_SPACE) {
-                    e.consume(); // Ignore non-numeric input
+                    e.consume(); // IGNORE NON-NUMERIC INPUT
                 }
             }
         });
-        EmployeeIdTextField.setBounds(185, 65, 202, 19);
-        backgroundPanel.add(EmployeeIdTextField);
-        EmployeeIdTextField.setColumns(10);
+        employeeIDTextField.setBounds(185, 65, 202, 19);
+        backgroundPanel.add(employeeIDTextField);
+        employeeIDTextField.setColumns(10);
 
         // RESET PASSWORD LABEL
         JLabel resetPasswordLabel = new JLabel("Reset Password");
@@ -94,22 +107,22 @@ public class ResetPasswordFrame extends JFrame {
         resetPasswordLabel.setBounds(20, 10, 145, 14);
         backgroundPanel.add(resetPasswordLabel);
 
-        // Employee ID
-        JLabel employee_Id = new JLabel("Employee ID:");
-        employee_Id.setHorizontalAlignment(SwingConstants.CENTER);
-        employee_Id.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        employee_Id.setBounds(20, 65, 155, 14);
-        backgroundPanel.add(employee_Id);
+        // EMPLOYEE ID LABEL
+        JLabel employeeIDLabel = new JLabel("Employee ID");
+        employeeIDLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        employeeIDLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        employeeIDLabel.setBounds(20, 65, 155, 14);
+        backgroundPanel.add(employeeIDLabel);
 
         // NEW PASSWORD LABEL
-        JLabel newPasswordLabel = new JLabel("New Password:");
+        JLabel newPasswordLabel = new JLabel("New Password");
         newPasswordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         newPasswordLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         newPasswordLabel.setBounds(10, 97, 165, 14);
         backgroundPanel.add(newPasswordLabel);
 
         // CONFIRM NEW PASSWORD LABEL
-        JLabel confirmNewPasswordLabel = new JLabel("Confirm New Password:");
+        JLabel confirmNewPasswordLabel = new JLabel("Confirm New Password");
         confirmNewPasswordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         confirmNewPasswordLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         confirmNewPasswordLabel.setBounds(10, 130, 165, 14);
@@ -145,56 +158,68 @@ public class ResetPasswordFrame extends JFrame {
         confirmNewPasswordField.setBounds(185, 129, 202, 20);
         backgroundPanel.add(confirmNewPasswordField);
         
-        JLabel lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon(ResetPasswordFrame.class.getResource("/images/bbg.png")));
-        lblNewLabel.setBounds(-10, 0, 493, 277);
-        backgroundPanel.add(lblNewLabel);
+        // BACKGROUND (AS A LABEL)s
+        JLabel backgroundLabel = new JLabel("");
+        backgroundLabel.setIcon(new ImageIcon(ResetPasswordFrame.class.getResource("/images/bbg.png")));
+        backgroundLabel.setBounds(-10, 0, 493, 277);
+        backgroundPanel.add(backgroundLabel);
 
-        // FIXME: LOGIC
-        passwords.add("password");
-
+        // LOGIC FOR OK BUTTON
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	String EmployeeID = new String(EmployeeIdTextField.getText());
-                String newPassword = new String(newPasswordField.getPassword());
-                String confirmNewPassword = new String(confirmNewPasswordField.getPassword());
+            	String enteredEmployeeID = new String(employeeIDTextField.getText());
+                String enteredNewPassword = new String(newPasswordField.getPassword());
+                String enteredConfirmNewPassword = new String(confirmNewPasswordField.getPassword());
+     
 
-      
-//                if (oldPassword.equals(newPassword)) {
-//                    JOptionPane.showMessageDialog(null, "New password should be different from the old password.");
-//                    return;
-//                }
-
-                
-                // Check if newPassword is null or empty
-                if (newPassword == null || newPassword.trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Password cannot be empty.");
+                // CHECK IF FIELDS ARE EMPTY
+                if (enteredEmployeeID.isEmpty() || enteredNewPassword.isEmpty() || enteredConfirmNewPassword.isEmpty() )
+                {
+                    JOptionPane.showMessageDialog(null, "Fill all required fields.");
                     return;
                 }
-                
-                if (!newPassword.equals(confirmNewPassword)) {
-                    JOptionPane.showMessageDialog(null, "New password and confirm password do not match.");
-                    return;
+                else
+                {
+                	// CHECK IF ENTERED EMPLOYEE ID IS IN DATABASE
+    	            try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, enteredEmployeeID).executeQuery()) {
+    	                if (resultSet.next()) {
+    	                    employeeIDDB = resultSet.getString("employee_id");
+    	                }
+    	            } catch (SQLException ex) {
+    	                ex.printStackTrace();
+    	            }
+    	            
+    	            if (!enteredEmployeeID.equals(employeeIDDB))
+    	            {
+        	            JOptionPane.showMessageDialog(null, "Account not found.");
+    	            }
+    	            else
+    	            {
+    	            	// CHECK IF NEW PASSWORD AND CONFIRMED NEW PASSWORD ARE THE SAME
+    	            	if (enteredNewPassword.equals(enteredConfirmNewPassword)) {
+	                        	// UPDATE PASSWORD IN DATABASE
+	    	            		try {
+	    	            		    int rowsAffected = qc.prepareUpdatePasswordStatement(connection, enteredConfirmNewPassword, enteredEmployeeID).executeUpdate();
+	    	            		    if (rowsAffected > 0) {
+	    	            		        JOptionPane.showMessageDialog(null, "Password updated successfully!");
+	    	                    		JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(okButton);
+	    	                            currentFrame.dispose();
+	    	            		    } else {
+	    	            		        JOptionPane.showMessageDialog(null, "Password update failed!");
+	    	            		    }
+	    	            		} catch (SQLException ex) {
+	    	            		    ex.printStackTrace();
+	    	            		}
+    	            		}
+    	            	else
+    	            	{
+            	            JOptionPane.showMessageDialog(null, "New password and confirm password do not match.");
+    	            	}
+    	            }
+    	            
                 }
-                updatePassword(newPassword);
-                JOptionPane.showMessageDialog(null, "Password updated successfully.");
-                
-                Window window = SwingUtilities.getWindowAncestor((Component) e.getSource());
-                if (window instanceof JDialog) {
-                    JDialog dialog = (JDialog) window;
-                    dialog.dispose();
-                }
-                
-                dispose();
             }
         });
-    }
-
-    private void updatePassword(String newPassword) {
-       
-        // For example, you might want to update the password in a database
-        // or store it in a data structure
-        passwords.add(newPassword);
     }
 }

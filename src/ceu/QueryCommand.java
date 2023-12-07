@@ -6,29 +6,41 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class QueryCommand {
-    String name;
+	int id;
+    String category;
     String username;
-    String password;
+    String pass;
+    String name;
     String address;
-    String role = "customer";
-    int id;
-
+    String contact_number;
+    enum campus { Makati, Manila, Malolos };
+    enum department { Canteen, Library, Faculty, Security, Accounting, HR };
+    int total_leaves;
+    int leaves_remaining;
+    int leaves_used;
+   
     public String insert(String name, String username, String password, String address) {
         this.name = name;
         this.username = username;
-        this.password = password;
+        this.pass = password;
         this.address = address;
 
-        return "INSERT INTO account (name, username, passwords, address, role) VALUES (?, ?, ?, ?, ?)";
+        return "INSERT INTO employees (category, username, pass, name, address, contact_number, campus, department, total_leaves, leaves_remaining, leaves_used) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
-    public String delete(int id) {
+    public String deleteUser(int id) {
         this.id = id;
 
-        return "DELETE FROM account WHERE id = ?";
+        return "DELETE FROM employees WHERE id = ?";
+    }
+    
+    public String deleteRequest(int id) 
+    {
+        this.id = id;
+        return "DELETE FROM leave_requests WHERE id = ?";
     }
 
-    public String view() {
+    public String select() {
         return "SELECT * FROM account";
     }
 
@@ -51,7 +63,7 @@ public class QueryCommand {
 
     public PreparedStatement prepareDeleteStatement(Connection connection, int id) {
         try {
-            String query = delete(id);
+            String query = deleteUser(id);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             return preparedStatement;
@@ -62,12 +74,11 @@ public class QueryCommand {
         }
     }
 
-    public PreparedStatement prepareSelectStatement(Connection connection, String username, String password) {
+    public PreparedStatement prepareSelectUsernameStatement(Connection connection, String enteredUsername) {
         try {
-            String query = select(username, password);
+            String query = selectUsername(enteredUsername);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(1, enteredUsername);
             return preparedStatement;
         } catch (Exception e) {
             // Handle the exception appropriately
@@ -76,15 +87,77 @@ public class QueryCommand {
         }
     }
 
-    public String select(String username, String password) {
-        return "SELECT * FROM account WHERE username = ? AND passwords = ?";
+    public String selectUsername(String username) {
+        return "SELECT * FROM employees WHERE username = ?";
+    }
+    
+
+    public PreparedStatement prepareSelectPasswordStatement(Connection connection, String enteredPass) {
+        try {
+            String query = selectPassword(enteredPass);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredPass);
+            return preparedStatement;
+        } catch (Exception e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public PreparedStatement prepareSelectRoleStatement(Connection connection, String username) throws SQLException, SQLException {
-        // Assuming 'role' is the column name for the role in your 'role' table
-        String query = "SELECT role FROM account WHERE username = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, username);
-        return preparedStatement;
+    public String selectPassword(String enteredPass) {
+        return "SELECT * FROM employees WHERE pass = ?";
+    }
+    
+    public PreparedStatement prepareSelectUserCategoryStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectUsername(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String selectUserCategory(String enteredUsername) {
+        return "SELECT category FROM employees WHERE username = ?";
+    }
+    
+    public PreparedStatement prepareSelectEmployeeIDStatement(Connection connection, String enteredEmployeeID) {
+        try {
+            String query = selectEmployeeID(enteredEmployeeID);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredEmployeeID);
+            return preparedStatement;
+        } catch (Exception e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String selectEmployeeID(String enteredEmployeeID) {
+        return "SELECT employee_id FROM employees WHERE employee_id = ?";
+    }
+    
+    public PreparedStatement prepareUpdatePasswordStatement(Connection connection, String enteredConfirmPassword, String enteredEmployeeID ) {
+        try {
+            String query = updatePassword(enteredConfirmPassword, enteredEmployeeID);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredConfirmPassword);
+            preparedStatement.setString(2, enteredEmployeeID);
+            return preparedStatement;
+        } catch (Exception e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String updatePassword(String enteredConfirmPassword, String enteredEmployeeID) {
+        return "UPDATE employees SET pass = ? WHERE employee_id = ?";
     }
 }

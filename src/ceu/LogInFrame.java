@@ -9,14 +9,26 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LogInFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
+	// JAVA SWING
 	private JPanel contentPane;
 	private JTextField usernameTextField;
 	private JPasswordField passwordField;
 	private javax.swing.JLabel viewPassword;
 	
+	// DATABASE
+    private Connection connection; 
+    private QueryCommand qc;
+	private String usernameDB = "";
+	private String passwordDB = "";
+    private String userCategoryDB;
 	
 	/**
 	 * Launch the application.
@@ -25,8 +37,9 @@ public class LogInFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+
 					LogInFrame frame = new LogInFrame();
-					frame.setVisible(true);
+					frame.setVisible(true);					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,6 +51,11 @@ public class LogInFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public LogInFrame() {
+
+		connection = DatabaseConnection.getConnection();
+		qc = new QueryCommand();
+		
+		// CONTENT PANE
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 593, 468);
 		contentPane = new JPanel();
@@ -60,7 +78,7 @@ public class LogInFrame extends JFrame {
 		logInPanel.setLayout(null);
 		
 		// WELCOME LABEL
-		JLabel welcomeLabel = new JLabel("WELCOME");
+		JLabel welcomeLabel = new JLabel("LEAV.IO");
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		welcomeLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
 		welcomeLabel.setBounds(0, 10, 495, 41);
@@ -149,29 +167,50 @@ public class LogInFrame extends JFrame {
 		        String enteredUsername = usernameTextField.getText();
 		        String enteredPassword = String.valueOf(passwordField.getPassword());
 
-		        // FIXME: DATABASE DEPENDENCY. STILL HARD-CODED. ADJUST ACCORDINGLY.
-		        boolean usernameFound = true; // Assume username is found for now
-		        boolean passwordCorrect = true; // Assume password is correct for now
+		        // SEARCH FOR COMPATIBLE USERNAME ENTRY IN DATABASE
+	            try (ResultSet resultSet = qc.prepareSelectUsernameStatement(connection, enteredUsername).executeQuery()) {
+	                if (resultSet.next()) {
+	                    usernameDB = resultSet.getString("username");
+	                }
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	            
+		        // SEARCH FOR COMPATIBLE PASSWORD ENTRY IN DATABASE
+	            try (ResultSet resultSet = qc.prepareSelectPasswordStatement(connection, enteredPassword).executeQuery()) {
+	                if (resultSet.next()) {
+	                    passwordDB = resultSet.getString("pass");
+	                }
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
 
 		        // VALIDATE ENTERED CREDENTIALS
 		        if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {
-		            JOptionPane.showMessageDialog(null, "Credential fields cannot be empty.");
-		        } else if (!usernameFound) {
+		            JOptionPane.showMessageDialog(null, "Fill all required fields.");
+		        } else if (!usernameDB.equals(enteredUsername)) {
 		            JOptionPane.showMessageDialog(null, "Account does not exist.");
-		        } else if (!passwordCorrect) {
+		        } else if (!passwordDB.equals(enteredPassword)) {
 		            JOptionPane.showMessageDialog(null, "Incorrect Password");
 		        } else {
+		        	
 		            // CLOSE LOG IN FRAME
 		            LogInFrame.this.dispose();
+		            
+			        // SEARCH FOR USER'S CATEGORY IN DATABASE
+		            try (ResultSet resultSet = qc.prepareSelectUserCategoryStatement(connection, enteredUsername).executeQuery()) {
+		                if (resultSet.next()) {
+		                    userCategoryDB = resultSet.getString("category");
+		                }
+		            } catch (SQLException ex) {
+		                ex.printStackTrace();
+		            }
 
-		            // GET USER TYPE
-		            String userType = "EMPLOYEE"; // FIXME: Modify. Must get user type from database.
-
-		            if (userType.equals("EMPLOYEE")) {
+		            if (userCategoryDB.equals("Client")) {
 		                // OPEN USER DASHBOARD
 		                UserDashboardFrame userDashboardFrame = new UserDashboardFrame();
 		                userDashboardFrame.setVisible(true);
-		            } else if (userType.equals("ADMIN")) {
+		            } else if (userCategoryDB.equals("Admin")) {
 		                // OPEN ADMIN DASHBOARD
 		                AdminDashboardFrame adminDashboardFrame = new AdminDashboardFrame();
 		                adminDashboardFrame.setVisible(true);
