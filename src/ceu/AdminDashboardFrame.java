@@ -24,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.DefaultTableModel;
@@ -160,6 +161,19 @@ public class AdminDashboardFrame extends JFrame {
 		panel_1.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("LOG OUT");
+		btnNewButton_1.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirm Log Out", JOptionPane.YES_NO_OPTION);
+
+		        if (confirmation == JOptionPane.YES_OPTION) {
+		            AdminDashboardFrame.this.dispose();
+		        } else {
+		            // Do nothing or handle cancellation
+		        }
+		    }
+		});
+	
 		btnNewButton_1.setForeground(Color.WHITE);
 		btnNewButton_1.setBackground(new Color(255, 108, 108));
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
