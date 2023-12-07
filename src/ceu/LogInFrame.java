@@ -25,7 +25,7 @@ public class LogInFrame extends JFrame {
 	
 	// DATABASE
     private Connection connection; 
-    private QueryCommand qc;
+    private QueryCommands qc;
 	private String usernameDB = "";
 	private String passwordDB = "";
     private String userCategoryDB;
@@ -53,7 +53,7 @@ public class LogInFrame extends JFrame {
 	public LogInFrame() {
 
 		connection = DatabaseConnection.getConnection();
-		qc = new QueryCommand();
+		qc = new QueryCommands();
 		
 		// CONTENT PANE
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

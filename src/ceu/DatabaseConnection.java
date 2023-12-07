@@ -25,7 +25,7 @@ class DatabaseConnection {
     
     void Connection(String query) {
         try {
-            Class.forName("com.mysql.jdbc.Driver"); // FIXME Change driver path
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/leave-management", "root", "");
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {

@@ -5,35 +5,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class QueryCommand {
+public class QueryCommands {
 	int id;
     String category;
+    String employeeID;
     String username;
     String pass;
     String name;
     String address;
-    String contact_number;
-    enum campus { Makati, Manila, Malolos };
-    enum department { Canteen, Library, Faculty, Security, Accounting, HR };
-    int total_leaves;
-    int leaves_remaining;
-    int leaves_used;
+    String contactNumber;
+    String campus;
+    String department;
+    int totalLeaves;
+    int leavesRemaining;
+    int leavesUsed;
    
-    public String insert(String name, String username, String password, String address) {
-        this.name = name;
-        this.username = username;
-        this.pass = password;
-        this.address = address;
-
-        return "INSERT INTO employees (category, username, pass, name, address, contact_number, campus, department, total_leaves, leaves_remaining, leaves_used) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    }
-
-    public String deleteUser(int id) {
-        this.id = id;
-
-        return "DELETE FROM employees WHERE id = ?";
-    }
-    
     public String deleteRequest(int id) 
     {
         this.id = id;
@@ -44,23 +30,43 @@ public class QueryCommand {
         return "SELECT * FROM account";
     }
 
-    public PreparedStatement prepareInsertStatement(Connection connection, String name, String username, String password, String address, String role) {
+    // INSERT NEW ENTRY STATEMENT
+    public PreparedStatement prepareInsertStatement(Connection connection, String employeeID, String category, String username, String pass, String name, String address, String contactNumber, String campus, String department, int totalLeaves, int leavesRemaining, int leavesUsed) {
         try {
-            String query = insert(name, username, password, address);
+            String query = insert(employeeID, category, username, pass, name, address, contactNumber, campus, department, totalLeaves, leavesRemaining, leavesUsed);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, name);
+            preparedStatement.setString(1, category);
             preparedStatement.setString(2, username);
-            preparedStatement.setString(3, password);
+            preparedStatement.setString(3, pass);
             preparedStatement.setString(4, address);
-            preparedStatement.setString(5, role);
+            preparedStatement.setString(5, name);
+            preparedStatement.setString(6, name);
             return preparedStatement;
         } catch (Exception e) {
-            // Handle the exception appropriately
             e.printStackTrace();
             return null;
         }
     }
+    
+    // INSERT NEW ENTRY QUERY
+    public String insert(String category, String employee_id, String username, String pass, String name, String address, String contact_number, String campus, String department, int total_leaves, int leaves_remaining, int leaves_used) {
+        this.category = category;
+        this.employeeID = employee_id;
+        this.username = username;
+        this.pass = pass;
+    	this.name = name;
+        this.address = address;
+        this.contactNumber = contactNumber;
+        this.campus = campus;
+        this.department = department;
+        this.totalLeaves = total_leaves;
+        this.leavesRemaining = leaves_remaining;
+        this.leavesUsed = leaves_used;
 
+        return "INSERT INTO employees (category, employee_id, username, pass, name, address, contact_number, campus, department, total_leaves, leaves_remaining, leaves_used) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }
+
+    // DELETE EMPLOYEE ENTRY STATEMENT
     public PreparedStatement prepareDeleteStatement(Connection connection, int id) {
         try {
             String query = deleteUser(id);
@@ -68,12 +74,19 @@ public class QueryCommand {
             preparedStatement.setInt(1, id);
             return preparedStatement;
         } catch (Exception e) {
-            // Handle the exception appropriately
             e.printStackTrace();
             return null;
         }
     }
+    
+    // DELET EMPLOYEE ENTRY QUERY
+    public String deleteUser(int id) {
+        this.id = id;
 
+        return "DELETE FROM employees WHERE id = ?";
+    }
+
+    // SELECT USERNAME STATEMENT
     public PreparedStatement prepareSelectUsernameStatement(Connection connection, String enteredUsername) {
         try {
             String query = selectUsername(enteredUsername);
@@ -87,11 +100,12 @@ public class QueryCommand {
         }
     }
 
+    // SELECT USERNAME QUERY
     public String selectUsername(String username) {
         return "SELECT * FROM employees WHERE username = ?";
     }
     
-
+    // SELECT PASSWORD STATEMENT
     public PreparedStatement prepareSelectPasswordStatement(Connection connection, String enteredPass) {
         try {
             String query = selectPassword(enteredPass);
@@ -105,10 +119,12 @@ public class QueryCommand {
         }
     }
 
+    // SELECT PASSWORD QUERY
     public String selectPassword(String enteredPass) {
         return "SELECT * FROM employees WHERE pass = ?";
     }
     
+    // SELECT USER CATEGORY STATEMENT
     public PreparedStatement prepareSelectUserCategoryStatement(Connection connection, String enteredUsername) {
         try {
             String query = selectUsername(enteredUsername);
@@ -122,10 +138,12 @@ public class QueryCommand {
         }
     }
 
+    // SELECT USER CATEGORY QUERY
     public String selectUserCategory(String enteredUsername) {
         return "SELECT category FROM employees WHERE username = ?";
     }
     
+    // SELECT EMPLOYEE ID STATEMENT
     public PreparedStatement prepareSelectEmployeeIDStatement(Connection connection, String enteredEmployeeID) {
         try {
             String query = selectEmployeeID(enteredEmployeeID);
@@ -139,10 +157,12 @@ public class QueryCommand {
         }
     }
 
+    // SELECT EMPLOYEE ID QUERY
     public String selectEmployeeID(String enteredEmployeeID) {
         return "SELECT employee_id FROM employees WHERE employee_id = ?";
     }
     
+    // UPDATE PASSWORD STATEMENT
     public PreparedStatement prepareUpdatePasswordStatement(Connection connection, String enteredConfirmPassword, String enteredEmployeeID ) {
         try {
             String query = updatePassword(enteredConfirmPassword, enteredEmployeeID);
@@ -157,6 +177,7 @@ public class QueryCommand {
         }
     }
 
+    // UPDATE PASSWORD QUERY
     public String updatePassword(String enteredConfirmPassword, String enteredEmployeeID) {
         return "UPDATE employees SET pass = ? WHERE employee_id = ?";
     }
