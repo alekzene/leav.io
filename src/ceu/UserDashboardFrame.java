@@ -328,7 +328,7 @@ public class UserDashboardFrame extends JFrame {
 		pendingTracker_Table = new JTable();
 		pendingTracker_Table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"00006", "Vacation Leave", "12-30-23"},
+				{"00005", "Vacation Leave", "12-30-23"},
 				{null, null, null},
 				{null, null, null},
 				{null, null, null},
@@ -394,7 +394,7 @@ public class UserDashboardFrame extends JFrame {
 		declinedTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
 		declinedTracker_Table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"0006", "Vacation Leave", "12-15-23"},
+				{"00004", "Vacation Leave", "12-15-23"},
 				{null, null, null},
 				{null, null, null},
 				{null, null, null},

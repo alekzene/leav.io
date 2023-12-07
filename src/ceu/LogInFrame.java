@@ -84,13 +84,13 @@ public class LogInFrame extends JFrame {
 		JLabel passwordLabel = new JLabel("Password:");
 		passwordLabel.setIcon(new ImageIcon("src\\images\\icons8-lock-24.png"));
 		passwordLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		passwordLabel.setBounds(73, 159, 113, 25);
+		usernameLabel.setBounds(50, 112, 115, 25);
 		logInPanel.add(passwordLabel);
 
 		// PASSWORD FIELD
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		passwordField.setBounds(170, 161, 208, 23);
+		passwordLabel.setBounds(50, 159, 115, 25);
 		logInPanel.add(passwordField);
 		
 		// VIEW PASSWORD ICON
@@ -115,7 +115,7 @@ public class LogInFrame extends JFrame {
         		// FIXME: ADD CODE HERE. MUST REMEMBER USER WHEN CLICKED.
         	}
         });
-		rememberMeRadioButton.setOpaque(false); 
+        rememberMeRadioButton.setOpaque(true); 
 		rememberMeRadioButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		rememberMeRadioButton.setBounds(67, 192, 131, 21);
 		logInPanel.add(rememberMeRadioButton);
