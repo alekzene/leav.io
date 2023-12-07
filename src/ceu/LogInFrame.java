@@ -17,6 +17,7 @@ public class LogInFrame extends JFrame {
 	private JPasswordField passwordField;
 	private javax.swing.JLabel viewPassword;
 	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -141,48 +142,42 @@ public class LogInFrame extends JFrame {
 		// LOGIN BUTTON
 		JButton logInButton = new JButton("LOGIN");
 		logInButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				// GET ENTERED CREDENTIALS
-				String enteredUsername = usernameTextField.getText();
-				String enteredPassword = String.valueOf(passwordField.getPassword());
-				
-				// FIXME: DATABASE DEPENDENCY. STILL HARD-CODED. ADJUST ACCORDINGLY.
-				boolean usernameFound = true;
-				boolean passwordCorrect = true;
-				
-				// VALIDATE ENTERED CREDENTIALS
-				if ( enteredUsername == "" || enteredPassword == "" ) {
-					JOptionPane.showMessageDialog(null, "Credential fields cannot be empty.");
-				}
-				else if ( usernameFound == false ) {
-					JOptionPane.showMessageDialog(null, "Account does not exist.");
-				}
-				else if ( passwordCorrect == false ) {
-					JOptionPane.showMessageDialog(null, "Incorrect Password");
-				}
-				else {
-					// CLOSE LOG IN FRAME
-					LogInFrame.this.dispose();
-					
-					// GET USER TYPE
-					String userType = "EMPLOYEE"; // FIXME: Modify. Must get user type from database.
-					
-					if (userType == "EMPLOYEE") {
-						// OPEN USER DASHBOARD
-						UserDashboardFrame userDashboardFrame = new UserDashboardFrame();
-						userDashboardFrame.setVisible(true);
-					}
-					else if (userType == "ADMIN")
-					{
-						// OPEN ADMIN DASHBOARD
-						AdminDashboardFrame adminDashboardFrame = new AdminDashboardFrame();
-						adminDashboardFrame.setVisible(true);
-					}
-				}
-					
-			}
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+
+		        // GET ENTERED CREDENTIALS
+		        String enteredUsername = usernameTextField.getText();
+		        String enteredPassword = String.valueOf(passwordField.getPassword());
+
+		        // FIXME: DATABASE DEPENDENCY. STILL HARD-CODED. ADJUST ACCORDINGLY.
+		        boolean usernameFound = true; // Assume username is found for now
+		        boolean passwordCorrect = true; // Assume password is correct for now
+
+		        // VALIDATE ENTERED CREDENTIALS
+		        if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {
+		            JOptionPane.showMessageDialog(null, "Credential fields cannot be empty.");
+		        } else if (!usernameFound) {
+		            JOptionPane.showMessageDialog(null, "Account does not exist.");
+		        } else if (!passwordCorrect) {
+		            JOptionPane.showMessageDialog(null, "Incorrect Password");
+		        } else {
+		            // CLOSE LOG IN FRAME
+		            LogInFrame.this.dispose();
+
+		            // GET USER TYPE
+		            String userType = "EMPLOYEE"; // FIXME: Modify. Must get user type from database.
+
+		            if (userType.equals("EMPLOYEE")) {
+		                // OPEN USER DASHBOARD
+		                UserDashboardFrame userDashboardFrame = new UserDashboardFrame();
+		                userDashboardFrame.setVisible(true);
+		            } else if (userType.equals("ADMIN")) {
+		                // OPEN ADMIN DASHBOARD
+		                AdminDashboardFrame adminDashboardFrame = new AdminDashboardFrame();
+		                adminDashboardFrame.setVisible(true);
+		            }
+		        }
+		    }
 		});
 		logInButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		logInButton.setBackground(new Color(255, 128, 192));
