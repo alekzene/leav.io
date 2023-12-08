@@ -6,6 +6,7 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+import java.text.ParseException;
 
 public class LogInFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -201,7 +202,19 @@ public class LogInFrame extends JFrame {
 
 		            if (userCategoryDB.equals("Client")) {
 		                // OPEN USER DASHBOARD
-		                UserDashboardFrame userDashboardFrame = new UserDashboardFrame();
+		            	
+		            	//EARLIER ITERATION
+//		                UserDashboardFrame userDashboardFrame = new UserDashboardFrame();
+//		                userDashboardFrame.setVisible(true);
+//		                userDashboardFrame.setLocationRelativeTo(null);
+		            	
+		            	UserDashboardFrame userDashboardFrame = null;
+						try {
+							userDashboardFrame = new UserDashboardFrame();
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 		                userDashboardFrame.setVisible(true);
 		                userDashboardFrame.setLocationRelativeTo(null);
 		            } else if (userCategoryDB.equals("Admin")) {

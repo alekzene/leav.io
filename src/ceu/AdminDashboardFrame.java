@@ -353,5 +353,4 @@ public class AdminDashboardFrame extends JFrame {
             return button.getIcon();
         }
     }
-
 }
