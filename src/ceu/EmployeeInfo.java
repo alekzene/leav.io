@@ -38,6 +38,10 @@ this.employeeID = employeeID;
     public String getEmployeeName() {
         return employeeName;
     }
+    
+    public String getEmployeeFirstName() {
+        return employeeName;
+    }
 
     public String getEmployeeType() {
         return employeeType;

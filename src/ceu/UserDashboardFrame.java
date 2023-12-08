@@ -5,7 +5,7 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.Timer;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -60,7 +60,6 @@ public class UserDashboardFrame extends JFrame {
 		qc = new QueryCommands();
 		
 		Date_And_Time dateTime = new Date_And_Time();
-		employee = new EmployeeInfo("jomjom123", "12345", "Jomari B. Arrojo", "Employee", "HR", 21, 123456789 );
 		
 		// CONTENT PANE
 		setTitle("Leave Application Form\r\n");
@@ -110,7 +109,7 @@ public class UserDashboardFrame extends JFrame {
 		// EMPLOYEE NAME
 		try (ResultSet resultSet = qc.prepareSelectNameStatement(connection, LogInFrame.usernameDB).executeQuery()) {
             if (resultSet.next()) {
-                nameDB = resultSet.getString("name");
+                nameDB = resultSet.getString("full_name");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -137,7 +136,7 @@ public class UserDashboardFrame extends JFrame {
 		//LEAVES USED
 		try (ResultSet resultSet = qc.prepareLeavesUsed(connection, LogInFrame.usernameDB).executeQuery()) {
             if (resultSet.next()) {
-            	leavesUsedDB = resultSet.getInt("leave_used");
+            	leavesUsedDB = resultSet.getInt("leaves_used");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -264,6 +263,7 @@ public class UserDashboardFrame extends JFrame {
 		lblNewLabel_3_1_1_1_1.setBounds(1, 38, 186, 121);
 		usedCreditsPanel.add(lblNewLabel_3_1_1_1_1);
 		
+		
 		JPanel date_and_timePanel = new JPanel();
 		date_and_timePanel.setBackground(new Color(255, 255, 255));
 		date_and_timePanel.setBounds(870, 25, 235, 119);
@@ -331,6 +331,7 @@ public class UserDashboardFrame extends JFrame {
 		approveTracker_Label.setHorizontalAlignment(SwingConstants.LEFT);
 		approveTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));
 		
+		
 		JPanel approvedTracker_Panel = new JPanel();
 		approvedTracker_Panel.setBackground(new Color(255, 255, 255));
 		approvedTracker_Panel.setBounds(20, 259, 430, 251);
@@ -338,71 +339,97 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.add(approvedTracker_Panel);
 		approvedTracker_Panel.setLayout(null);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 0, 429, 250);
-		approvedTracker_Panel.add(scrollPane_1);
-		
-		approveTracker_Table = new JTable();
-		scrollPane_1.setViewportView(approveTracker_Table);
-		approveTracker_Table.addMouseWheelListener(new MouseWheelListener() {
-			public void mouseWheelMoved(MouseWheelEvent e) {
-			}
-		});
-		approveTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
-		approveTracker_Table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"00001", "Sick Leave", "12-03-23", "12-10-23", "In Effect"},
-				{"00002", "Annual Leave", "10-12-23", "10-15-23", "Finished"},
-				{"00003", "Paternity Leave", "09-16-23", "09-23-23", "Finished"},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"ID", "Type of Leave", "Start", "End", "Status"
-			}
-		) {
+		DefaultTableModel approveTracker_Model = new DefaultTableModel(0, 5) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false
-			};
+			false, false, false, false, false
+		};
+		@Override
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
-		});
-		approveTracker_Table.getColumnModel().getColumn(0).setResizable(false);
-		approveTracker_Table.getColumnModel().getColumn(0).setPreferredWidth(50);
-		approveTracker_Table.getColumnModel().getColumn(0).setMaxWidth(70);
-		approveTracker_Table.getColumnModel().getColumn(1).setResizable(false);
-		approveTracker_Table.getColumnModel().getColumn(1).setMaxWidth(120);
-		approveTracker_Table.getColumnModel().getColumn(2).setResizable(false);
-		approveTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(60);
-		approveTracker_Table.getColumnModel().getColumn(2).setMinWidth(45);
-		approveTracker_Table.getColumnModel().getColumn(2).setMaxWidth(75);
-		approveTracker_Table.getColumnModel().getColumn(3).setResizable(false);
-		approveTracker_Table.getColumnModel().getColumn(3).setPreferredWidth(60);
-		approveTracker_Table.getColumnModel().getColumn(3).setMinWidth(45);
-		approveTracker_Table.getColumnModel().getColumn(3).setMaxWidth(75);
-		approveTracker_Table.getColumnModel().getColumn(4).setResizable(false);
-		approveTracker_Table.getColumnModel().getColumn(4).setPreferredWidth(70);
-		approveTracker_Table.getColumnModel().getColumn(4).setMinWidth(50);
-		approveTracker_Table.getColumnModel().getColumn(4).setMaxWidth(70);
-		approveTracker_Table.setRowHeight(50);
-		approveTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		};
+            
+            String[]approveTracker_Headers = {"ID", "Type of Leave", "Start Date", "End Date", "Status"};
+            approveTracker_Model.setColumnIdentifiers(approveTracker_Headers);
+            
+            approveTracker_Model.addRow(new Object[] {"00001","Sick","12-03-23","12-10-23","In Effect"});
+            approveTracker_Model.addRow(new Object[] {"00002","Sick","12-03-23","12-10-23","In Effect"});
+            
+		approveTracker_Table = new JTable(approveTracker_Model);
+		approveTracker_Table.setSize(new Dimension(300, 300));
+		approveTracker_Table.setRowHeight(40);
+		approveTracker_Table.setCellSelectionEnabled(false);  // Disable cell selection
+		approveTracker_Table.setColumnSelectionAllowed(false); // Disable column selection
+		approveTracker_Table.getTableHeader().setReorderingAllowed(false); // Disable column reordering
 		
+		JScrollPane scrollPane = new JScrollPane(approveTracker_Table);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBounds(0, 0, 432, 253);
+        
+		approvedTracker_Panel.add(scrollPane);
+		
+//		approveTracker_Table = new JTable();
+//		scrollPane_1.setViewportView(approveTracker_Table);
+//		approveTracker_Table.addMouseWheelListener(new MouseWheelListener() {
+//			public void mouseWheelMoved(MouseWheelEvent e) {
+//			}
+//		});
+//		approveTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
+//		approveTracker_Table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{"00001", "Sick Leave", "12-03-23", "12-10-23", "In Effect"},
+//				{"00002", "Annual Leave", "10-12-23", "10-15-23", "Finished"},
+//				{"00003", "Paternity Leave", "09-16-23", "09-23-23", "Finished"},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//			},
+//			new String[] {
+//				"ID", "Type of Leave", "Start", "End", "Status"
+//			}
+//		) {
+//			boolean[] columnEditables = new boolean[] {
+//				false, false, false, false, false
+//			};
+//			public boolean isCellEditable(int row, int column) {
+//				return columnEditables[column];
+//			}
+//		});
+//		approveTracker_Table.getColumnModel().getColumn(0).setResizable(false);
+//		approveTracker_Table.getColumnModel().getColumn(0).setPreferredWidth(50);
+//		approveTracker_Table.getColumnModel().getColumn(0).setMaxWidth(70);
+//		approveTracker_Table.getColumnModel().getColumn(1).setResizable(false);
+//		approveTracker_Table.getColumnModel().getColumn(1).setMaxWidth(120);
+//		approveTracker_Table.getColumnModel().getColumn(2).setResizable(false);
+//		approveTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(60);
+//		approveTracker_Table.getColumnModel().getColumn(2).setMinWidth(45);
+//		approveTracker_Table.getColumnModel().getColumn(2).setMaxWidth(75);
+//		approveTracker_Table.getColumnModel().getColumn(3).setResizable(false);
+//		approveTracker_Table.getColumnModel().getColumn(3).setPreferredWidth(60);
+//		approveTracker_Table.getColumnModel().getColumn(3).setMinWidth(45);
+//		approveTracker_Table.getColumnModel().getColumn(3).setMaxWidth(75);
+//		approveTracker_Table.getColumnModel().getColumn(4).setResizable(false);
+//		approveTracker_Table.getColumnModel().getColumn(4).setPreferredWidth(70);
+//		approveTracker_Table.getColumnModel().getColumn(4).setMinWidth(50);
+//		approveTracker_Table.getColumnModel().getColumn(4).setMaxWidth(70);
+//		approveTracker_Table.setRowHeight(50);
+//		approveTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+//		
 		JLabel pendingTracker_Label = new JLabel("Pending");
 		pendingTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));
 		pendingTracker_Label.setBounds(490, 212, 395, 37);
@@ -415,59 +442,85 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.add(pendingTracker_Panel);
 		pendingTracker_Panel.setLayout(null);
 		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 0, 284, 250);
-		pendingTracker_Panel.add(scrollPane_2);
-		
-		pendingTracker_Table = new JTable();
-		pendingTracker_Table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"00005", "Vacation Leave", "12-30-23"},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"ID", "Type of Leave", "Date Applied"
-			}
-		) {
+		DefaultTableModel pendingTracker_Model = new DefaultTableModel(0, 3) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false
-			};
+			false, false, false,
+		};
+		@Override
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
-		});
-		pendingTracker_Table.getColumnModel().getColumn(0).setResizable(false);
-		pendingTracker_Table.getColumnModel().getColumn(0).setPreferredWidth(50);
-		pendingTracker_Table.getColumnModel().getColumn(0).setMaxWidth(70);
-		pendingTracker_Table.getColumnModel().getColumn(1).setResizable(false);
-		pendingTracker_Table.getColumnModel().getColumn(1).setMaxWidth(120);
-		pendingTracker_Table.getColumnModel().getColumn(2).setResizable(false);
-		pendingTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(70);
-		pendingTracker_Table.getColumnModel().getColumn(2).setMinWidth(45);
-		pendingTracker_Table.getColumnModel().getColumn(2).setMaxWidth(75);
-		pendingTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
-		pendingTracker_Table.setRowHeight(50);
-		pendingTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		};
 		
-		scrollPane_2.setViewportView(pendingTracker_Table);
+		String[]pendingTracker_Headers = {"ID", "Type of Leave", "Date Applied"};
+		pendingTracker_Model.setColumnIdentifiers(pendingTracker_Headers);
+        
+		pendingTracker_Model.addRow(new Object[]{"00004", "Vacation", "12-30-23"});
+		
+        pendingTracker_Table = new JTable(pendingTracker_Model);
+		pendingTracker_Table.setSize(new Dimension(100, 100));
+		pendingTracker_Table.setRowHeight(40);
+		pendingTracker_Table.setCellSelectionEnabled(false);  // Disable cell selection
+		pendingTracker_Table.setColumnSelectionAllowed(false); // Disable column selection
+		pendingTracker_Table.getTableHeader().setReorderingAllowed(false); // Disable column reordering
+		
+		JScrollPane scrollPane_1 = new JScrollPane(pendingTracker_Table);
+	    scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+	    scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	    
+	    scrollPane_1.setBounds(0, 0, 285, 247);
+		
+		pendingTracker_Panel.add(scrollPane_1);
+//		
+//		pendingTracker_Table = new JTable();
+//		pendingTracker_Table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{"00005", "Vacation Leave", "12-30-23"},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//			},
+//			new String[] {
+//				"ID", "Type of Leave", "Date Applied"
+//			}
+//		) {
+//			boolean[] columnEditables = new boolean[] {
+//				false, false, false
+//			};
+//			public boolean isCellEditable(int row, int column) {
+//				return columnEditables[column];
+//			}
+//		});
+//		pendingTracker_Table.getColumnModel().getColumn(0).setResizable(false);
+//		pendingTracker_Table.getColumnModel().getColumn(0).setPreferredWidth(50);
+//		pendingTracker_Table.getColumnModel().getColumn(0).setMaxWidth(70);
+//		pendingTracker_Table.getColumnModel().getColumn(1).setResizable(false);
+//		pendingTracker_Table.getColumnModel().getColumn(1).setMaxWidth(120);
+//		pendingTracker_Table.getColumnModel().getColumn(2).setResizable(false);
+//		pendingTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(70);
+//		pendingTracker_Table.getColumnModel().getColumn(2).setMinWidth(45);
+//		pendingTracker_Table.getColumnModel().getColumn(2).setMaxWidth(75);
+//		pendingTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
+//		pendingTracker_Table.setRowHeight(50);
+//		pendingTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+//		
+//		scrollPane_2.setViewportView(pendingTracker_Table);
 		
 		JLabel declinedTracker_Label = new JLabel("Declined");
 		declinedTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -480,59 +533,85 @@ public class UserDashboardFrame extends JFrame {
 		declinedTracker_Panel.setBounds(820, 259, 284, 245);
 		contentPane.add(declinedTracker_Panel);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 284, 250);
-		declinedTracker_Panel.add(scrollPane);
-		
-		declinedTracker_Table = new JTable();
-		declinedTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
-		declinedTracker_Table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"00004", "Vacation Leave", "12-15-23"},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"ID", "Type of Leave", "Date Applied"
-			}
-		) {
+		DefaultTableModel declinedTracker_Model = new DefaultTableModel(0, 3) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false
-			};
+			false, false, false,
+		};
+		@Override
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
-		});
-		declinedTracker_Table.getColumnModel().getColumn(0).setResizable(false);
-		declinedTracker_Table.getColumnModel().getColumn(0).setPreferredWidth(50);
-		declinedTracker_Table.getColumnModel().getColumn(0).setMaxWidth(70);
-		declinedTracker_Table.getColumnModel().getColumn(1).setResizable(false);
-		declinedTracker_Table.getColumnModel().getColumn(1).setMaxWidth(120);
-		declinedTracker_Table.getColumnModel().getColumn(2).setResizable(false);
-		declinedTracker_Table.getColumnModel().getColumn(2).setMinWidth(45);
-		declinedTracker_Table.getColumnModel().getColumn(2).setMaxWidth(75);
-		declinedTracker_Table.setRowHeight(50);
-		declinedTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		};
+			
+		String[]declinedTracker_Headers = {"ID", "Type of Leave", "Date Applied"};
+		declinedTracker_Model.setColumnIdentifiers(declinedTracker_Headers);
 		
-		scrollPane.setViewportView(declinedTracker_Table);
+		declinedTracker_Model.addRow(new Object[]{"00003", "Vacation", "12-20-23"});
 		
+		declinedTracker_Table = new JTable(declinedTracker_Model);
+		declinedTracker_Table.setSize(new Dimension(100, 100));
+		declinedTracker_Table.setRowHeight(40);
+		declinedTracker_Table.setCellSelectionEnabled(false);  // Disable cell selection
+		declinedTracker_Table.setColumnSelectionAllowed(false); // Disable column selection
+		declinedTracker_Table.getTableHeader().setReorderingAllowed(false); // Disable column reordering
+		
+		JScrollPane scrollPane_2 = new JScrollPane(declinedTracker_Table);
+		scrollPane_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	    scrollPane_2.setBounds(0, 0, 286, 246);
+	    
+		declinedTracker_Panel.add(scrollPane_2);
+		
+		
+//		declinedTracker_Table = new JTable();
+//		declinedTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
+//		declinedTracker_Table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{"00004", "Vacation Leave", "12-15-23"},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//				{null, null, null},
+//			},
+//			new String[] {
+//				"ID", "Type of Leave", "Date Applied"
+//			}
+//		) {
+//			boolean[] columnEditables = new boolean[] {
+//				false, false, false
+//			};
+//			public boolean isCellEditable(int row, int column) {
+//				return columnEditables[column];
+//			}
+//		});
+//		declinedTracker_Table.getColumnModel().getColumn(0).setResizable(false);
+//		declinedTracker_Table.getColumnModel().getColumn(0).setPreferredWidth(50);
+//		declinedTracker_Table.getColumnModel().getColumn(0).setMaxWidth(70);
+//		declinedTracker_Table.getColumnModel().getColumn(1).setResizable(false);
+//		declinedTracker_Table.getColumnModel().getColumn(1).setMaxWidth(120);
+//		declinedTracker_Table.getColumnModel().getColumn(2).setResizable(false);
+//		declinedTracker_Table.getColumnModel().getColumn(2).setMinWidth(45);
+//		declinedTracker_Table.getColumnModel().getColumn(2).setMaxWidth(75);
+//		declinedTracker_Table.setRowHeight(50);
+//		declinedTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+//		
+//		scrollPane.setViewportView(declinedTracker_Table);
+//		
 		JLabel lblNewLabel_3 = new JLabel("New label");
 		lblNewLabel_3.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
 		lblNewLabel_3.setBounds(0, 0, 1121, 560);

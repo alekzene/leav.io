@@ -45,10 +45,13 @@ public class AdminDashboardFrame extends JFrame {
 	private JPanel contentPane;
 	private JTable AdminDashboard_Table;
 	
+	// DATABASE
 	private Connection connection;
 	private QueryCommands qc;
+	private String firstNameDB;
 	private String newLeaveType;
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -70,9 +73,10 @@ public class AdminDashboardFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public AdminDashboardFrame() {
-        this.connection = DatabaseConnection.getConnection();
-        this.qc = new QueryCommands(connection);
 		
+		connection = DatabaseConnection.getConnection();
+		qc = new QueryCommands();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 787, 520);
 		contentPane = new JPanel();
@@ -103,7 +107,7 @@ public class AdminDashboardFrame extends JFrame {
 		panel_1.add(users);
 		users.setLayout(null);
 		
-		DefaultTableModel model = new DefaultTableModel(0, 4) {
+		DefaultTableModel adminDashboard_Model = new DefaultTableModel(0, 4) {
 			boolean[] columnEditables = new boolean[] {
 			false, false, false, false
 		};
@@ -116,19 +120,18 @@ public class AdminDashboardFrame extends JFrame {
             };
 
         // Set column headers
-        String[] headers = {"Employee Name", "Department", "Type of Leave", ""};
-        model.setColumnIdentifiers(headers);
+        String[] adminDashboard_Headers = {"Employee Name", "Department", "Type of Leave", ""};
+        adminDashboard_Model.setColumnIdentifiers(adminDashboard_Headers);
 
         // Populate the table with 20 rows
 //        for (int i = 0; i < 20; i++) {
         // FIXME: FIX PRINT LOGIC / ROW ADDITION LOGIC
-            model.addRow(new Object[]{"Francisco, Earl Ace", "Library", "Vacation", "/images/icons8-eye-24.png"});
+        adminDashboard_Model.addRow(new Object[]{"Francisco, Earl Ace", "Library", "Vacation", "/images/icons8-eye-24.png"});
 //        }
         
      // Create the table with the model
-        AdminDashboard_Table = new JTable(model);
+        AdminDashboard_Table = new JTable(adminDashboard_Model);
         AdminDashboard_Table.setSize(new Dimension(660, 223));
-        AdminDashboard_Table.setPreferredSize(new Dimension(100, 40));
 
         // Set the row height to 40 pixels
         AdminDashboard_Table.setRowHeight(40);
@@ -145,7 +148,7 @@ public class AdminDashboardFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(AdminDashboard_Table);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBounds(0, 0, 675, 224);
+        scrollPane.setBounds(0, 0, 676, 226);
         
         users.add(scrollPane);
         
@@ -251,15 +254,25 @@ public class AdminDashboardFrame extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnNewButton_1.setBounds(299, 311, 126, 29);
 		panel_1.add(btnNewButton_1);
-		
-		int pendingCount= 5;
-		
+			
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255, 150));
 		panel.setBounds(27, 37, 717, 55);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		JLabel lblNewLabel = new JLabel(String.format("Kathryn, you have %S leave application requests to review.", pendingCount));
+		
+		//Fetch Admin Name from Database
+		  try (ResultSet resultSet = qc.prepareSelectFirstNameStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+              if (resultSet.next()) {
+            	  firstNameDB = resultSet.getString("first_name");
+              }
+          } catch (SQLException ex) {
+              ex.printStackTrace();
+          }
+		
+		int pendingCount= 5; // FIXME: Should not be hard-coded.
+
+		JLabel lblNewLabel = new JLabel(String.format( firstNameDB + ", you have %S leave application requests to review.", pendingCount));
 		lblNewLabel.setBounds(10, 0, 631, 55);
 		panel.add(lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
