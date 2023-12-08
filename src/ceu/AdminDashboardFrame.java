@@ -237,28 +237,28 @@ public class AdminDashboardFrame extends JFrame {
 //		btnNewButton.setBounds(503, 18, 175, 29);
 //		panel_1.add(btnNewButton);
 //		
-//		JButton btnNewButton_1 = new JButton("LOG OUT");
-//		btnNewButton_1.addActionListener(new ActionListener() {
-//		    @Override
-//		    public void actionPerformed(ActionEvent e) {
-//		        int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirm Log Out", JOptionPane.YES_NO_OPTION);
-//
-//		        if (confirmation == JOptionPane.YES_OPTION) {
-//		            AdminDashboardFrame.this.dispose();
-//		            LogInFrame frame = new LogInFrame();
-//					frame.setVisible(true);	
-//					frame.setLocationRelativeTo(null);
-//		        } else {
-//		            // Do nothing or handle cancellation
-//		        }
-//		    }
-//		});
+		JButton logOutButton = new JButton("LOG OUT");
+		logOutButton.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirm Log Out", JOptionPane.YES_NO_OPTION);
+
+		        if (confirmation == JOptionPane.YES_OPTION) {
+		            AdminDashboardFrame.this.dispose();
+		            LogInFrame frame = new LogInFrame();
+					frame.setVisible(true);	
+					frame.setLocationRelativeTo(null);
+		        } else {
+		            // Do nothing
+		        }
+		    }
+		});
 	
-//		btnNewButton_1.setForeground(Color.WHITE);
-//		btnNewButton_1.setBackground(new Color(255, 108, 108));
-//		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
-//		btnNewButton_1.setBounds(299, 311, 126, 29);
-//		panel_1.add(btnNewButton_1);
+		logOutButton.setForeground(Color.WHITE);
+		logOutButton.setBackground(new Color(255, 108, 108));
+		logOutButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		logOutButton.setBounds(299, 311, 126, 29);
+		panel_1.add(logOutButton);
 			
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255, 150));
