@@ -14,7 +14,7 @@ class DatabaseConnection {
             try {
                 // Load the JDBC driver and establish a connection
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/leave-management", "root", "");
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/leave-management", "root", "01234");
             } catch (Exception e) {
                 e.printStackTrace();
                 // Handle the exception appropriately
@@ -26,7 +26,7 @@ class DatabaseConnection {
     void Connection(String query) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/leave-management", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/leave-management", "root", "01234");
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 preparedStatement.executeUpdate();

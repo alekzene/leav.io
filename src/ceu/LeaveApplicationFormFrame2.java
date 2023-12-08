@@ -29,7 +29,6 @@ import java.awt.event.ItemEvent;
 public class LeaveApplicationFormFrame2 extends JFrame {
     private JPanel contentPane;
 
-
     private static int realDay, realMonth, realYear, currentMonth, currentYear;
     private JTextField employeeNoText;
     private JTextField nameText;
@@ -70,7 +69,6 @@ public class LeaveApplicationFormFrame2 extends JFrame {
                 }
             }
         });
-        
     }
 
 	/**
@@ -87,8 +85,6 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
 		contentPane.setLayout(null);
-      
- 
         
         JPanel formPanel = new JPanel();
         formPanel.setBounds(10, 24, 466, 741);
@@ -137,9 +133,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         JLabel contactNumber = new JLabel("Contact no.:");
         contactNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
         contactNumber.setBounds(10, 567, 86, 14);
-        formPanel.add(contactNumber);
-        
-  
+        formPanel.add(contactNumber); 
         
         employeeNoText = new JTextField();
         employeeNoText.addKeyListener(new KeyAdapter() {
@@ -262,8 +256,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		updateDateRestrictions();
         	}
-        });
-        
+        });      
        
         leaveTypeSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Sick Leave", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
         leaveTypeSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -343,7 +336,6 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     }
     
     //Methods and Constructors
-    
     private Object prepareAddLeaveTypeStatement(Connection connection2, String newLeaveType2) {
 		// TODO Auto-generated method stub
 		return null;

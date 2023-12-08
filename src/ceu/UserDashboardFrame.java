@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class UserDashboardFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -31,6 +32,12 @@ public class UserDashboardFrame extends JFrame {
 	private int leavesRemainingDB;
 	private int leavesUsedDB;
 	private String employeeIDDB;
+	private String leaveStatusDB;
+	private String applicationDateDB;
+	private String endDateDB;
+	private String startDateDB;
+	private String leaveCategoryDB;
+	
 	
 	private Date_And_Time dateTime;
 	private EmployeeInfo employee;
@@ -151,6 +158,51 @@ public class UserDashboardFrame extends JFrame {
             ex.printStackTrace();
         }
 		
+		//CATEGORY
+		try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+			if (resultSet.next()) {
+				leaveCategoryDB = resultSet.getString("category");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}		
+		
+		//START DATE
+		try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+			if (resultSet.next()) {
+				startDateDB = resultSet.getString("start_date");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}		
+		
+		//END DATE
+				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+					if (resultSet.next()) {
+						endDateDB = resultSet.getString("end_date");
+					}
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}		
+		
+		//APPLICATION DATE
+				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+					if (resultSet.next()) {
+						applicationDateDB = resultSet.getString("application_date");
+					}
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}	
+		
+				//STATUS
+				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+					if (resultSet.next()) {
+						leaveStatusDB = resultSet.getString("status");
+					}
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}		
+				
 		
 		JLabel employeeName = new JLabel(nameDB);
 		employeeName.setBounds(85, 76, 206, 25);
@@ -458,7 +510,7 @@ public class UserDashboardFrame extends JFrame {
 		String[]pendingTracker_Headers = {"ID", "Type of Leave", "Date Applied"};
 		pendingTracker_Model.setColumnIdentifiers(pendingTracker_Headers);
         
-		pendingTracker_Model.addRow(new Object[]{"00004", "Vacation", "12-30-23"});
+		pendingTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
 		
         pendingTracker_Table = new JTable(pendingTracker_Model);
 		pendingTracker_Table.setSize(new Dimension(100, 100));
