@@ -25,7 +25,7 @@ public class LogInFrame extends JFrame {
 	
 	// DATABASE
     private Connection connection; 
-    private QueryCommand qc;
+    private QueryCommands qc;
 	private String usernameDB = "";
 	private String passwordDB = "";
     private String userCategoryDB;
@@ -54,7 +54,7 @@ public class LogInFrame extends JFrame {
 	public LogInFrame() {
 
 		connection = DatabaseConnection.getConnection();
-		qc = new QueryCommand();
+		qc = new QueryCommands();
 		
 		// CONTENT PANE
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,13 +89,13 @@ public class LogInFrame extends JFrame {
 		JLabel usernameLabel = new JLabel("Username:");
 		usernameLabel.setIcon(new ImageIcon("src\\images\\icons8-username-24.png"));
 		usernameLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		usernameLabel.setBounds(45, 112, 150, 25);
+		usernameLabel.setBounds(64, 112, 150, 25);
 		logInPanel.add(usernameLabel);
 		
 		// USERNAME TEXT FIELD
 		usernameTextField = new JTextField();
 		usernameTextField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		usernameTextField.setBounds(170, 114, 208, 24);
+		usernameTextField.setBounds(189, 114, 208, 24);
 		logInPanel.add(usernameTextField);
 		usernameTextField.setColumns(10);
 		
@@ -103,21 +103,21 @@ public class LogInFrame extends JFrame {
 		JLabel passwordLabel = new JLabel("Password:");
 		passwordLabel.setIcon(new ImageIcon("src\\images\\icons8-lock-24.png"));
 		passwordLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		usernameLabel.setBounds(50, 112, 115, 25);
+		passwordLabel.setBounds(64, 159, 113, 25);
 		logInPanel.add(passwordLabel);
 
 		// PASSWORD FIELD
 		passwordField = new JPasswordField();
 		passwordField.setBounds(169, 157, 209, 25);
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		passwordLabel.setBounds(50, 159, 115, 25);
+		passwordField.setBounds(189, 161, 208, 23);
 		logInPanel.add(passwordField);
 		
 		// VIEW PASSWORD ICON
 		viewPassword = new JLabel("");
 		viewPassword.addMouseListener(new MouseAdapter() {
 		      @Override
-		      public void mousePressed(MouseEvent e) {
+		      public void mouseClicked(MouseEvent e) {
 		          // Toggle password visibility
 		          passwordField.setEchoChar((passwordField.getEchoChar() == 0) ? '\u2022' : (char) 0);
 		          viewPassword.setVisible(true);
@@ -125,21 +125,21 @@ public class LogInFrame extends JFrame {
 		      }
 		  });
 		  viewPassword.setIcon(new ImageIcon(LogInFrame.class.getResource("/images/icons8-eye-24.png")));
-		  viewPassword.setBounds(388, 163, 24, 21);
+		  viewPassword.setBounds(407, 163, 24, 21);
 		  logInPanel.add(viewPassword);
 		  
 		// REMEMBER ME RADIO BUTTON
         JRadioButton rememberMeRadioButton = new JRadioButton("Remember Me");
-        rememberMeRadioButton.setBackground(new Color(239, 186, 235));
+        rememberMeRadioButton.setBackground(new Color(241, 171, 192));
         rememberMeRadioButton.setForeground(Color.BLACK);
         rememberMeRadioButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		// FIXME: ADD CODE HERE. MUST REMEMBER USER WHEN CLICKED.
         	}
         });
-        rememberMeRadioButton.setOpaque(true); 
+		rememberMeRadioButton.setOpaque(true); 
 		rememberMeRadioButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		rememberMeRadioButton.setBounds(48, 192, 131, 21);
+		rememberMeRadioButton.setBounds(63, 195, 131, 25);
 		logInPanel.add(rememberMeRadioButton);
 		
 		// RESET PASSWORD BUTTON
@@ -151,14 +151,10 @@ public class LogInFrame extends JFrame {
 				resetPasswordFrame.setVisible(true);
 			}
 		});
-		resetPasswordButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		resetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		resetPasswordButton.setForeground(new Color(64, 64, 64));
 		resetPasswordButton.setBackground(new Color(240, 240, 240));
-		resetPasswordButton.setBounds(185, 195, 175, 18);
+		resetPasswordButton.setBounds(231, 198, 166, 18);
 		logInPanel.add(resetPasswordButton);
 		
 		// LOGIN BUTTON

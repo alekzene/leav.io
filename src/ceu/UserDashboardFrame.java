@@ -45,16 +45,17 @@ public class UserDashboardFrame extends JFrame {
 		Date_And_Time dateTime = new Date_And_Time();
 		employee = new EmployeeInfo("jomjom123", "12345", "Jomari B. Arrojo", "Employee", "HR", 21, 123456789 );
 		
+		// CONTENT PANE
 		setTitle("Leave Application Form\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1137, 597);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 128, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		// EMPLOYEE INFORMATION PANEL
 		JButton LogOutbutton = new JButton("LOGOUT");
 		LogOutbutton.setForeground(new Color(255, 255, 255));
 		LogOutbutton.addMouseListener(new MouseAdapter() {
@@ -86,11 +87,13 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.add(employeeInfoPanel);
 		employeeInfoPanel.setLayout(null);
 		
+		// EMPLOYEE NAME
 		JLabel employeeName = new JLabel(employee.getEmployeeName());
 		employeeName.setBounds(85, 76, 206, 25);
 		employeeName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employeeName);
 		
+		// EMPLOYEE ID
 		JLabel employee_ID = new JLabel(String.valueOf(employee.getEmployeeID()));
 		employee_ID.setBounds(155, 45, 265, 25);
 		employee_ID.setFont(new Font("Tahoma", Font.PLAIN, 20));

@@ -21,7 +21,7 @@ public class ResetPasswordFrame extends JFrame {
     
     // DATABASE
     private Connection connection;
-    private QueryCommand qc;
+    private QueryCommands qc;
     private String employeeIDDB;
     private String passwordDB;
 
@@ -43,7 +43,7 @@ public class ResetPasswordFrame extends JFrame {
     public ResetPasswordFrame() {        
         // DATABASE
     	connection = DatabaseConnection.getConnection();
-    	qc = new QueryCommand();
+    	qc = new QueryCommands();
         
         // CONTENT PANE
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
