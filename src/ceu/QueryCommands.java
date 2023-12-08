@@ -175,7 +175,24 @@ public class QueryCommands {
         }
     }
 
-    // SELECT NAME QUERY
+ // SELECT DEPARTMENT STATEMENT
+    public PreparedStatement prepareSelectDepartmentStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectDepartment(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private String selectDepartment(String enteredUsername) {
+		return "SELECT department FROM employees WHERE username = ?";
+	}
+
+	// SELECT NAME QUERY
     public String selectName(String enteredUsername) {
         return "SELECT name FROM employees WHERE username = ?";
     }

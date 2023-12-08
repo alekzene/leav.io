@@ -27,6 +27,7 @@ public class UserDashboardFrame extends JFrame {
 	private Connection connection;
 	private QueryCommands qc;
 	private String nameDB;
+	private String departmentDB;
 	
 	private Date_And_Time dateTime;
 	private EmployeeInfo employee;
@@ -109,6 +110,15 @@ public class UserDashboardFrame extends JFrame {
             ex.printStackTrace();
         }
 		
+		// DEPARTMENT
+		try (ResultSet resultSet = qc.prepareSelectDepartmentStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+                departmentDB = resultSet.getString("department");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		
 		JLabel employeeName = new JLabel(nameDB);
 		employeeName.setBounds(85, 76, 206, 25);
 		employeeName.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -120,7 +130,7 @@ public class UserDashboardFrame extends JFrame {
 		employee_ID.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employee_ID);
 		
-		JLabel employeeDepartment = new JLabel(employee.getEmployeeDepartment());
+		JLabel employeeDepartment = new JLabel(departmentDB);
 		employeeDepartment.setBounds(145, 111, 222, 25);
 		employeeDepartment.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employeeDepartment);
