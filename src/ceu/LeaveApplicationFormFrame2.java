@@ -77,25 +77,12 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         setResizable(false);
         setTitle("Leave Application Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(500, 100, 976, 812);
+        setBounds(500, 100, 499, 812);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(255, 255, 255));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		commentPanel = new JPanel();
-		commentPanel.setBounds(486, 559, 428, 144);
-		commentPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		contentPane.add(commentPanel);
-		commentPanel.setLayout(null);
-		
-		JTextArea textAreaComments = new JTextArea();
-		textAreaComments.setBounds(10, 23, 408, 110);
-		commentPanel.add(textAreaComments);
-		textAreaComments.setLineWrap(true);
-		textAreaComments.setWrapStyleWord(true);
-		textAreaComments.setColumns(10);
       
  
         
@@ -304,7 +291,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
        
         
         JButton btnSubmit = new JButton("SUBMIT\r\n");
-        btnSubmit.setBounds(85, 626, 150, 76);
+        btnSubmit.setBounds(94, 699, 109, 32);
         formPanel.add(btnSubmit);
         
         JButton btnNewButton = new JButton("CANCEL");
@@ -313,8 +300,21 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         		dispose();
         	}
         });
-        btnNewButton.setBounds(262, 626, 150, 76);
+        btnNewButton.setBounds(271, 699, 116, 32);
         formPanel.add(btnNewButton);
+        
+        commentPanel = new JPanel();
+        commentPanel.setBounds(10, 599, 446, 90);
+        formPanel.add(commentPanel);
+        commentPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+        commentPanel.setLayout(null);
+        
+        JTextArea textAreaComments = new JTextArea();
+        textAreaComments.setBounds(10, 15, 426, 65);
+        commentPanel.add(textAreaComments);
+        textAreaComments.setLineWrap(true);
+        textAreaComments.setWrapStyleWord(true);
+        textAreaComments.setColumns(10);
        
         btnSubmit.addActionListener(new ActionListener() {	
         	public void actionPerformed(ActionEvent e) {
@@ -330,7 +330,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         });
         
         JLabel Background = new JLabel("New label");
-        Background.setBounds(0, 0, 981, 774);
+        Background.setBounds(0, 0, 503, 774);
         Background.setIcon(new ImageIcon(LeaveApplicationFormFrame2.class.getResource("/images/bbg.png")));
         contentPane.add(Background);       
     }
