@@ -93,7 +93,7 @@ public class AdminDashboardFrame extends JFrame {
 		panel_1.add(users);
 		users.setLayout(null);
 		
-		DefaultTableModel model = new DefaultTableModel(0, 4) {
+		DefaultTableModel adminDashboard_Model = new DefaultTableModel(0, 4) {
 			boolean[] columnEditables = new boolean[] {
 			false, false, false, false
 		};
@@ -106,19 +106,18 @@ public class AdminDashboardFrame extends JFrame {
             };
 
         // Set column headers
-        String[] headers = {"Employee Name", "Department", "Type of Leave", ""};
-        model.setColumnIdentifiers(headers);
+        String[] adminDashboard_Headers = {"Employee Name", "Department", "Type of Leave", ""};
+        adminDashboard_Model.setColumnIdentifiers(adminDashboard_Headers);
 
         // Populate the table with 20 rows
 //        for (int i = 0; i < 20; i++) {
         // FIXME: FIX PRINT LOGIC / ROW ADDITION LOGIC
-            model.addRow(new Object[]{"Francisco, Earl Ace", "Library", "Vacation", "/images/icons8-eye-24.png"});
+        adminDashboard_Model.addRow(new Object[]{"Francisco, Earl Ace", "Library", "Vacation", "/images/icons8-eye-24.png"});
 //        }
         
      // Create the table with the model
-        AdminDashboard_Table = new JTable(model);
+        AdminDashboard_Table = new JTable(adminDashboard_Model);
         AdminDashboard_Table.setSize(new Dimension(660, 223));
-        AdminDashboard_Table.setPreferredSize(new Dimension(100, 40));
 
         // Set the row height to 40 pixels
         AdminDashboard_Table.setRowHeight(40);
@@ -135,7 +134,7 @@ public class AdminDashboardFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(AdminDashboard_Table);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBounds(0, 0, 675, 224);
+        scrollPane.setBounds(0, 0, 676, 226);
         
         users.add(scrollPane);
         
