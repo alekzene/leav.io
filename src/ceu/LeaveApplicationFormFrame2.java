@@ -285,7 +285,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         toLabel.setBounds(76, 437, 33, 14);
         formPanel.add(toLabel);
         
-		JLabel currentDateLabel = new JLabel("2023-12-08\r\n");
+		JLabel currentDateLabel = new JLabel(getCurrentDate());
 		currentDateLabel.setHorizontalAlignment(JLabel.CENTER);
         currentDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         currentDateLabel.setBounds(132, 85, 239, 25);
@@ -348,48 +348,6 @@ public class LeaveApplicationFormFrame2 extends JFrame {
 		// TODO Auto-generated method stub
 		return null;
 	}
-//
-//	private static String getCurrentDate() {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-////        return dateFormat.format(new Date());
-////    }
-//   
-//    private void refreshCalendar(int month, int year) {
-//        //Variables
-//        String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-//        int nod, som; //Number Of Days, Start Of Month
-//        
-//        //Allow/disallow buttons
-//        btnPrev.setEnabled(true);
-//        btnNext.setEnabled(true);
-//        if (month == 0 && year <= realYear-10){btnPrev.setEnabled(false);} //Too early
-//        if (month == 11 && year >= realYear+100){btnNext.setEnabled(false);} //Too late
-//        lblMonth.setText(months[month]); //Refresh the month label (at the top)
-//        lblMonth.setBounds(160-lblMonth.getPreferredSize().width/2, 25, 180, 25); //Re-align label with calendar
-//        cmbYear.setSelectedItem(String.valueOf(year)); //Select the correct year in the combo box
-//        
-//        //Clear table
-//        for (int i=0; i<6; i++){
-//            for (int j=0; j<7; j++){
-//                mtblCalendar.setValueAt(null, i, j);
-//            }
-//        }
-//        
-//        //Get first day of month and number of days
-//        GregorianCalendar cal = new GregorianCalendar(year, month, 1);
-//        nod = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-//        som = cal.get(GregorianCalendar.DAY_OF_WEEK);
-//        
-//        //Draw calendar
-//        for (int i=1; i<=nod; i++){
-//            int row = new Integer((i+som-2)/7);
-//            int column  =  (i+som-2)%7;
-//            mtblCalendar.setValueAt(i, row, column);
-//        }
-//        
-//        //Apply renderers
-//        tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
-    
     
     private void updateDateRestrictions() {
         String selectedLeaveType = (String) leaveTypeSelect.getSelectedItem();
@@ -397,9 +355,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         currentDate.setTime(new Date());
         // Enable all dates by default
         startDateChooser.setEnabled(true);
-        endDateChooser.setEnabled(true);
-        
-        
+        endDateChooser.setEnabled(true);       
         
         // Update date restrictions based on leave type
         if ("Sick Leave".equals(selectedLeaveType)) {
@@ -432,6 +388,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY");
         return dateFormat.format(new Date());
     }  
+    
     //Logic for Submit button
     private boolean isAllFieldsFilledUP() {
         return !employeeNoText.getText().isEmpty() &&
