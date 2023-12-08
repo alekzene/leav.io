@@ -1,9 +1,10 @@
-package ceu;
+package ceu; 
 
 import java.awt.EventQueue;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.util.EventObject;
 import java.util.Vector;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -32,9 +34,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
-import ceu.TableExample.ButtonEditor;
-import ceu.TableExample.ButtonRenderer;
 
+ 		 
 public class AdminDashboardFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -91,25 +92,33 @@ public class AdminDashboardFrame extends JFrame {
 		users.setBounds(21, 69, 675, 224);
 		panel_1.add(users);
 		users.setLayout(null);
-
-		AdminDashboard_Table = new JTable();
-		DefaultTableModel model = new DefaultTableModel(0, 4) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column != 3; // Make all cells non-editable except for column 4
-            }
-        };
 		
+		DefaultTableModel model = new DefaultTableModel(0, 4) {
+			boolean[] columnEditables = new boolean[] {
+			false, false, false, false
+		};
+            @Override
+//            public boolean isCellEditable(int row, int column) {
+//                return column != 3; // Make all cells non-editable except for column 4
+            	public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+            };
+
+        // Set column headers
         String[] headers = {"Employee Name", "Department", "Type of Leave", ""};
         model.setColumnIdentifiers(headers);
 
         // Populate the table with 20 rows
-        for (int i = 0; i < 20; i++) {
-            model.addRow(new Object[]{null, null, null, "/images/icons8-eye-24.png"});
-        }
+//        for (int i = 0; i < 20; i++) {
+        // FIXME: FIX PRINT LOGIC / ROW ADDITION LOGIC
+            model.addRow(new Object[]{"Francisco, Earl Ace", "Library", "Vacation", "/images/icons8-eye-24.png"});
+//        }
         
      // Create the table with the model
         AdminDashboard_Table = new JTable(model);
+        AdminDashboard_Table.setSize(new Dimension(660, 223));
+        AdminDashboard_Table.setPreferredSize(new Dimension(100, 40));
 
         // Set the row height to 40 pixels
         AdminDashboard_Table.setRowHeight(40);
@@ -121,25 +130,19 @@ public class AdminDashboardFrame extends JFrame {
         int buttonColumn = 3;
         AdminDashboard_Table.getColumnModel().getColumn(buttonColumn).setCellRenderer(new ButtonRenderer());
         AdminDashboard_Table.getColumnModel().getColumn(buttonColumn).setCellEditor(new ButtonEditor(new JCheckBox()));
-
-        // Add the table to a scroll pane with only vertical scrollbar
-        JScrollPane scrollPane = new JScrollPane(AdminDashboard_Table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        // Add the scroll pane to the panel
-        users.add(scrollPane);
-
-        // Add the panel to the frame
-        add(users);
-
-        // Set the frame to be visible
-        setVisible(true);
-    }
-
         
-//		table = new JTable();
-//		table.setRowSelectionAllowed(false);
-//		scrollPane.setViewportView(table);
-//		table.setModel(new DefaultTableModel(
+     // Create the scroll pane and add the table to it
+        JScrollPane scrollPane = new JScrollPane(AdminDashboard_Table);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBounds(0, 0, 675, 224);
+        
+        users.add(scrollPane);
+        
+//		AdminDashboard_Table = new JTable();
+//		AdminDashboard_Table.setRowSelectionAllowed(false);
+//		scrollPane.setViewportView(AdminDashboard_Table);
+//		AdminDashboard_Table.setModel(new DefaultTableModel(
 //			new Object[][] {
 //				{"Francisco, Earl Ace", "Library", "Vacation Leave", null },
 //				{"Gallano, Matt Joshua", "Canteen", "Vacation Leave", null },
@@ -173,16 +176,16 @@ public class AdminDashboardFrame extends JFrame {
 //				return columnEditables[column];
 //			}
 //		});
-//		table.getColumnModel().getColumn(0).setResizable(false);
-//		table.getColumnModel().getColumn(0).setMaxWidth(200);
-//		table.getColumnModel().getColumn(1).setResizable(false);
-//		table.getColumnModel().getColumn(1).setMaxWidth(150);
-//		table.getColumnModel().getColumn(2).setResizable(false);
-//		table.getColumnModel().getColumn(2).setMaxWidth(160);
-//		table.getColumnModel().getColumn(3).setResizable(false);
-//		table.getColumnModel().getColumn(3).setMaxWidth(150);
-//		table.setFont(new Font("Tahoma", Font.BOLD, 16));
-//		table.setRowHeight(50);
+//		AdminDashboard_Table.getColumnModel().getColumn(0).setResizable(false);
+//		AdminDashboard_Table.getColumnModel().getColumn(0).setMaxWidth(200);
+//		AdminDashboard_Table.getColumnModel().getColumn(1).setResizable(false);
+//		AdminDashboard_Table.getColumnModel().getColumn(1).setMaxWidth(150);
+//		AdminDashboard_Table.getColumnModel().getColumn(2).setResizable(false);
+//		AdminDashboard_Table.getColumnModel().getColumn(2).setMaxWidth(160);
+//		AdminDashboard_Table.getColumnModel().getColumn(3).setResizable(false);
+//		AdminDashboard_Table.getColumnModel().getColumn(3).setMaxWidth(150);
+//		AdminDashboard_Table.setFont(new Font("Tahoma", Font.BOLD, 16));
+//		AdminDashboard_Table.setRowHeight(50);
 		
 		JButton btnNewButton = new JButton("+  New Leave Type");
         btnNewButton.addActionListener(new ActionListener() {
@@ -243,4 +246,47 @@ public class AdminDashboardFrame extends JFrame {
 		bgIMG.setBounds(0, 0, 771, 481);
 		contentPane.add(bgIMG);
 	}
+	private static class ButtonRenderer extends JButton implements TableCellRenderer {
+
+        public ButtonRenderer() {
+            setOpaque(false);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setIcon(new ImageIcon(getClass().getResource((String) value)));
+            setText(null);
+            return this;
+        }
+    }
+
+    private static class ButtonEditor extends DefaultCellEditor {
+
+        private JButton button;
+
+        public ButtonEditor(JCheckBox checkBox) {
+            super(checkBox);
+            button = new JButton();
+            button.setOpaque(false);
+            button.setContentAreaFilled(false);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    fireEditingStopped();
+                }
+            });
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            button.setIcon(new ImageIcon(getClass().getResource(("/images/icons8-eye-24.png"))));
+            return button;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return button.getIcon();
+        }
+    }
+
 }
