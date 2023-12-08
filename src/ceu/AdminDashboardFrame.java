@@ -2,29 +2,40 @@ package ceu;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.Font;
-import javax.swing.JLayeredPane;
 import java.awt.Color;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
-import javax.swing.JScrollBar;
-import java.awt.event.ActionListener;
+import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
+import java.util.Vector;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.CellEditorListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 public class AdminDashboardFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -72,166 +83,63 @@ public class AdminDashboardFrame extends JFrame {
 		
 		JPanel users = new JPanel();
 		users.setBackground(new Color(255, 255, 255));
-		users.setBounds(21, 57, 675, 272);
+		users.setBounds(21, 69, 675, 224);
 		panel_1.add(users);
 		users.setLayout(null);
-		
-		JPanel user1 = new JPanel();
-		user1.setBounds(10, 11, 638, 41);
-		users.add(user1);
-		user1.setForeground(new Color(0, 191, 255));
-		user1.setLayout(null);
-		
-		JButton view1 = new JButton("View");
-		view1.setBounds(550, 5, 83, 30);
-		view1.setForeground(new Color(0, 64, 128));
-		user1.add(view1);
-		
-		JLabel name1 = new JLabel("Francisco, Earl Ace");
-		name1.setForeground(new Color(0, 0, 0));
-		name1.setBounds(10, 3, 200, 36);
-		user1.add(name1);
-		name1.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		
-		JLabel pos1 = new JLabel("Library");
-		pos1.setForeground(Color.BLACK);
-		pos1.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		pos1.setBounds(256, 3, 61, 36);
-		user1.add(pos1);
-		
-		JLabel type1 = new JLabel("Vacation");
-		type1.setForeground(Color.BLACK);
-		type1.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		type1.setBounds(396, 2, 83, 36);
-		user1.add(type1);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(658, 0, 17, 272);
+		scrollPane.setBounds(0, 0, 675, 225);
 		users.add(scrollPane);
-		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollPane.setViewportView(scrollBar);
-		scrollBar.setMaximum(15);
-		scrollBar.setForeground(new Color(175, 238, 238));
-		scrollBar.setBackground(new Color(173, 216, 230));
-		
-		JPanel user2 = new JPanel();
-		user2.setBounds(10, 63, 638, 41);
-		users.add(user2);
-		user2.setLayout(null);
-		user2.setForeground(new Color(0, 191, 255));
-		
-		JButton view2 = new JButton("View");
-		view2.setForeground(new Color(0, 64, 128));
-		view2.setBounds(550, 5, 83, 30);
-		user2.add(view2);
-		
-		JLabel name2 = new JLabel("Gallano, Matt Joshua");
-		name2.setForeground(Color.BLACK);
-		name2.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		name2.setBounds(10, 3, 200, 36);
-		user2.add(name2);
-		
-		JLabel pos2 = new JLabel("Canteen");
-		pos2.setForeground(Color.BLACK);
-		pos2.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		pos2.setBounds(256, 3, 83, 36);
-		user2.add(pos2);
-		
-		JLabel type2 = new JLabel("Vacation");
-		type2.setForeground(Color.BLACK);
-		type2.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		type2.setBounds(396, 2, 83, 36);
-		user2.add(type2);
-		
-		JPanel user3 = new JPanel();
-		user3.setLayout(null);
-		user3.setForeground(new Color(0, 191, 255));
-		user3.setBounds(10, 115, 638, 41);
-		users.add(user3);
-		
-		JButton view3 = new JButton("View");
-		view3.setForeground(new Color(0, 64, 128));
-		view3.setBounds(550, 5, 83, 30);
-		user3.add(view3);
-		
-		JLabel name3 = new JLabel("Arrojo, Jomari");
-		name3.setForeground(Color.BLACK);
-		name3.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		name3.setBounds(10, 3, 200, 36);
-		user3.add(name3);
-		
-		JLabel pos3 = new JLabel("Security");
-		pos3.setForeground(Color.BLACK);
-		pos3.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		pos3.setBounds(256, 3, 83, 36);
-		user3.add(pos3);
-		
-		JLabel type3 = new JLabel("Sick");
-		type3.setForeground(Color.BLACK);
-		type3.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		type3.setBounds(396, 2, 83, 36);
-		user3.add(type3);
-		
-		JPanel user4 = new JPanel();
-		user4.setBounds(10, 167, 638, 41);
-		users.add(user4);
-		user4.setLayout(null);
-		user4.setForeground(new Color(0, 191, 255));
-		
-		JButton view4 = new JButton("View");
-		view4.setForeground(new Color(0, 64, 128));
-		view4.setBounds(550, 5, 83, 30);
-		user4.add(view4);
-		
-		JLabel name4 = new JLabel("Padilla, Daniel");
-		name4.setForeground(Color.BLACK);
-		name4.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		name4.setBounds(10, 3, 200, 36);
-		user4.add(name4);
-		
-		JLabel pos4 = new JLabel("HR");
-		pos4.setForeground(Color.BLACK);
-		pos4.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		pos4.setBounds(256, 3, 83, 36);
-		user4.add(pos4);
-		
-		JLabel type4 = new JLabel("Paternal");
-		type4.setForeground(Color.BLACK);
-		type4.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		type4.setBounds(396, 2, 83, 36);
-		user4.add(type4);
-		
-		JPanel user5 = new JPanel();
-		user5.setLayout(null);
-		user5.setForeground(new Color(0, 191, 255));
-		user5.setBounds(10, 219, 638, 41);
-		users.add(user5);
-		
-		JButton view5 = new JButton("View");
-		view5.setForeground(new Color(0, 64, 128));
-		view5.setBounds(550, 5, 83, 30);
-		user5.add(view5);
-		
-		JLabel name5 = new JLabel("Brillantes, Andrea");
-		name5.setForeground(Color.BLACK);
-		name5.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		name5.setBounds(10, 3, 200, 36);
-		user5.add(name5);
-		
-		JLabel pos5 = new JLabel("HR");
-		pos5.setForeground(Color.BLACK);
-		pos5.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		pos5.setBounds(256, 3, 83, 36);
-		user5.add(pos5);
-		
-		JLabel type5 = new JLabel("Maternal");
-		type5.setForeground(Color.BLACK);
-		type5.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		type5.setBounds(396, 2, 83, 36);
-		user5.add(type5);
+
+//		table = new JTable();
+//		table.setRowSelectionAllowed(false);
+//		scrollPane.setViewportView(table);
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{"Francisco, Earl Ace", "Library", "Vacation Leave", null },
+//				{"Gallano, Matt Joshua", "Canteen", "Vacation Leave", null },
+//				{"Arrojo, Jomari", "Security", "Sick Leave", null },
+//				{"Padilla, Daniel", "HR", "Paternal Leave", null},
+//				{"Brilantes, Andrea", "HR", "Maternal Leave", null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//			},
+//			new String[] {
+//				"Name", "Department", "Type of Leave", ""
+//			}
+//		) {
+//			boolean[] columnEditables = new boolean[] {
+//				false, false, false, false
+//			};
+//			public boolean isCellEditable(int row, int column) {
+//				return columnEditables[column];
+//			}
+//		});
+//		table.getColumnModel().getColumn(0).setResizable(false);
+//		table.getColumnModel().getColumn(0).setMaxWidth(200);
+//		table.getColumnModel().getColumn(1).setResizable(false);
+//		table.getColumnModel().getColumn(1).setMaxWidth(150);
+//		table.getColumnModel().getColumn(2).setResizable(false);
+//		table.getColumnModel().getColumn(2).setMaxWidth(160);
+//		table.getColumnModel().getColumn(3).setResizable(false);
+//		table.getColumnModel().getColumn(3).setMaxWidth(150);
+//		table.setFont(new Font("Tahoma", Font.BOLD, 16));
+//		table.setRowHeight(50);
 		
 		JButton btnNewButton = new JButton("+  New Leave Type");
         btnNewButton.addActionListener(new ActionListener() {
@@ -249,8 +157,28 @@ public class AdminDashboardFrame extends JFrame {
         });
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setBounds(495, 17, 175, 29);
+		btnNewButton.setBounds(503, 18, 175, 29);
 		panel_1.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("LOG OUT");
+		btnNewButton_1.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirm Log Out", JOptionPane.YES_NO_OPTION);
+
+		        if (confirmation == JOptionPane.YES_OPTION) {
+		            AdminDashboardFrame.this.dispose();
+		        } else {
+		            // Do nothing or handle cancellation
+		        }
+		    }
+		});
+	
+		btnNewButton_1.setForeground(Color.WHITE);
+		btnNewButton_1.setBackground(new Color(255, 108, 108));
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btnNewButton_1.setBounds(299, 311, 126, 29);
+		panel_1.add(btnNewButton_1);
 		
 		int pendingCount= 5;
 		

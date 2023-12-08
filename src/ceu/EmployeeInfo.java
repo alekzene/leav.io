@@ -58,5 +58,4 @@ this.employeeID = employeeID;
    public static void main(String args[]) {
 	   EmployeeInfo employee = new EmployeeInfo("jomjom123", "12345", "Jomari B. Arrojo", "Employee", "HR", 21, 123456789 );
    }
-	
 }

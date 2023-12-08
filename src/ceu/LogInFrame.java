@@ -85,7 +85,7 @@ public class LogInFrame extends JFrame {
 		logInPanel.add(welcomeLabel);
 		
 		// USERNAME LABEL
-		JLabel usernameLabel = new JLabel("Username");
+		JLabel usernameLabel = new JLabel("Username:");
 		usernameLabel.setIcon(new ImageIcon("src\\images\\icons8-username-24.png"));
 		usernameLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		usernameLabel.setBounds(64, 112, 150, 25);
@@ -99,7 +99,7 @@ public class LogInFrame extends JFrame {
 		usernameTextField.setColumns(10);
 		
 		// PASSWORD LABEL
-		JLabel passwordLabel = new JLabel("Password");
+		JLabel passwordLabel = new JLabel("Password:");
 		passwordLabel.setIcon(new ImageIcon("src\\images\\icons8-lock-24.png"));
 		passwordLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		passwordLabel.setBounds(64, 159, 113, 25);
@@ -128,16 +128,16 @@ public class LogInFrame extends JFrame {
 		  
 		// REMEMBER ME RADIO BUTTON
         JRadioButton rememberMeRadioButton = new JRadioButton("Remember Me");
-        rememberMeRadioButton.setBackground(new Color(239, 186, 235));
+        rememberMeRadioButton.setBackground(new Color(241, 171, 192));
         rememberMeRadioButton.setForeground(Color.BLACK);
         rememberMeRadioButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		// FIXME: ADD CODE HERE. MUST REMEMBER USER WHEN CLICKED.
         	}
         });
-		rememberMeRadioButton.setOpaque(false); 
+		rememberMeRadioButton.setOpaque(true); 
 		rememberMeRadioButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		rememberMeRadioButton.setBounds(61, 199, 131, 25);
+		rememberMeRadioButton.setBounds(63, 195, 131, 25);
 		logInPanel.add(rememberMeRadioButton);
 		
 		// RESET PASSWORD BUTTON
@@ -149,10 +149,10 @@ public class LogInFrame extends JFrame {
 				resetPasswordFrame.setVisible(true);
 			}
 		});
-		resetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		resetPasswordButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		resetPasswordButton.setForeground(new Color(64, 64, 64));
 		resetPasswordButton.setBackground(new Color(240, 240, 240));
-		resetPasswordButton.setBounds(238, 202, 159, 18);
+		resetPasswordButton.setBounds(231, 198, 166, 18);
 		logInPanel.add(resetPasswordButton);
 		
 		// LOGIN BUTTON
@@ -218,7 +218,7 @@ public class LogInFrame extends JFrame {
 		});
 		logInButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		logInButton.setBackground(new Color(255, 128, 192));
-		logInButton.setBounds(167, 253, 137, 41);
+		logInButton.setBounds(170, 244, 139, 41);
 		logInPanel.add(logInButton);
 		
 		// WELCOME PANEL
