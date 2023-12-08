@@ -24,9 +24,10 @@ public class TableExample extends JFrame {
         DefaultTableModel model = new DefaultTableModel(0, 4) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column != 3; // Make all cells non-editable except for column 4
+                return column != 3; // Make all cells non-editable except for column 3 (buttonColumn)
             }
         };
+
 
         // Set column headers
         String[] headers = {"Employee Name", "Department", "Type of Leave", ""};
