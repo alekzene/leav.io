@@ -93,53 +93,53 @@ public class AdminDashboardFrame extends JFrame {
 		scrollPane.setBounds(0, 0, 675, 225);
 		users.add(scrollPane);
 
-		table = new JTable();
-		table.setRowSelectionAllowed(false);
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Francisco, Earl Ace", "Library", "Vacation Leave", null },
-				{"Gallano, Matt Joshua", "Canteen", "Vacation Leave", null },
-				{"Arrojo, Jomari", "Security", "Sick Leave", null },
-				{"Padilla, Daniel", "HR", "Paternal Leave", null},
-				{"Brilantes, Andrea", "HR", "Maternal Leave", null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"Name", "Department", "Type of Leave", ""
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(0).setMaxWidth(200);
-		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(1).setMaxWidth(150);
-		table.getColumnModel().getColumn(2).setResizable(false);
-		table.getColumnModel().getColumn(2).setMaxWidth(160);
-		table.getColumnModel().getColumn(3).setResizable(false);
-		table.getColumnModel().getColumn(3).setMaxWidth(150);
-		table.setFont(new Font("Tahoma", Font.BOLD, 16));
-		table.setRowHeight(50);
+//		table = new JTable();
+//		table.setRowSelectionAllowed(false);
+//		scrollPane.setViewportView(table);
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{"Francisco, Earl Ace", "Library", "Vacation Leave", null },
+//				{"Gallano, Matt Joshua", "Canteen", "Vacation Leave", null },
+//				{"Arrojo, Jomari", "Security", "Sick Leave", null },
+//				{"Padilla, Daniel", "HR", "Paternal Leave", null},
+//				{"Brilantes, Andrea", "HR", "Maternal Leave", null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//			},
+//			new String[] {
+//				"Name", "Department", "Type of Leave", ""
+//			}
+//		) {
+//			boolean[] columnEditables = new boolean[] {
+//				false, false, false, false
+//			};
+//			public boolean isCellEditable(int row, int column) {
+//				return columnEditables[column];
+//			}
+//		});
+//		table.getColumnModel().getColumn(0).setResizable(false);
+//		table.getColumnModel().getColumn(0).setMaxWidth(200);
+//		table.getColumnModel().getColumn(1).setResizable(false);
+//		table.getColumnModel().getColumn(1).setMaxWidth(150);
+//		table.getColumnModel().getColumn(2).setResizable(false);
+//		table.getColumnModel().getColumn(2).setMaxWidth(160);
+//		table.getColumnModel().getColumn(3).setResizable(false);
+//		table.getColumnModel().getColumn(3).setMaxWidth(150);
+//		table.setFont(new Font("Tahoma", Font.BOLD, 16));
+//		table.setRowHeight(50);
 		
 		JButton btnNewButton = new JButton("+  New Leave Type");
         btnNewButton.addActionListener(new ActionListener() {
