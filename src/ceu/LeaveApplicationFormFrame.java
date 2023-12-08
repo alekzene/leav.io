@@ -14,7 +14,8 @@ import javax.swing.event.*;
 import com.toedter.calendar.JDateChooser;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.event.*;
-
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class LeaveApplicationFormFrame extends JFrame {
     
@@ -42,7 +43,21 @@ public class LeaveApplicationFormFrame extends JFrame {
 	private String campusDB;
 	private String departmentDB;
     private String newLeaveType;
+    private int leaveRequestIDDB;
+    private int employeeIDFK;
     
+    // OTHER VARIABLES
+    private Calendar currentDate = Calendar.getInstance();
+    private String applicationDate;
+    private String enteredStartDate;
+    private String enteredEndDate;
+    private String enteredReason;
+    private String enteredClientComments;
+    private String enteredMocName;
+    private String enteredMocAddress;
+    private String enteredMocContactNumber;
+    private String selectedCategory;
+    private String leaveRequestStatus;
     private static int realDay, realMonth, realYear, currentMonth, currentYear; // FIXME: WHAT'S THIS FOR
     private DateAndTime dateTime;
 
@@ -329,12 +344,53 @@ public class LeaveApplicationFormFrame extends JFrame {
         clientCommentsTextField.setWrapStyleWord(true);
         clientCommentsTextField.setColumns(10);
        
+        // GET VALUES ENTERED IN FORM FIELDS
+        selectedCategory = (String) leaveTypeSelect.getSelectedItem();
+        enteredStartDate = startDateChooser.getDateFormatString();
+        enteredEndDate = startDateChooser.getDateFormatString();
+        enteredReason = specificPurposeTextField.getText();
+        enteredClientComments = clientCommentsTextField.getText();
+        enteredMocName = contactNameTextField.getText();
+        enteredMocAddress = contactAddressTextField.getText();
+        enteredMocContactNumber = contactNumberTextField.getText();
+        applicationDate = currentDate.toString();
+
         // SUBMIT BUTTON LOGIC IMPLEMENTATION
         submitButton.addActionListener(new ActionListener() {	
         	public void actionPerformed(ActionEvent e) {
         		if (isAllFieldsFilledUP()) {
+        			// FIXME: ADD MORE VALIDATION IF NEEDED
+        			
         			// FIXME: PUT ALL VALUES GATHERED FROM FORM INTO DATABASE
-        			// DATE OF APPLICATION, PURPOSE, START DATE, END DATE,  MOC: NAME, ADDRESS, CONTACT NUMBER
+        			
+        			// FIXME: CALCULATE DURATION IN DAYS
+        	        LocalDate startDate = LocalDate.parse(enteredStartDate);
+        	        LocalDate endDate = LocalDate.parse(enteredEndDate);
+        	        
+        	        int durationInDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
+
+        			// GET EMPLOYEE ID FOREIGN KEY BASED ON USERNAME
+        	        try (ResultSet resultSet = qc.prepareSelectEmployeeIDFKStatement( connection, LogInFrame.usernameDB).executeQuery()) {
+        	            if (resultSet.next()) {
+        	                employeeIDFK = resultSet.getInt("id");
+        	            }
+        	        } catch (SQLException ex) {
+        	            ex.printStackTrace();
+        	        }
+        	        
+        	        // SET STATUS TO PENDING
+        			leaveRequestStatus = "Pending";
+        			String adminRemarks = null;
+        			
+        			// INSERT LEAVE RQEUEST TO DATABASE
+        	        try (ResultSet resultSet = qc.prepareInsertLeaveRequestStatement(connection, employeeIDFK, selectedCategory, applicationDate, enteredStartDate, enteredEndDate, durationInDays, enteredReason, enteredClientComments, leaveRequestStatus, adminRemarks, enteredMocName, enteredMocAddress, enteredMocContactNumber).executeQuery()) {
+        	            if (resultSet.next()) {
+        	                leaveRequestIDDB = resultSet.getInt("id");
+        	            }
+        	        } catch (SQLException ex) {
+        	            ex.printStackTrace();
+        	        }
+        	        
         			JOptionPane.showMessageDialog(null, "Successfully Submitted!");
         			JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(submitButton);
 		            currentFrame.dispose();
@@ -360,15 +416,13 @@ public class LeaveApplicationFormFrame extends JFrame {
     
     // FIXME: LOGIC STILL FLAWEDss
     private void updateDateRestrictions() {
-        String selectedLeaveType = (String) leaveTypeSelect.getSelectedItem();
-        Calendar currentDate = Calendar.getInstance();
         currentDate.setTime(new Date());
         // Enable all dates by default
         startDateChooser.setEnabled(true);
         endDateChooser.setEnabled(true);       
         
         // Update date restrictions based on leave type
-        if ("Sick Leave".equals(selectedLeaveType)) {
+        if ("Sick Leave".equals(selectedCategory)) {
             // Disable dates on and after the current date for startDateChooser
             startDateChooser.setMaxSelectableDate(currentDate.getTime());
             endDateChooser.setMaxSelectableDate(currentDate.getTime());
