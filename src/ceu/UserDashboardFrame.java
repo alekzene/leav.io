@@ -30,6 +30,7 @@ public class UserDashboardFrame extends JFrame {
 	private String departmentDB;
 	private int leavesRemainingDB;
 	private int leavesUsedDB;
+	private String employeeIDDB;
 	
 	private Date_And_Time dateTime;
 	private EmployeeInfo employee;
@@ -142,14 +143,24 @@ public class UserDashboardFrame extends JFrame {
             ex.printStackTrace();
         }
 		
+		//EMPLOYEE ID
+		try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+                employeeIDDB = resultSet.getString("employee_id");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		
+		
 		JLabel employeeName = new JLabel(nameDB);
 		employeeName.setBounds(85, 76, 206, 25);
 		employeeName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employeeName);
 		
 		// EMPLOYEE ID
-		JLabel employee_ID = new JLabel(String.valueOf(employee.getEmployeeID()));
-		employee_ID.setBounds(155, 45, 265, 25);
+		JLabel employee_ID = new JLabel(employeeIDDB);
+		employee_ID.setBounds(155, 45, 212, 25);
 		employee_ID.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employee_ID);
 		
@@ -166,7 +177,7 @@ public class UserDashboardFrame extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Employee ID:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(10, 45, 135, 25);
+		lblNewLabel.setBounds(10, 45, 149, 25);
 		employeeInfoPanel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Name:");

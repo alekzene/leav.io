@@ -150,11 +150,11 @@ public class QueryCommands {
     }
     
     // SELECT EMPLOYEE ID STATEMENT
-    public PreparedStatement prepareSelectEmployeeIDStatement(Connection connection, String enteredEmployeeID) {
+    public PreparedStatement prepareSelectEmployeeIDStatement(Connection connection, String enteredUsername) {
         try {
-            String query = selectEmployeeID(enteredEmployeeID);
+            String query = selectEmployeeID(enteredUsername);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, enteredEmployeeID);
+            preparedStatement.setString(1, enteredUsername);
             return preparedStatement;
         } catch (Exception e) {
             // Handle the exception appropriately
@@ -164,8 +164,8 @@ public class QueryCommands {
     }
 
     // SELECT EMPLOYEE ID QUERY
-    public String selectEmployeeID(String enteredEmployeeID) {
-        return "SELECT employee_id FROM employees WHERE employee_id = ?";
+    public String selectEmployeeID(String enteredUsername) {
+        return "SELECT employee_id FROM employees WHERE username = ?";
     }
     
     // SELECT NAME STATEMENT
