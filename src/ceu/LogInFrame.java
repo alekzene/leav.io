@@ -26,7 +26,7 @@ public class LogInFrame extends JFrame {
 	// DATABASE
     private Connection connection; 
     private QueryCommands qc;
-	private String usernameDB = "";
+	public static String usernameDB = "";
 	private String passwordDB = "";
     private String userCategoryDB;
 	

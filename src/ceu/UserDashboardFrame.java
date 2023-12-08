@@ -8,6 +8,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDashboardFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -17,6 +22,11 @@ public class UserDashboardFrame extends JFrame {
 	private JTable declinedTracker_Table;
 	private JLabel Time;
 	private Timer timer;
+	
+	// DATABASE
+	private Connection connection;
+	private QueryCommands qc;
+	private String nameDB;
 	
 	private Date_And_Time dateTime;
 	private EmployeeInfo employee;
@@ -37,11 +47,14 @@ public class UserDashboardFrame extends JFrame {
 			}
 		});
 	}
-	
+
 	/**
 	 * Create the frame.
 	 */
 	public UserDashboardFrame() {
+		connection = DatabaseConnection.getConnection();
+		qc = new QueryCommands();
+		
 		Date_And_Time dateTime = new Date_And_Time();
 		employee = new EmployeeInfo("jomjom123", "12345", "Jomari B. Arrojo", "Employee", "HR", 21, 123456789 );
 		
@@ -88,7 +101,15 @@ public class UserDashboardFrame extends JFrame {
 		employeeInfoPanel.setLayout(null);
 		
 		// EMPLOYEE NAME
-		JLabel employeeName = new JLabel(employee.getEmployeeName());
+		try (ResultSet resultSet = qc.prepareSelectNameStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+                nameDB = resultSet.getString("name");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		
+		JLabel employeeName = new JLabel(nameDB);
 		employeeName.setBounds(85, 76, 206, 25);
 		employeeName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employeeName);

@@ -101,7 +101,7 @@ public class QueryCommands {
     }
 
     // SELECT USERNAME QUERY
-    public String selectUsername(String username) {
+    public String selectUsername(String enteredUsername) {
         return "SELECT * FROM employees WHERE username = ?";
     }
     
@@ -176,7 +176,7 @@ public class QueryCommands {
     }
 
     // SELECT NAME QUERY
-    public String selectName(String enteredName) {
+    public String selectName(String enteredUsername) {
         return "SELECT name FROM employees WHERE username = ?";
     }
     
