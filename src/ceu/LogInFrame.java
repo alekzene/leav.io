@@ -54,7 +54,7 @@ public class LogInFrame extends JFrame {
 	public LogInFrame() {
 
 		connection = DatabaseConnection.getConnection();
-		qc = new QueryCommands();
+		qc = new QueryCommands(connection);
 		
 		// CONTENT PANE
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

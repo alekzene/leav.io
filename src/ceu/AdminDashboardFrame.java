@@ -54,6 +54,7 @@ public class AdminDashboardFrame extends JFrame {
 	private QueryCommands qc;
 	private String firstNameDB;
 	private int pendingCount;
+	private String newLeaveType;
 
 	
 	/**
@@ -157,6 +158,57 @@ public class AdminDashboardFrame extends JFrame {
         users.add(scrollPane);
 		
 		JButton btnNewButton = new JButton("+  New Leave Type");
+        
+//		AdminDashboard_Table = new JTable();
+//		AdminDashboard_Table.setRowSelectionAllowed(false);
+//		scrollPane.setViewportView(AdminDashboard_Table);
+//		AdminDashboard_Table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{"Francisco, Earl Ace", "Library", "Vacation Leave", null },
+//				{"Gallano, Matt Joshua", "Canteen", "Vacation Leave", null },
+//				{"Arrojo, Jomari", "Security", "Sick Leave", null },
+//				{"Padilla, Daniel", "HR", "Paternal Leave", null},
+//				{"Brilantes, Andrea", "HR", "Maternal Leave", null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//				{null, null, null, null},
+//			},
+//			new String[] {
+//				"Name", "Department", "Type of Leave", ""
+//			}
+//		) {
+//			boolean[] columnEditables = new boolean[] {
+//				false, false, false, false
+//			};
+//			public boolean isCellEditable(int row, int column) {
+//				return columnEditables[column];
+//			}
+//		});
+//		AdminDashboard_Table.getColumnModel().getColumn(0).setResizable(false);
+//		AdminDashboard_Table.getColumnModel().getColumn(0).setMaxWidth(200);
+//		AdminDashboard_Table.getColumnModel().getColumn(1).setResizable(false);
+//		AdminDashboard_Table.getColumnModel().getColumn(1).setMaxWidth(150);
+//		AdminDashboard_Table.getColumnModel().getColumn(2).setResizable(false);
+//		AdminDashboard_Table.getColumnModel().getColumn(2).setMaxWidth(160);
+//		AdminDashboard_Table.getColumnModel().getColumn(3).setResizable(false);
+//		AdminDashboard_Table.getColumnModel().getColumn(3).setMaxWidth(150);
+//		AdminDashboard_Table.setFont(new Font("Tahoma", Font.BOLD, 16));
+//		AdminDashboard_Table.setRowHeight(50);
+        
+        // FIXME DOUBLE CHECK LOGIC		
+        JButton btnNewButton = new JButton("+  New Leave Type");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JTextField leaveTypeField = new JTextField();
@@ -166,10 +218,22 @@ public class AdminDashboardFrame extends JFrame {
                 int option = JOptionPane.showConfirmDialog(null, message,
                         "New Leave Type", JOptionPane.OK_CANCEL_OPTION);
                 if (option == JOptionPane.OK_OPTION) {
-                		//add to leaves type
+                    newLeaveType = leaveTypeField.getText();
+                    try {
+                        // Use the prepared statement to add the new leave type
+                    	int rowsAffected = qc.prepareAddLeaveTypeStatement(connection, newLeaveType).executeUpdate();
+                        // You might want to perform additional actions after the update
+                        // For example, refreshing the UI or displaying a success message
+                        JOptionPane.showMessageDialog(null, "New leave type added successfully!");
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        // Handle the exception appropriately, e.g., display an error message
+                        JOptionPane.showMessageDialog(null, "Failed to add new leave type. Please try again.");
+                    }
                 }
             }
         });
+
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnNewButton.setBounds(503, 18, 175, 29);
