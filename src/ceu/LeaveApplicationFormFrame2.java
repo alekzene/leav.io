@@ -12,25 +12,24 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.border.EtchedBorder;
 import com.toedter.calendar.JDateChooser;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 
 
 
 public class LeaveApplicationFormFrame2 extends JFrame {
     private JPanel contentPane;
-    private JLabel lblMonth, lblYear;
-    private JComboBox cmbYear;
-    private JButton btnPrev, btnNext;
-    private DefaultTableModel mtblCalendar;
-    private JTable tblCalendar;
-    private JScrollPane stblCalendar;
-    private JPanel pnlCalendar;
+
 
     private static int realDay, realMonth, realYear, currentMonth, currentYear;
     private JTextField employeeNoText;
@@ -86,85 +85,19 @@ public class LeaveApplicationFormFrame2 extends JFrame {
 		contentPane.setLayout(null);
 		
 		commentPanel = new JPanel();
-		commentPanel.setBounds(496, 481, 428, 144);
+		commentPanel.setBounds(486, 559, 428, 144);
 		commentPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "COMMENTS", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(commentPanel);
 		commentPanel.setLayout(null);
 		
 		JTextArea textAreaComments = new JTextArea();
+		textAreaComments.setBounds(10, 23, 408, 110);
+		commentPanel.add(textAreaComments);
 		textAreaComments.setLineWrap(true);
 		textAreaComments.setWrapStyleWord(true);
-		textAreaComments.setBounds(10, 23, 408, 110);
 		textAreaComments.setColumns(10);
-		commentPanel.add(textAreaComments);
-		
-		//Calendar Code
-		pnlCalendar = new JPanel(null);
-		pnlCalendar.setBounds(496, 24, 443, 396);
-        pnlCalendar.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Calendar", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-        contentPane.add(pnlCalendar);
-
-        lblMonth = new JLabel("January");
-        lblYear = new JLabel("Change year:");
-        cmbYear = new JComboBox();
-        btnPrev = new JButton("<<");
-        btnNext = new JButton(">>");
-        mtblCalendar = new DefaultTableModel() {
-            public boolean isCellEditable(int rowIndex, int mColIndex) {
-                return false;
-            }
-        };
-        tblCalendar = new JTable(mtblCalendar);
-        stblCalendar = new JScrollPane(tblCalendar);
-
-        // Register action listeners
-        btnPrev.addActionListener(new btnPrev_Action());
-        btnNext.addActionListener(new btnNext_Action());
-        cmbYear.addActionListener(new cmbYear_Action());
-
-        // Add controls to calendar panel
-        pnlCalendar.add(lblMonth);
-        pnlCalendar.add(lblYear);
-        pnlCalendar.add(cmbYear);
-        pnlCalendar.add(btnPrev);
-        pnlCalendar.add(btnNext);
-        pnlCalendar.add(stblCalendar);
-        lblMonth.setBounds(150 - lblMonth.getPreferredSize().width / 2, 11, 120, 32);
-        lblYear.setBounds(10, 365, 80, 20);
-        cmbYear.setBounds(200, 365, 80, 20);
-        btnPrev.setBounds(10, 11, 50, 25);
-        btnNext.setBounds(380, 11, 50, 25);
-        stblCalendar.setBounds(10, 50, 423, 250);
-
-        // Make frame visible
-        setVisible(true);
-
-        // Get real month/year
-        GregorianCalendar cal = new GregorianCalendar(); // Create calendar
-        realDay = cal.get(GregorianCalendar.DAY_OF_MONTH); // Get day
-        realMonth = cal.get(GregorianCalendar.MONTH); // Get month
-        realYear = cal.get(GregorianCalendar.YEAR); // Get year
-        currentMonth = realMonth; // Match month and year
-
-        // Add headers
-        String[] headers = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}; // All headers
-        for (int i = 0; i < 7; i++) {
-            mtblCalendar.addColumn(headers[i]);
-        }
-
-        tblCalendar.getParent().setBackground(tblCalendar.getBackground()); // Set background
-
-        // No resize/reorder
-        tblCalendar.getTableHeader().setResizingAllowed(false);
-        tblCalendar.getTableHeader().setReorderingAllowed(false);
-
-        // Single cell selection
-        tblCalendar.setColumnSelectionAllowed(true);
-        tblCalendar.setRowSelectionAllowed(true);
-        tblCalendar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        // Set row/column count
-        tblCalendar.setRowHeight(38);
+      
+ 
         
         JPanel formPanel = new JPanel();
         formPanel.setBounds(10, 24, 466, 741);
@@ -217,6 +150,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         employeeNoText = new JTextField();
         employeeNoText.addKeyListener(new KeyAdapter() {
+        	//Logic for employeeNo.
         	  public void keyTyped(KeyEvent e) {
                   char inputChar = e.getKeyChar();
                   if (!Character.isDigit(inputChar) && inputChar != KeyEvent.VK_BACK_SPACE) {
@@ -231,13 +165,14 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         nameText = new JTextField();
         nameText.addKeyListener(new KeyAdapter() {
+        	//Logic for nameText.
         	@Override
-        	public void keyTyped(KeyEvent e) {
-        		char name = e.getKeyChar();
-        		if (!Character.isAlphabetic(name) ) {
-        			e.consume();
-        		}
-        	}
+            public void keyTyped(KeyEvent e) {
+                char name = e.getKeyChar();
+                if (!Character.isLetter(name) && name != ' ') {
+                    e.consume();
+                }
+            }
         });
         
         nameText.setColumns(10);
@@ -251,14 +186,15 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         contactNameText = new JTextField();
         contactNameText.addKeyListener(new KeyAdapter() {
-        	@Override
-        	public void keyTyped(KeyEvent e) {
-        		char name = e.getKeyChar();
-        		if (!Character.isAlphabetic(name)) {
-        			e.consume();
-        		}
-        	}
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char name = e.getKeyChar();
+                if (!Character.isLetter(name) && name != ' ') {
+                    e.consume();
+                }
+            }
         });
+        
         contactNameText.setColumns(10);
         contactNameText.setBounds(132, 493, 239, 20);
         formPanel.add(contactNameText);
@@ -270,6 +206,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         contactNoText = new JTextField();
         contactNoText.addKeyListener(new KeyAdapter() {
+        	//Logic for contactNo
         	@Override
         	public void keyTyped(KeyEvent e) {
         		char inputNumber = e.getKeyChar();
@@ -309,7 +246,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         formPanel.add(purposeLabel);
         
         campusSelect = new JComboBox();
-        campusSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Campus", "Manila ", "Makati ", "Malalolos"}));
+        campusSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Campus", "Manila ", "Makati ", "Malolos"}));
         campusSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
         campusSelect.setBackground(Color.WHITE);
         campusSelect.setBounds(132, 226, 239, 21);
@@ -321,14 +258,21 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         formPanel.add(deptLabel);
         
         departmentSelect = new JComboBox();
-        departmentSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "Canteen", "Library", "Faculty", "Security", "Accounting Office"}));
+        departmentSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "Canteen", "Library", "Faculty", "Maintenance\t", "Accounting Office", "HR"}));
         departmentSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
         departmentSelect.setBackground(new Color(255, 255, 255));
         departmentSelect.setBounds(132, 270, 239, 21);
         formPanel.add(departmentSelect);
         
         leaveTypeSelect = new JComboBox();
-        leaveTypeSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
+        leaveTypeSelect.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		updateDateRestrictions();
+        	}
+        });
+        
+       
+        leaveTypeSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Sick Leave", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
         leaveTypeSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
         leaveTypeSelect.setBackground(Color.WHITE);
         leaveTypeSelect.setBounds(132, 120, 239, 21);
@@ -347,13 +291,8 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         toLabel.setBounds(76, 437, 33, 14);
         formPanel.add(toLabel);
         
-		JLabel currentDateLabel = new JLabel(getCurrentDate());
+		JLabel currentDateLabel = new JLabel("2023-12-08\r\n");
 		currentDateLabel.setHorizontalAlignment(JLabel.CENTER);
-		Timer timer = new Timer(1000, e -> currentDateLabel.setText(getCurrentDate()));
-        timer.start();
-        
-        Date_And_Time dateTime = new Date_And_Time();
-		
         currentDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         currentDateLabel.setBounds(132, 85, 239, 25);
         formPanel.add(currentDateLabel);
@@ -365,15 +304,18 @@ public class LeaveApplicationFormFrame2 extends JFrame {
        
         
         JButton btnSubmit = new JButton("SUBMIT\r\n");
-        btnSubmit.setBounds(641, 670, 150, 76);
-        contentPane.add(btnSubmit);
+        btnSubmit.setBounds(85, 626, 150, 76);
+        formPanel.add(btnSubmit);
         
-        JLabel Background = new JLabel("New label");
-        Background.setBounds(0, 0, 981, 774);
-        Background.setIcon(new ImageIcon(LeaveApplicationFormFrame2.class.getResource("/images/bbg.png")));
-        contentPane.add(Background);
-        setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{contentPane, commentPanel, textAreaComments, pnlCalendar, lblMonth, lblYear, cmbYear, btnPrev, btnNext, stblCalendar, tblCalendar, formPanel, lblNewLabel, lblNewLabel_1, dateLabel, periodApplied, contactLabel, contactName, contactAddress, contactNumber, employeeNoText, nameText, purposeText, contactNameText, contactAddressText, contactNoText, leaveTypeLabel, employeeNoLabel, nameLabel, campusLabel, purposeLabel, campusSelect, deptLabel, departmentSelect, leaveTypeSelect, startDateChooser, startDateChooser.getCalendarButton(), endDateChooser, endDateChooser.getCalendarButton(), toLabel, currentDateLabel, btnSubmit, Background}));
-        
+        JButton btnNewButton = new JButton("CANCEL");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        	}
+        });
+        btnNewButton.setBounds(262, 626, 150, 76);
+        formPanel.add(btnNewButton);
+       
         btnSubmit.addActionListener(new ActionListener() {	
         	public void actionPerformed(ActionEvent e) {
         		if (isAllFieldsFilledUP()) {
@@ -383,74 +325,60 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         		}
         		else {
         			JOptionPane.showMessageDialog(null, "Please fill up the required Informations.");
-        		}
-        		
-        		
+        		}        		
         	}
-
         });
-        mtblCalendar.setColumnCount(7);
-        mtblCalendar.setRowCount(6);
         
-        // Populate table
-        for (int i = realYear - 100; i <= realYear + 100; i++) {
-            cmbYear.addItem(String.valueOf(i));
-        }
-
-        // Refresh calendar
-        refreshCalendar(realMonth, realYear); // Refresh calendar
+        JLabel Background = new JLabel("New label");
+        Background.setBounds(0, 0, 981, 774);
+        Background.setIcon(new ImageIcon(LeaveApplicationFormFrame2.class.getResource("/images/bbg.png")));
+        contentPane.add(Background);       
     }
     
     //Methods and Constructors
     
+    
+    private void updateDateRestrictions() {
+        String selectedLeaveType = (String) leaveTypeSelect.getSelectedItem();
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.setTime(new Date());
+
+        // Enable all dates by default
+        startDateChooser.setEnabled(true);
+        endDateChooser.setEnabled(true);
+
+        // Update date restrictions based on leave type
+        if ("Sick Leave".equals(selectedLeaveType)) {
+            // Disable dates on and after the current date
+            startDateChooser.setMaxSelectableDate(currentDate.getTime());
+            endDateChooser.setMaxSelectableDate(currentDate.getTime());
+            // Allow selecting only the previous date
+            startDateChooser.setMinSelectableDate(null);
+            endDateChooser.setMaxSelectableDate(null);
+        } else {
+            // For other leave types, additional logic can be added here
+            // For example, disable dates before the current date
+            startDateChooser.setMinSelectableDate(currentDate.getTime());
+            endDateChooser.setMinSelectableDate(currentDate.getTime());
+
+            // Optional: Allow filing leaves three days in advance
+            currentDate.add(Calendar.DATE, 3);
+            startDateChooser.setMaxSelectableDate(currentDate.getTime());
+            endDateChooser.setMaxSelectableDate(currentDate.getTime());
+        }
+    }    
     private static String getCurrentDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY");
         return dateFormat.format(new Date());
-    }
-   
-    private void refreshCalendar(int month, int year) {
-        //Variables
-        String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        int nod, som; //Number Of Days, Start Of Month
-        
-        //Allow/disallow buttons
-        btnPrev.setEnabled(true);
-        btnNext.setEnabled(true);
-        if (month == 0 && year <= realYear-10){btnPrev.setEnabled(false);} //Too early
-        if (month == 11 && year >= realYear+100){btnNext.setEnabled(false);} //Too late
-        lblMonth.setText(months[month]); //Refresh the month label (at the top)
-        lblMonth.setBounds(160-lblMonth.getPreferredSize().width/2, 25, 180, 25); //Re-align label with calendar
-        cmbYear.setSelectedItem(String.valueOf(year)); //Select the correct year in the combo box
-        
-        //Clear table
-        for (int i=0; i<6; i++){
-            for (int j=0; j<7; j++){
-                mtblCalendar.setValueAt(null, i, j);
-            }
-        }
-        
-        //Get first day of month and number of days
-        GregorianCalendar cal = new GregorianCalendar(year, month, 1);
-        nod = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-        som = cal.get(GregorianCalendar.DAY_OF_WEEK);
-        
-        //Draw calendar
-        for (int i=1; i<=nod; i++){
-            int row = new Integer((i+som-2)/7);
-            int column  =  (i+som-2)%7;
-            mtblCalendar.setValueAt(i, row, column);
-        }
-        
-        //Apply renderers
-        tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
-    }
-    
- 
+    }  
+    //Logic for Submit button
     private boolean isAllFieldsFilledUP() {
         return !employeeNoText.getText().isEmpty() &&
                 !nameText.getText().isEmpty() &&
+                !nameText.getText().isBlank() &&
                 !purposeText.getText().isEmpty() &&
                 !contactNameText.getText().isEmpty() &&
+                !contactNameText.getText().isBlank() &&
                 !contactAddressText.getText().isEmpty() &&
                 !contactNoText.getText().isEmpty() &&
                 campusSelect.getSelectedIndex() != 0 &&
@@ -458,64 +386,5 @@ public class LeaveApplicationFormFrame2 extends JFrame {
                 departmentSelect.getSelectedIndex() != 0 &&
                 startDateChooser.getDate() != null &&
                 endDateChooser.getDate() != null;
-    }
-
-    private class tblCalendarRenderer extends DefaultTableCellRenderer{
-        public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column){
-            super.getTableCellRendererComponent(table, value, selected, focused, row, column);
-            if (column == 0 || column == 6){ //Week-end
-                setBackground(new Color(255, 220, 220));
-            }
-            else{ //Week
-                setBackground(new Color(255, 255, 255));
-            }
-            if (value != null){
-                if (Integer.parseInt(value.toString()) == realDay && currentMonth == realMonth && currentYear == realYear){ //Today
-                    setBackground(new Color(220, 220, 255));
-                }
-            }
-            setBorder(null);
-            setForeground(Color.black);
-            return this;
-        }
-    }
-    
-    private class btnPrev_Action implements ActionListener {
-        @Override
-        public void actionPerformed (ActionEvent e){
-            if (currentMonth == 0){ //Back one year
-                currentMonth = 11;
-                currentYear -= 1;
-            }
-            else{ //Back one month
-                currentMonth -= 1;
-            }
-            refreshCalendar(currentMonth, currentYear);
-        }
-    }
-
-    private class btnNext_Action implements ActionListener {
-        @Override
-        public void actionPerformed (ActionEvent e){
-            if (currentMonth == 11){ //Foward one year
-                currentMonth = 0;
-                currentYear += 1;
-            }
-            else{ //Foward one month
-                currentMonth += 1;
-            }
-            refreshCalendar(currentMonth, currentYear);
-        }
-    }
-
-    private class cmbYear_Action implements ActionListener {
-        @Override
-        public void actionPerformed (ActionEvent e){
-            if (cmbYear.getSelectedItem() != null){
-                String b = cmbYear.getSelectedItem().toString();
-                currentYear = Integer.parseInt(b);
-                refreshCalendar(currentMonth, currentYear);
-            }
-        }
     }
 }
