@@ -315,8 +315,7 @@ public class UserDashboardFrame extends JFrame {
 		JLabel lblNewLabel_3_1_1_1_1 = new JLabel("New label");
 		lblNewLabel_3_1_1_1_1.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
 		lblNewLabel_3_1_1_1_1.setBounds(1, 38, 186, 121);
-		usedCreditsPanel.add(lblNewLabel_3_1_1_1_1);
-		
+		usedCreditsPanel.add(lblNewLabel_3_1_1_1_1);		
 		
 		JPanel date_and_timePanel = new JPanel();
 		date_and_timePanel.setBackground(new Color(255, 255, 255));
@@ -362,6 +361,7 @@ public class UserDashboardFrame extends JFrame {
                 updateTime();
             }
         });
+        
         timer.start();
         
 		JLabel lblNewLabel_3_1_1_1_2 = new JLabel("New label");
@@ -377,17 +377,19 @@ public class UserDashboardFrame extends JFrame {
 				leaveApplicationFrame.setLocationRelativeTo(null);
 			}
 		});
+		
 		fileLeaveButton.setForeground(new Color(0, 210, 105));
 		fileLeaveButton.setBounds(870, 154, 235, 31);
 		contentPane.add(fileLeaveButton);
 		fileLeaveButton.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
+		//APPROVED SECTION//
+		
 		JLabel approveTracker_Label = new JLabel("Approved");
 		approveTracker_Label.setBounds(22, 212, 395, 37);
 		contentPane.add(approveTracker_Label);
 		approveTracker_Label.setHorizontalAlignment(SwingConstants.LEFT);
-		approveTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));
-		
+		approveTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));		
 		
 		JPanel approvedTracker_Panel = new JPanel();
 		approvedTracker_Panel.setBackground(new Color(255, 255, 255));
@@ -406,20 +408,21 @@ public class UserDashboardFrame extends JFrame {
 			}
 		};
             
-            String[]approveTracker_Headers = {"ID", "Type of Leave", "Start Date", "End Date", "Status"};
-            approveTracker_Model.setColumnIdentifiers(approveTracker_Headers);
+        String[]approveTracker_Headers = {"ID", "Type of Leave", "Start Date", "End Date", "Status"};
+        approveTracker_Model.setColumnIdentifiers(approveTracker_Headers);
             
           //CHECKS IF LEAVE STATUS IS APPROVED
-      		if(leaveStatusDB.equals("Approved")) {
-      			if(dateTime.getCurrentDate().before(dateTime.getEndDate(endDateDB))) {
-      				approveTracker_Model.addRow(new Object[] {employeeIDDB, leaveCategoryDB, startDateDB, endDateDB, "In Effect"});
-      			}	else {
-      				approveTracker_Model.addRow(new Object[] {employeeIDDB, leaveCategoryDB, startDateDB, endDateDB, "Finished"});
-      			}
+        if(leaveStatusDB.equals("Approved")) {
+        	if(dateTime.getCurrentDate().before(dateTime.getEndDate(endDateDB))) {
+      			approveTracker_Model.addRow(new Object[] {employeeIDDB, leaveCategoryDB, startDateDB, endDateDB, "In Effect"});
+      		}	
+        	else {
+      			approveTracker_Model.addRow(new Object[] {employeeIDDB, leaveCategoryDB, startDateDB, endDateDB, "Finished"});
+      		}
       			
       			//FIXME -- PREPARESTATEMENT IN THE WORKS
 //      			approveTracker_Model.addRow(new Object[] {"00002","Sick","12-03-23","12-10-23","In Effect"});
-      		}
+      	}
             
 		approveTracker_Table = new JTable(approveTracker_Model);
 		approveTracker_Table.setSize(new Dimension(300, 300));
@@ -435,67 +438,8 @@ public class UserDashboardFrame extends JFrame {
         
 		approvedTracker_Panel.add(scrollPane);
 		
-//		approveTracker_Table = new JTable();
-//		scrollPane_1.setViewportView(approveTracker_Table);
-//		approveTracker_Table.addMouseWheelListener(new MouseWheelListener() {
-//			public void mouseWheelMoved(MouseWheelEvent e) {
-//			}
-//		});
-//		approveTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
-//		approveTracker_Table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{"00001", "Sick Leave", "12-03-23", "12-10-23", "In Effect"},
-//				{"00002", "Annual Leave", "10-12-23", "10-15-23", "Finished"},
-//				{"00003", "Paternity Leave", "09-16-23", "09-23-23", "Finished"},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//				{null, null, null, null, null},
-//			},
-//			new String[] {
-//				"ID", "Type of Leave", "Start", "End", "Status"
-//			}
-//		) {
-//			boolean[] columnEditables = new boolean[] {
-//				false, false, false, false, false
-//			};
-//			public boolean isCellEditable(int row, int column) {
-//				return columnEditables[column];
-//			}
-//		});
-//		approveTracker_Table.getColumnModel().getColumn(0).setResizable(false);
-//		approveTracker_Table.getColumnModel().getColumn(0).setPreferredWidth(50);
-//		approveTracker_Table.getColumnModel().getColumn(0).setMaxWidth(70);
-//		approveTracker_Table.getColumnModel().getColumn(1).setResizable(false);
-//		approveTracker_Table.getColumnModel().getColumn(1).setMaxWidth(120);
-//		approveTracker_Table.getColumnModel().getColumn(2).setResizable(false);
-//		approveTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(60);
-//		approveTracker_Table.getColumnModel().getColumn(2).setMinWidth(45);
-//		approveTracker_Table.getColumnModel().getColumn(2).setMaxWidth(75);
-//		approveTracker_Table.getColumnModel().getColumn(3).setResizable(false);
-//		approveTracker_Table.getColumnModel().getColumn(3).setPreferredWidth(60);
-//		approveTracker_Table.getColumnModel().getColumn(3).setMinWidth(45);
-//		approveTracker_Table.getColumnModel().getColumn(3).setMaxWidth(75);
-//		approveTracker_Table.getColumnModel().getColumn(4).setResizable(false);
-//		approveTracker_Table.getColumnModel().getColumn(4).setPreferredWidth(70);
-//		approveTracker_Table.getColumnModel().getColumn(4).setMinWidth(50);
-//		approveTracker_Table.getColumnModel().getColumn(4).setMaxWidth(70);
-//		approveTracker_Table.setRowHeight(50);
-//		approveTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-//		
+		//PENDING SECTION//
+		
 		JLabel pendingTracker_Label = new JLabel("Pending");
 		pendingTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));
 		pendingTracker_Label.setBounds(490, 212, 395, 37);
@@ -522,10 +466,9 @@ public class UserDashboardFrame extends JFrame {
 		pendingTracker_Model.setColumnIdentifiers(pendingTracker_Headers);
         
 		//CHECKS IF LEAVE STATUS IS PENDING
-				if(leaveStatusDB.equals("Pending")) {
-					pendingTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
-				}
-				
+		if(leaveStatusDB.equals("Pending")) {
+			pendingTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
+		}				
 		
         pendingTracker_Table = new JTable(pendingTracker_Model);
 		pendingTracker_Table.setSize(new Dimension(100, 100));
@@ -541,56 +484,8 @@ public class UserDashboardFrame extends JFrame {
 	    scrollPane_1.setBounds(0, 0, 285, 247);
 		
 		pendingTracker_Panel.add(scrollPane_1);
-//		
-//		pendingTracker_Table = new JTable();
-//		pendingTracker_Table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{"00005", "Vacation Leave", "12-30-23"},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//			},
-//			new String[] {
-//				"ID", "Type of Leave", "Date Applied"
-//			}
-//		) {
-//			boolean[] columnEditables = new boolean[] {
-//				false, false, false
-//			};
-//			public boolean isCellEditable(int row, int column) {
-//				return columnEditables[column];
-//			}
-//		});
-//		pendingTracker_Table.getColumnModel().getColumn(0).setResizable(false);
-//		pendingTracker_Table.getColumnModel().getColumn(0).setPreferredWidth(50);
-//		pendingTracker_Table.getColumnModel().getColumn(0).setMaxWidth(70);
-//		pendingTracker_Table.getColumnModel().getColumn(1).setResizable(false);
-//		pendingTracker_Table.getColumnModel().getColumn(1).setMaxWidth(120);
-//		pendingTracker_Table.getColumnModel().getColumn(2).setResizable(false);
-//		pendingTracker_Table.getColumnModel().getColumn(2).setPreferredWidth(70);
-//		pendingTracker_Table.getColumnModel().getColumn(2).setMinWidth(45);
-//		pendingTracker_Table.getColumnModel().getColumn(2).setMaxWidth(75);
-//		pendingTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
-//		pendingTracker_Table.setRowHeight(50);
-//		pendingTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-//		
-//		scrollPane_2.setViewportView(pendingTracker_Table);
+		
+		//DECLINED SECTION//
 		
 		JLabel declinedTracker_Label = new JLabel("Declined");
 		declinedTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -617,9 +512,9 @@ public class UserDashboardFrame extends JFrame {
 		declinedTracker_Model.setColumnIdentifiers(declinedTracker_Headers);
 		
 		//CHECKS IF LEAVE STATUS IS DECLINED
-				if(leaveStatusDB.equals("Declined")) {
-					declinedTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
-				}
+		if(leaveStatusDB.equals("Declined")) {
+			declinedTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
+		}
 				
 		declinedTracker_Table = new JTable(declinedTracker_Model);
 		declinedTracker_Table.setSize(new Dimension(100, 100));
@@ -634,66 +529,16 @@ public class UserDashboardFrame extends JFrame {
 	    scrollPane_2.setBounds(0, 0, 286, 246);
 	    
 		declinedTracker_Panel.add(scrollPane_2);
-		
-		
-//		declinedTracker_Table = new JTable();
-//		declinedTracker_Table.setFont(new Font("Tahoma", Font.BOLD, 14));
-//		declinedTracker_Table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{"00004", "Vacation Leave", "12-15-23"},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//				{null, null, null},
-//			},
-//			new String[] {
-//				"ID", "Type of Leave", "Date Applied"
-//			}
-//		) {
-//			boolean[] columnEditables = new boolean[] {
-//				false, false, false
-//			};
-//			public boolean isCellEditable(int row, int column) {
-//				return columnEditables[column];
-//			}
-//		});
-//		declinedTracker_Table.getColumnModel().getColumn(0).setResizable(false);
-//		declinedTracker_Table.getColumnModel().getColumn(0).setPreferredWidth(50);
-//		declinedTracker_Table.getColumnModel().getColumn(0).setMaxWidth(70);
-//		declinedTracker_Table.getColumnModel().getColumn(1).setResizable(false);
-//		declinedTracker_Table.getColumnModel().getColumn(1).setMaxWidth(120);
-//		declinedTracker_Table.getColumnModel().getColumn(2).setResizable(false);
-//		declinedTracker_Table.getColumnModel().getColumn(2).setMinWidth(45);
-//		declinedTracker_Table.getColumnModel().getColumn(2).setMaxWidth(75);
-//		declinedTracker_Table.setRowHeight(50);
-//		declinedTracker_Table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-//		
-//		scrollPane.setViewportView(declinedTracker_Table);
-//		
+				
 		JLabel lblNewLabel_3 = new JLabel("New label");
 		lblNewLabel_3.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
 		lblNewLabel_3.setBounds(0, 0, 1121, 560);
 		contentPane.add(lblNewLabel_3);
 	}
 	
-	 private void updateTime() {
-	        DateAndTime dateTime = new DateAndTime();
-	        String formattedTime = dateTime.getFormattedTime();
-	        Time.setText(formattedTime);
-	    }
+	private void updateTime() {
+		DateAndTime dateTime = new DateAndTime();
+		String formattedTime = dateTime.getFormattedTime();
+		Time.setText(formattedTime);
+	}
 }
