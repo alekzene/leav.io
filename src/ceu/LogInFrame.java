@@ -214,10 +214,12 @@ public class LogInFrame extends JFrame {
 		                // OPEN USER DASHBOARD
 		                UserDashboardFrame userDashboardFrame = new UserDashboardFrame();
 		                userDashboardFrame.setVisible(true);
+		                userDashboardFrame.setLocationRelativeTo(null);
 		            } else if (userCategoryDB.equals("Admin")) {
 		                // OPEN ADMIN DASHBOARD
 		                AdminDashboardFrame adminDashboardFrame = new AdminDashboardFrame();
 		                adminDashboardFrame.setVisible(true);
+		                adminDashboardFrame.setLocationRelativeTo(null);
 		            }
 		        }
 		    }

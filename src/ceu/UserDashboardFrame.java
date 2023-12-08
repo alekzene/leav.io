@@ -249,6 +249,7 @@ public class UserDashboardFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				LeaveApplicationFormFrame2 leaveApplicationFrame = new LeaveApplicationFormFrame2();
 				leaveApplicationFrame.setVisible(true);
+				leaveApplicationFrame.setLocationRelativeTo(null);
 			}
 		});
 		fileLeaveButton.setForeground(new Color(0, 210, 105));
