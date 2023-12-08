@@ -44,7 +44,8 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     private JComboBox leaveTypeSelect; 
     private JComboBox campusSelect; 
     private JDateChooser startDateChooser; 
-    private JDateChooser endDateChooser; 
+    private JDateChooser endDateChooser;
+    private JDateChooser start;
     private JLabel lblNewLabel_2;
     
     private Date_And_Time dateTime;
@@ -394,31 +395,39 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         String selectedLeaveType = (String) leaveTypeSelect.getSelectedItem();
         Calendar currentDate = Calendar.getInstance();
         currentDate.setTime(new Date());
-
         // Enable all dates by default
         startDateChooser.setEnabled(true);
         endDateChooser.setEnabled(true);
-
+        
+        
+        
         // Update date restrictions based on leave type
         if ("Sick Leave".equals(selectedLeaveType)) {
-            // Disable dates on and after the current date
+            // Disable dates on and after the current date for startDateChooser
             startDateChooser.setMaxSelectableDate(currentDate.getTime());
             endDateChooser.setMaxSelectableDate(currentDate.getTime());
-            // Allow selecting only the previous date
+            
+            // Allow selecting only the previous date for endDateChooser
             startDateChooser.setMinSelectableDate(null);
-            endDateChooser.setMaxSelectableDate(null);
+            endDateChooser.setMinSelectableDate(startDateChooser.getDate());
+            
         } else {
             // For other leave types, additional logic can be added here
-            // For example, disable dates before the current date
-            startDateChooser.setMinSelectableDate(currentDate.getTime());
-            endDateChooser.setMinSelectableDate(currentDate.getTime());
+        	currentDate.add(Calendar.DATE, 1);
+            // For example, disable dates before the current date for startDateChooser
+            startDateChooser.setMinSelectableDate(currentDate.getTime()); 
+            endDateChooser.setMinSelectableDate(startDateChooser.getDate());
 
             // Optional: Allow filing leaves three days in advance
             currentDate.add(Calendar.DATE, 3);
-            startDateChooser.setMaxSelectableDate(currentDate.getTime());
+            // Set the MaxSelectableDate for startDateChooser
+            startDateChooser.setMaxSelectableDate(null);
+
+            // Set the MaxSelectableDate for endDateChooser
             endDateChooser.setMaxSelectableDate(currentDate.getTime());
         }
-    }    
+    }
+ 
     private static String getCurrentDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY");
         return dateFormat.format(new Date());
