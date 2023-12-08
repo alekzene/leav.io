@@ -107,6 +107,7 @@ public class LogInFrame extends JFrame {
 
 		// PASSWORD FIELD
 		passwordField = new JPasswordField();
+		passwordField.setBounds(169, 157, 209, 25);
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		passwordLabel.setBounds(50, 159, 115, 25);
 		logInPanel.add(passwordField);
