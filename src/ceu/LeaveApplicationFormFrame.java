@@ -1,31 +1,17 @@
 package ceu;
 
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-
+import javax.swing.border.*;
+import javax.swing.table.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.border.EtchedBorder;
+import java.awt.event.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
 import com.toedter.calendar.JDateChooser;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 
 public class LeaveApplicationFormFrame extends JFrame {
