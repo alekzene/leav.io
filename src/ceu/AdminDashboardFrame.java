@@ -15,6 +15,7 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,11 +32,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
+import ceu.TableExample.ButtonEditor;
+import ceu.TableExample.ButtonRenderer;
+
 public class AdminDashboardFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
+	private JTable AdminDashboard_Table;
 
 	/**
 	 * Launch the application.
@@ -46,6 +50,7 @@ public class AdminDashboardFrame extends JFrame {
 				try {
 					AdminDashboardFrame frame = new AdminDashboardFrame();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -86,13 +91,51 @@ public class AdminDashboardFrame extends JFrame {
 		users.setBounds(21, 69, 675, 224);
 		panel_1.add(users);
 		users.setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(0, 0, 675, 225);
-		users.add(scrollPane);
 
+		AdminDashboard_Table = new JTable();
+		DefaultTableModel model = new DefaultTableModel(0, 4) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 3; // Make all cells non-editable except for column 4
+            }
+        };
+		
+        String[] headers = {"Employee Name", "Department", "Type of Leave", ""};
+        model.setColumnIdentifiers(headers);
+
+        // Populate the table with 20 rows
+        for (int i = 0; i < 20; i++) {
+            model.addRow(new Object[]{null, null, null, "/images/icons8-eye-24.png"});
+        }
+        
+     // Create the table with the model
+        AdminDashboard_Table = new JTable(model);
+
+        // Set the row height to 40 pixels
+        AdminDashboard_Table.setRowHeight(40);
+
+        // Disable cell selection
+        AdminDashboard_Table.setCellSelectionEnabled(false);
+
+        // Set a custom renderer and editor for the button column (Column 4)
+        int buttonColumn = 3;
+        AdminDashboard_Table.getColumnModel().getColumn(buttonColumn).setCellRenderer(new ButtonRenderer());
+        AdminDashboard_Table.getColumnModel().getColumn(buttonColumn).setCellEditor(new ButtonEditor(new JCheckBox()));
+
+        // Add the table to a scroll pane with only vertical scrollbar
+        JScrollPane scrollPane = new JScrollPane(AdminDashboard_Table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        // Add the scroll pane to the panel
+        users.add(scrollPane);
+
+        // Add the panel to the frame
+        add(users);
+
+        // Set the frame to be visible
+        setVisible(true);
+    }
+
+        
 //		table = new JTable();
 //		table.setRowSelectionAllowed(false);
 //		scrollPane.setViewportView(table);

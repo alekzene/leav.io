@@ -32,6 +32,7 @@ public class ResetPasswordFrame extends JFrame {
                 try {
                     ResetPasswordFrame frame = new ResetPasswordFrame();
                     frame.setVisible(true);
+                    frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

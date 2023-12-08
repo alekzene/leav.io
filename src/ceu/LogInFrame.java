@@ -39,7 +39,8 @@ public class LogInFrame extends JFrame {
 				try {
 
 					LogInFrame frame = new LogInFrame();
-					frame.setVisible(true);					
+					frame.setVisible(true);		
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -107,6 +108,7 @@ public class LogInFrame extends JFrame {
 
 		// PASSWORD FIELD
 		passwordField = new JPasswordField();
+		passwordField.setBounds(169, 157, 209, 25);
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		passwordField.setBounds(189, 161, 208, 23);
 		logInPanel.add(passwordField);

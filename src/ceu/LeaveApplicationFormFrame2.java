@@ -61,6 +61,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
                 try {
                     LeaveApplicationFormFrame2 frame = new LeaveApplicationFormFrame2();
                     frame.setVisible(true);
+                    frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
