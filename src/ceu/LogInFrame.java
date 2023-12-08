@@ -39,7 +39,8 @@ public class LogInFrame extends JFrame {
 				try {
 
 					LogInFrame frame = new LogInFrame();
-					frame.setVisible(true);					
+					frame.setVisible(true);		
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

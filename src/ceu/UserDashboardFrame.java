@@ -30,6 +30,7 @@ public class UserDashboardFrame extends JFrame {
 				try {
 					UserDashboardFrame frame = new UserDashboardFrame();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

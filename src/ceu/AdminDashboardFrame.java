@@ -50,6 +50,7 @@ public class AdminDashboardFrame extends JFrame {
 				try {
 					AdminDashboardFrame frame = new AdminDashboardFrame();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
