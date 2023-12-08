@@ -8,6 +8,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDashboardFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -17,6 +22,11 @@ public class UserDashboardFrame extends JFrame {
 	private JTable declinedTracker_Table;
 	private JLabel Time;
 	private Timer timer;
+	
+	// DATABASE
+	private Connection connection;
+	private QueryCommands qc;
+	private String nameDB;
 	
 	private Date_And_Time dateTime;
 	private EmployeeInfo employee;
@@ -30,31 +40,37 @@ public class UserDashboardFrame extends JFrame {
 				try {
 					UserDashboardFrame frame = new UserDashboardFrame();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-	
+
 	/**
 	 * Create the frame.
 	 */
 	public UserDashboardFrame() {
+		connection = DatabaseConnection.getConnection();
+		qc = new QueryCommands();
+		
 		Date_And_Time dateTime = new Date_And_Time();
 		employee = new EmployeeInfo("jomjom123", "12345", "Jomari B. Arrojo", "Employee", "HR", 21, 123456789 );
 		
+		// CONTENT PANE
 		setTitle("Leave Application Form\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1137, 597);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 128, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		// EMPLOYEE INFORMATION PANEL
 		JButton LogOutbutton = new JButton("LOGOUT");
+		LogOutbutton.setForeground(new Color(255, 255, 255));
 		LogOutbutton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -73,8 +89,9 @@ public class UserDashboardFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		LogOutbutton.setBounds(980, 514, 125, 35);
+		LogOutbutton.setBounds(523, 514, 125, 35);
 		contentPane.add(LogOutbutton);
+		
 		
 		JPanel employeeInfoPanel = new JPanel();
 		employeeInfoPanel.setBackground(new Color(255, 255, 255));
@@ -83,11 +100,21 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.add(employeeInfoPanel);
 		employeeInfoPanel.setLayout(null);
 		
-		JLabel employeeName = new JLabel(employee.getEmployeeName());
+		// EMPLOYEE NAME
+		try (ResultSet resultSet = qc.prepareSelectNameStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+                nameDB = resultSet.getString("name");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		
+		JLabel employeeName = new JLabel(nameDB);
 		employeeName.setBounds(85, 76, 206, 25);
 		employeeName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employeeName);
 		
+		// EMPLOYEE ID
 		JLabel employee_ID = new JLabel(String.valueOf(employee.getEmployeeID()));
 		employee_ID.setBounds(155, 45, 265, 25);
 		employee_ID.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -246,6 +273,7 @@ public class UserDashboardFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				LeaveApplicationFormFrame2 leaveApplicationFrame = new LeaveApplicationFormFrame2();
 				leaveApplicationFrame.setVisible(true);
+				leaveApplicationFrame.setLocationRelativeTo(null);
 			}
 		});
 		fileLeaveButton.setForeground(new Color(0, 210, 105));

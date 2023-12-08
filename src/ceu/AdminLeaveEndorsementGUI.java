@@ -35,6 +35,7 @@ public class AdminLeaveEndorsementGUI extends JFrame {
 				try {
 					AdminLeaveEndorsementGUI frame = new AdminLeaveEndorsementGUI();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
