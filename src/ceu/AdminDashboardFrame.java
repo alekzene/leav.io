@@ -216,6 +216,7 @@ public class AdminDashboardFrame extends JFrame {
 		            AdminDashboardFrame.this.dispose();
 		            LogInFrame frame = new LogInFrame();
 					frame.setVisible(true);	
+					frame.setLocationRelativeTo(null);
 		        } else {
 		            // Do nothing or handle cancellation
 		        }

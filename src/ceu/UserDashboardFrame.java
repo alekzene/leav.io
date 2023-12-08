@@ -83,6 +83,7 @@ public class UserDashboardFrame extends JFrame {
 		            dispose(); // This will dispose of the UserDashboardFrame
 		            LogInFrame frame = new LogInFrame();
 					frame.setVisible(true);	
+					frame.setLocationRelativeTo(null);
 		        }
 		    }
 		});
