@@ -9,6 +9,7 @@ public class Main {
 	        SwingUtilities.invokeLater(() -> {
 	            LogInFrame logInFrame = new LogInFrame();
 	            logInFrame.setVisible(true);
+	            logInFrame.setLocationRelativeTo(null);
 	        });
 	}
 }
