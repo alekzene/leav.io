@@ -285,18 +285,21 @@ public class UserDashboardFrame extends JFrame {
 		day_monthLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
 		JLabel Date = new JLabel(dateTime.getFormattedDate());
+		Date.setHorizontalAlignment(SwingConstants.CENTER);
 		Date.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Date.setBounds(37, 40, 170, 30);
 		date_and_timePanel.add(Date);
 		
 		JLabel Day = new JLabel(dateTime.getFormattedDay());
+		Day.setHorizontalAlignment(SwingConstants.CENTER);
 		Day.setFont(new Font("Tahoma", Font.BOLD, 15));
 		Day.setBounds(75, 61, 88, 30);
 		date_and_timePanel.add(Day);
 		
 		Time = new JLabel(dateTime.getFormattedTime());
+		Time.setHorizontalAlignment(SwingConstants.CENTER);
         Time.setFont(new Font("Tahoma", Font.BOLD, 15));
-        Time.setBounds(65, 90, 106, 30);
+        Time.setBounds(75, 88, 106, 30);
         date_and_timePanel.add(Time);
 
         timer = new Timer(1000, new ActionListener() {

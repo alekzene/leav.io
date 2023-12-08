@@ -274,4 +274,22 @@ public class QueryCommands {
     public String selectFirstName(String enteredUsername) {
         return "SELECT first_name FROM employees WHERE username = ?";
     }
+    
+    // SELECT ALL LEAVE REQUESTS STATEMENT
+    public PreparedStatement prepareSelectAllLeaveRequestsStatement(Connection connection) {
+        try {
+            String query = selectAllLeaveRequests();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            return preparedStatement;
+        } catch (Exception e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // SELECT USER CATEGORY QUERY
+    public String selectAllLeaveRequests() {
+        return "SELECT * FROM leave_requests";
+    }
 }

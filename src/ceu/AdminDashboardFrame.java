@@ -14,7 +14,11 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.DefaultCellEditor;
@@ -49,6 +53,7 @@ public class AdminDashboardFrame extends JFrame {
 	private Connection connection;
 	private QueryCommands qc;
 	private String firstNameDB;
+	private int pendingCount;
 
 	
 	/**
@@ -150,54 +155,6 @@ public class AdminDashboardFrame extends JFrame {
         scrollPane.setBounds(0, 0, 676, 226);
         
         users.add(scrollPane);
-        
-//		AdminDashboard_Table = new JTable();
-//		AdminDashboard_Table.setRowSelectionAllowed(false);
-//		scrollPane.setViewportView(AdminDashboard_Table);
-//		AdminDashboard_Table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{"Francisco, Earl Ace", "Library", "Vacation Leave", null },
-//				{"Gallano, Matt Joshua", "Canteen", "Vacation Leave", null },
-//				{"Arrojo, Jomari", "Security", "Sick Leave", null },
-//				{"Padilla, Daniel", "HR", "Paternal Leave", null},
-//				{"Brilantes, Andrea", "HR", "Maternal Leave", null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//			},
-//			new String[] {
-//				"Name", "Department", "Type of Leave", ""
-//			}
-//		) {
-//			boolean[] columnEditables = new boolean[] {
-//				false, false, false, false
-//			};
-//			public boolean isCellEditable(int row, int column) {
-//				return columnEditables[column];
-//			}
-//		});
-//		AdminDashboard_Table.getColumnModel().getColumn(0).setResizable(false);
-//		AdminDashboard_Table.getColumnModel().getColumn(0).setMaxWidth(200);
-//		AdminDashboard_Table.getColumnModel().getColumn(1).setResizable(false);
-//		AdminDashboard_Table.getColumnModel().getColumn(1).setMaxWidth(150);
-//		AdminDashboard_Table.getColumnModel().getColumn(2).setResizable(false);
-//		AdminDashboard_Table.getColumnModel().getColumn(2).setMaxWidth(160);
-//		AdminDashboard_Table.getColumnModel().getColumn(3).setResizable(false);
-//		AdminDashboard_Table.getColumnModel().getColumn(3).setMaxWidth(150);
-//		AdminDashboard_Table.setFont(new Font("Tahoma", Font.BOLD, 16));
-//		AdminDashboard_Table.setRowHeight(50);
 		
 		JButton btnNewButton = new JButton("+  New Leave Type");
         btnNewButton.addActionListener(new ActionListener() {
@@ -255,8 +212,29 @@ public class AdminDashboardFrame extends JFrame {
           } catch (SQLException ex) {
               ex.printStackTrace();
           }
-		
-		int pendingCount= 5; // FIXME: Should not be hard-coded.
+				
+		try (ResultSet resultSet = qc.prepareSelectAllLeaveRequestsStatement(connection).executeQuery()) {
+		    List<Map<String, Object>> resultList = new ArrayList<>();
+
+		    while (resultSet.next()) {
+		        Map<String, Object> row = new HashMap<>();
+		        for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+		            String columnName = resultSet.getMetaData().getColumnName(i);
+		            Object value = resultSet.getObject(i);
+		            row.put(columnName, value);
+		        }
+		        resultList.add(row);
+		    }
+		    pendingCount = resultList.size();
+
+
+//		    // Display or further process the resultList
+//		    for (Map<String, Object> row : resultList) {
+//		        System.out.println(row);
+//		    }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
 		JLabel lblNewLabel = new JLabel(String.format( firstNameDB + ", you have %S leave application requests to review.", pendingCount));
 		lblNewLabel.setBounds(10, 0, 631, 55);
