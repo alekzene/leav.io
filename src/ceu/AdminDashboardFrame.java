@@ -49,6 +49,7 @@ public class AdminDashboardFrame extends JFrame {
 	private Connection connection;
 	private QueryCommands qc;
 	private String firstNameDB;
+	private String newLeaveType;
 
 	
 	/**
@@ -198,8 +199,9 @@ public class AdminDashboardFrame extends JFrame {
 //		AdminDashboard_Table.getColumnModel().getColumn(3).setMaxWidth(150);
 //		AdminDashboard_Table.setFont(new Font("Tahoma", Font.BOLD, 16));
 //		AdminDashboard_Table.setRowHeight(50);
-		
-		JButton btnNewButton = new JButton("+  New Leave Type");
+        
+        // FIXME DOUBLE CHECK LOGIC		
+        JButton btnNewButton = new JButton("+  New Leave Type");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JTextField leaveTypeField = new JTextField();
@@ -209,10 +211,22 @@ public class AdminDashboardFrame extends JFrame {
                 int option = JOptionPane.showConfirmDialog(null, message,
                         "New Leave Type", JOptionPane.OK_CANCEL_OPTION);
                 if (option == JOptionPane.OK_OPTION) {
-                		//add to leaves type
+                    newLeaveType = leaveTypeField.getText();
+                    try {
+                        // Use the prepared statement to add the new leave type
+                    	int rowsAffected = qc.prepareAddLeaveTypeStatement(connection, newLeaveType).executeUpdate();
+                        // You might want to perform additional actions after the update
+                        // For example, refreshing the UI or displaying a success message
+                        JOptionPane.showMessageDialog(null, "New leave type added successfully!");
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        // Handle the exception appropriately, e.g., display an error message
+                        JOptionPane.showMessageDialog(null, "Failed to add new leave type. Please try again.");
+                    }
                 }
             }
         });
+
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnNewButton.setBounds(503, 18, 175, 29);
