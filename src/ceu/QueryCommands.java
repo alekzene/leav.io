@@ -292,4 +292,25 @@ public class QueryCommands {
     public String selectAllLeaveRequests() {
         return "SELECT * FROM leave_requests";
     }
+    
+ // Updated LeaveRemaining
+    public PreparedStatement prepareUpdateLeavesRemaining(Connection connection, String enteredUsername, int leavesRemaining) {
+        try {
+            String query = updateLeavesRemaining();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, leavesRemaining);
+            preparedStatement.setString(2, enteredUsername);
+            return preparedStatement;
+        } catch (SQLException e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // UPDATE LEAVEREMAINING
+    private String updateLeavesRemaining() {
+        return "UPDATE employees SET leaves_remaining = ? WHERE username = ?";
+    }
 }
+

@@ -10,6 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import javax.swing.ImageIcon;
@@ -25,6 +29,13 @@ public class AdminLeaveEndorsementGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	// DATABASE
+		private Connection connection;
+		private QueryCommands qc;
+		private String nameDB;
+		private int leavesRemainingDB;
+		private int leavesUsedDB;
+
 
 	/**
 	 * Launch the application.
@@ -47,6 +58,29 @@ public class AdminLeaveEndorsementGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public AdminLeaveEndorsementGUI() {
+		connection = DatabaseConnection.getConnection();
+		qc = new QueryCommands();
+		
+		
+		//LEAVES REMAINING
+				try (ResultSet resultSet = qc.prepareLeavesRemaining(connection, LogInFrame.usernameDB).executeQuery()) {
+		            if (resultSet.next()) {
+		                leavesRemainingDB = resultSet.getInt("leaves_remaining");
+		            }
+		        } catch (SQLException ex) {
+		            ex.printStackTrace();
+		        }
+				
+				//LEAVES USED
+				try (ResultSet resultSet = qc.prepareLeavesUsed(connection, LogInFrame.usernameDB).executeQuery()) {
+		            if (resultSet.next()) {
+		            	leavesUsedDB = resultSet.getInt("leaves_used");
+		            }
+		        } catch (SQLException ex) {
+		            ex.printStackTrace();
+		        }
+				
+		
 		setBackground(new Color(25, 25, 112));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -271,11 +305,23 @@ public class AdminLeaveEndorsementGUI extends JFrame {
 		        int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirm Approval", JOptionPane.YES_NO_OPTION);
 
 		        if (confirmation == JOptionPane.YES_OPTION) {
-		            JOptionPane.showMessageDialog(null, "Application Approved."); 
+		            // Subtract leaves used from leaves remaining
+		            int newLeavesRemaining = leavesRemainingDB - leavesUsedDB;
+
+		            // Update the leaves_remaining column in the database
+		            try {
+		              PreparedStatement updateLeavesRemainingStatement = qc.prepareUpdateLeavesRemaining(connection, LogInFrame.usernameDB, newLeavesRemaining);
+		                updateLeavesRemainingStatement.executeUpdate();
+		            } catch (SQLException ex) {
+		                ex.printStackTrace();
+		                // Handle the exception appropriately
+		            }
+
+		            JOptionPane.showMessageDialog(null, "Application Approved.");
 		            JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(btnApprove);
 		            currentFrame.dispose();
 		        } else {
-		            
+		            // Handle the case where the user selects NO
 		        }
 		    }
 		});
