@@ -169,9 +169,9 @@ public class QueryCommands {
     }
     
     // SELECT NAME STATEMENT
-    public PreparedStatement prepareSelectNameStatement(Connection connection, String enteredUsername) {
+    public PreparedStatement prepareSelectFullNameStatement(Connection connection, String enteredUsername) {
         try {
-            String query = selectName(enteredUsername);
+            String query = selectFullName(enteredUsername);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, enteredUsername);
             return preparedStatement;
@@ -196,6 +196,23 @@ public class QueryCommands {
     
     private String selectDepartment(String enteredUsername) {
 		return "SELECT department FROM employees WHERE username = ?";
+	}
+    
+    // SELECT CAMPUS STATEMENT
+    public PreparedStatement prepareSelectCampusStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectCampus(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private String selectCampus(String enteredUsername) {
+		return "SELECT campus FROM employees WHERE username = ?";
 	}
     
  // LEAVES REMAINING
@@ -232,7 +249,7 @@ public class QueryCommands {
 	}
 
 	// SELECT NAME QUERY
-    public String selectName(String enteredUsername) {
+    public String selectFullName(String enteredUsername) {
         return "SELECT full_name FROM employees WHERE username = ?";
     }
     

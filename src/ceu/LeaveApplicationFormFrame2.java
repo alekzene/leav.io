@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,18 +32,18 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     private JPanel contentPane;
 
     private static int realDay, realMonth, realYear, currentMonth, currentYear;
-    private JTextField employeeNoText;
-    private JTextField nameText;
+    private JLabel employeeIDDBLabel;
+    private JLabel fullNameDBLabel;
+    private JLabel campusDBLabel;
+    private JLabel departmentDBLabel;
+
     private JTextField purposeText;
     private JTextField contactNameText;
     private JTextField contactAddressText;
     private JTextField contactNoText;
-    private JLabel deptLabel;
-    private JComboBox departmentSelect;
     private JTextField textField_2;
     
     private JComboBox leaveTypeSelect; 
-    private JComboBox campusSelect; 
     private JDateChooser startDateChooser; 
     private JDateChooser endDateChooser;
     private JDateChooser start;
@@ -53,6 +55,11 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     
     private Connection connection;
 	private QueryCommands qc;
+    private String employeeIDDB;
+	private String fullNameDB;
+	private String campusDB;
+	private String departmentDB;
+
 
     /**
      * Launch the application.
@@ -75,6 +82,9 @@ public class LeaveApplicationFormFrame2 extends JFrame {
 	 * Create the frame.
 	 */
     public LeaveApplicationFormFrame2() {
+    	
+    	connection = DatabaseConnection.getConnection();
+    	qc = new QueryCommands();
     	
         setResizable(false);
         setTitle("Leave Application Form");
@@ -107,7 +117,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         JLabel dateLabel = new JLabel("Date:");
         dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        dateLabel.setBounds(10, 85, 72, 25);
+        dateLabel.setBounds(10, 97, 72, 25);
         formPanel.add(dateLabel);
         
         JLabel periodApplied = new JLabel("Period Applied");
@@ -135,36 +145,66 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         contactNumber.setBounds(10, 567, 86, 14);
         formPanel.add(contactNumber); 
         
-        employeeNoText = new JTextField();
-        employeeNoText.addKeyListener(new KeyAdapter() {
-        	//Logic for employeeNo.
-        	  public void keyTyped(KeyEvent e) {
-                  char inputChar = e.getKeyChar();
-                  if (!Character.isDigit(inputChar) && inputChar != KeyEvent.VK_BACK_SPACE) {
-                      e.consume(); // Ignore non-numeric input
-                  }
-              }
-          });
-        
-        employeeNoText.setBounds(132, 156, 239, 20);
-        formPanel.add(employeeNoText);
-        employeeNoText.setColumns(10);
-        
-        nameText = new JTextField();
-        nameText.addKeyListener(new KeyAdapter() {
-        	//Logic for nameTe33xt.
-        	@Override
-            public void keyTyped(KeyEvent e) {
-                char name = e.getKeyChar();
-                if (!Character.isLetter(name) && name != ' ') {
-                    e.consume();
-                }
+        // FETCH EMPLOYEE ID FROM DATABASE BASED ON USERNAME
+        try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+                employeeIDDB = resultSet.getString("employee_id");
             }
-        });
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         
-        nameText.setColumns(10);
-        nameText.setBounds(132, 195, 239, 20);
-        formPanel.add(nameText);
+        // DISPLAY EMPLOYEE ID ON LABEL
+        employeeIDDBLabel = new JLabel("Employee ID:       " + employeeIDDB);        
+        employeeIDDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        employeeIDDBLabel.setBounds(10, 169, 361, 20);
+        formPanel.add(employeeIDDBLabel);
+        
+        // FETCH FULL NAME FROM DATABASE BASED ON USERNAME
+        try (ResultSet resultSet = qc.prepareSelectFullNameStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+                fullNameDB = resultSet.getString("full_name");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        // DISPLAY FULL NAME ON LABEL
+        fullNameDBLabel = new JLabel("Name:                " + fullNameDB);        
+        fullNameDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        fullNameDBLabel.setBounds(10, 200, 361, 20);
+        formPanel.add(fullNameDBLabel);
+        
+        
+        // FETCH CAMPUS FROM DATABASE BASED ON USERNAME
+        try (ResultSet resultSet = qc.prepareSelectCampusStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+                campusDB = resultSet.getString("campus");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        // DISPLAY CAMPUS ON LABEL
+        campusDBLabel = new JLabel("Campus:             " + campusDB);        
+        campusDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        campusDBLabel.setBounds(10, 231, 361, 20);
+        formPanel.add(campusDBLabel);
+        
+        // FETCH DEPARTMENT FROM DATABASE BASED ON USERNAME
+        try (ResultSet resultSet = qc.prepareSelectDepartmentStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+                departmentDB = resultSet.getString("department");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        // DISPLAY DEPARTMENT ON LABEL
+        departmentDBLabel = new JLabel("Department:        " + departmentDB);        
+        departmentDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        departmentDBLabel.setBounds(10, 262, 361, 20);
+        formPanel.add(departmentDBLabel);
         
         purposeText = new JTextField();
         purposeText.setColumns(10);
@@ -209,47 +249,13 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         JLabel leaveTypeLabel = new JLabel("Leave Type:");
         leaveTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        leaveTypeLabel.setBounds(10, 117, 121, 25);
+        leaveTypeLabel.setBounds(10, 133, 121, 25);
         formPanel.add(leaveTypeLabel);
-        
-        JLabel employeeNoLabel = new JLabel("Employee No.:");
-        employeeNoLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        employeeNoLabel.setBounds(10, 152, 139, 25);
-        formPanel.add(employeeNoLabel);
-        
-        JLabel nameLabel = new JLabel("Name:");
-        nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        nameLabel.setBounds(10, 191, 86, 25);
-        formPanel.add(nameLabel);
-        
-        JLabel campusLabel = new JLabel("Campus:");
-        campusLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        campusLabel.setBounds(10, 227, 99, 25);
-        formPanel.add(campusLabel);
         
         JLabel purposeLabel = new JLabel("Specific Purpose:");
         purposeLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         purposeLabel.setBounds(10, 311, 165, 25);
         formPanel.add(purposeLabel);
-        
-        campusSelect = new JComboBox();
-        campusSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Campus", "Manila ", "Makati ", "Malolos"}));
-        campusSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        campusSelect.setBackground(Color.WHITE);
-        campusSelect.setBounds(132, 226, 239, 21);
-        formPanel.add(campusSelect);
-        
-        deptLabel = new JLabel("Department:");
-        deptLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        deptLabel.setBounds(10, 267, 99, 25);
-        formPanel.add(deptLabel);
-        
-        departmentSelect = new JComboBox();
-        departmentSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Department", "Canteen", "Library", "Faculty", "Maintenance\t", "Accounting Office", "HR"}));
-        departmentSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        departmentSelect.setBackground(new Color(255, 255, 255));
-        departmentSelect.setBounds(132, 270, 239, 21);
-        formPanel.add(departmentSelect);
         
         leaveTypeSelect = new JComboBox();
         leaveTypeSelect.addActionListener(new ActionListener() {
@@ -261,7 +267,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         leaveTypeSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Sick Leave", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
         leaveTypeSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
         leaveTypeSelect.setBackground(Color.WHITE);
-        leaveTypeSelect.setBounds(132, 120, 239, 21);
+        leaveTypeSelect.setBounds(132, 136, 239, 21);
         formPanel.add(leaveTypeSelect);
         
         
@@ -279,9 +285,9 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         formPanel.add(toLabel);
         
 		JLabel currentDateLabel = new JLabel(getCurrentDate());
-		currentDateLabel.setHorizontalAlignment(JLabel.CENTER);
+		currentDateLabel.setHorizontalAlignment(SwingConstants.LEFT);
         currentDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        currentDateLabel.setBounds(132, 85, 239, 25);
+        currentDateLabel.setBounds(132, 97, 239, 25);
         formPanel.add(currentDateLabel);
         
         JLabel lblFrom = new JLabel("From");
@@ -324,7 +330,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
 		            currentFrame.dispose();
         		}
         		else {
-        			JOptionPane.showMessageDialog(null, "Please fill up the required Informations.");
+        			JOptionPane.showMessageDialog(null, "Fill up all required fields.");
         		}        		
         	}
         });
@@ -383,17 +389,16 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     
     //Logic for Submit button
     private boolean isAllFieldsFilledUP() {
-        return !employeeNoText.getText().isEmpty() &&
-                !nameText.getText().isEmpty() &&
-                !nameText.getText().isBlank() &&
+        return employeeIDDB != null &&
+                fullNameDB != null &&
                 !purposeText.getText().isEmpty() &&
                 !contactNameText.getText().isEmpty() &&
                 !contactNameText.getText().isBlank() &&
                 !contactAddressText.getText().isEmpty() &&
                 !contactNoText.getText().isEmpty() &&
-                campusSelect.getSelectedIndex() != 0 &&
+                campusDB != null &&
+                departmentDB != null &&
                 leaveTypeSelect.getSelectedIndex() != 0 &&
-                departmentSelect.getSelectedIndex() != 0 &&
                 startDateChooser.getDate() != null &&
                 endDateChooser.getDate() != null;
     }

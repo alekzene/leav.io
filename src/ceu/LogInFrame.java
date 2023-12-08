@@ -1,32 +1,25 @@
 package ceu;
 
-import java.awt.*;
-
 import javax.swing.*;
 import javax.swing.plaf.*;
-import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.border.*;
 import java.awt.*;
-import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class LogInFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	// JAVA SWING
+	// JAVA SWING-RELATED ATTRIBUTES
 	private JPanel contentPane;
 	private JTextField usernameTextField;
 	private JPasswordField passwordField;
 	private javax.swing.JLabel viewPassword;
 	
-	// DATABASE
+	// DATABASE-RELATED ATTRITBUTES
     private Connection connection; 
     private QueryCommands qc;
-	public static String usernameDB = "";
+	public static String usernameDB;
 	private String passwordDB = "";
     private String userCategoryDB;
 	

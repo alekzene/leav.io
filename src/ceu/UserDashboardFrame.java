@@ -114,7 +114,7 @@ public class UserDashboardFrame extends JFrame {
 		//INFO GETTING FROM DATABASE
 		
 		// EMPLOYEE NAME
-		try (ResultSet resultSet = qc.prepareSelectNameStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+		try (ResultSet resultSet = qc.prepareSelectFullNameStatement(connection, LogInFrame.usernameDB).executeQuery()) {
             if (resultSet.next()) {
                 nameDB = resultSet.getString("full_name");
             }
@@ -159,7 +159,7 @@ public class UserDashboardFrame extends JFrame {
         }
 		
 		//CATEGORY
-		try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+		try (ResultSet resultSet = qc.prepareSelectUserCategoryStatement(connection, LogInFrame.usernameDB).executeQuery()) {
 			if (resultSet.next()) {
 				leaveCategoryDB = resultSet.getString("category");
 			}
@@ -168,40 +168,40 @@ public class UserDashboardFrame extends JFrame {
 		}		
 		
 		//START DATE
-		try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
-			if (resultSet.next()) {
-				startDateDB = resultSet.getString("start_date");
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}		
+//		try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+//			if (resultSet.next()) {
+//				startDateDB = resultSet.getString("start_date");
+//			}
+//		} catch (SQLException ex) {
+//			ex.printStackTrace();
+//		}		
 		
 		//END DATE
-				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
-					if (resultSet.next()) {
-						endDateDB = resultSet.getString("end_date");
-					}
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}		
+//				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+//					if (resultSet.next()) {
+//						endDateDB = resultSet.getString("end_date");
+//					}
+//				} catch (SQLException ex) {
+//					ex.printStackTrace();
+//				}		
 		
 		//APPLICATION DATE
-				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
-					if (resultSet.next()) {
-						applicationDateDB = resultSet.getString("application_date");
-					}
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}	
-		
-				//STATUS
-				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
-					if (resultSet.next()) {
-						leaveStatusDB = resultSet.getString("status");
-					}
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}		
+//				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+//					if (resultSet.next()) {
+//						applicationDateDB = resultSet.getString("application_date");
+//					}
+//				} catch (SQLException ex) {
+//					ex.printStackTrace();
+//				}	
+//		
+//				//STATUS
+//				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+//					if (resultSet.next()) {
+//						leaveStatusDB = resultSet.getString("status");
+//					}
+//				} catch (SQLException ex) {
+//					ex.printStackTrace();
+//				}		
 				
 		
 		JLabel employeeName = new JLabel(nameDB);
