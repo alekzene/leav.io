@@ -40,7 +40,13 @@ public class QueryCommands {
             preparedStatement.setString(3, pass);
             preparedStatement.setString(4, address);
             preparedStatement.setString(5, name);
-            preparedStatement.setString(6, name);
+            preparedStatement.setString(6, address);
+            preparedStatement.setString(7, contactNumber);
+            preparedStatement.setString(8, campus);
+            preparedStatement.setString(9, department);
+            preparedStatement.setInt(10, totalLeaves);
+            preparedStatement.setInt(11, leavesRemaining);
+            preparedStatement.setInt(12, leavesUsed);
             return preparedStatement;
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +62,7 @@ public class QueryCommands {
         this.pass = pass;
     	this.name = name;
         this.address = address;
-        this.contactNumber = contactNumber;
+        this.contactNumber = contact_number;
         this.campus = campus;
         this.department = department;
         this.totalLeaves = total_leaves;
