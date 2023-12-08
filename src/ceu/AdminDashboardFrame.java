@@ -213,6 +213,9 @@ public class AdminDashboardFrame extends JFrame {
 
 		        if (confirmation == JOptionPane.YES_OPTION) {
 		            AdminDashboardFrame.this.dispose();
+		            LogInFrame frame = new LogInFrame();
+					frame.setVisible(true);	
+					frame.setLocationRelativeTo(null);
 		        } else {
 		            // Do nothing or handle cancellation
 		        }

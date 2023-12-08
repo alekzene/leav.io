@@ -150,11 +150,11 @@ public class QueryCommands {
     }
     
     // SELECT EMPLOYEE ID STATEMENT
-    public PreparedStatement prepareSelectEmployeeIDStatement(Connection connection, String enteredEmployeeID) {
+    public PreparedStatement prepareSelectEmployeeIDStatement(Connection connection, String enteredUsername) {
         try {
-            String query = selectEmployeeID(enteredEmployeeID);
+            String query = selectEmployeeID(enteredUsername);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, enteredEmployeeID);
+            preparedStatement.setString(1, enteredUsername);
             return preparedStatement;
         } catch (Exception e) {
             // Handle the exception appropriately
@@ -164,8 +164,8 @@ public class QueryCommands {
     }
 
     // SELECT EMPLOYEE ID QUERY
-    public String selectEmployeeID(String enteredEmployeeID) {
-        return "SELECT employee_id FROM employees WHERE employee_id = ?";
+    public String selectEmployeeID(String enteredUsername) {
+        return "SELECT employee_id FROM employees WHERE username = ?";
     }
     
     // SELECT NAME STATEMENT
@@ -181,7 +181,57 @@ public class QueryCommands {
         }
     }
 
-    // SELECT NAME QUERY
+ // SELECT DEPARTMENT STATEMENT
+    public PreparedStatement prepareSelectDepartmentStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectDepartment(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private String selectDepartment(String enteredUsername) {
+		return "SELECT department FROM employees WHERE username = ?";
+	}
+    
+ // LEAVES REMAINING
+    public PreparedStatement prepareLeavesRemaining(Connection connection, String enteredUsername) {
+        try {
+            String query = displayLeavesRemaining(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private String displayLeavesRemaining(String enteredUsername) {
+		return "SELECT leaves_remaining FROM employees WHERE username = ?";
+	}
+    
+  // LEAVES USED
+    public PreparedStatement prepareLeavesUsed(Connection connection, String enteredUsername) {
+        try {
+            String query = displayLeavesUsed(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private String displayLeavesUsed(String enteredUsername) {
+		return "SELECT leaves_used FROM employees WHERE username = ?";
+	}
+
+	// SELECT NAME QUERY
     public String selectName(String enteredUsername) {
         return "SELECT name FROM employees WHERE username = ?";
     }

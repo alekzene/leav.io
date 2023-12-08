@@ -27,6 +27,10 @@ public class UserDashboardFrame extends JFrame {
 	private Connection connection;
 	private QueryCommands qc;
 	private String nameDB;
+	private String departmentDB;
+	private int leavesRemainingDB;
+	private int leavesUsedDB;
+	private String employeeIDDB;
 	
 	private Date_And_Time dateTime;
 	private EmployeeInfo employee;
@@ -80,6 +84,7 @@ public class UserDashboardFrame extends JFrame {
 		            dispose(); // This will dispose of the UserDashboardFrame
 		            LogInFrame frame = new LogInFrame();
 					frame.setVisible(true);	
+					frame.setLocationRelativeTo(null);
 		        }
 		    }
 		});
@@ -100,6 +105,8 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.add(employeeInfoPanel);
 		employeeInfoPanel.setLayout(null);
 		
+		//INFO GETTING FROM DATABASE
+		
 		// EMPLOYEE NAME
 		try (ResultSet resultSet = qc.prepareSelectNameStatement(connection, LogInFrame.usernameDB).executeQuery()) {
             if (resultSet.next()) {
@@ -109,18 +116,55 @@ public class UserDashboardFrame extends JFrame {
             ex.printStackTrace();
         }
 		
+		// DEPARTMENT
+		try (ResultSet resultSet = qc.prepareSelectDepartmentStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+            	departmentDB = resultSet.getString("department");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		
+		//LEAVES REMAINING
+		try (ResultSet resultSet = qc.prepareLeavesRemaining(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+                leavesRemainingDB = resultSet.getInt("leaves_remaining");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		
+		//LEAVES USED
+		try (ResultSet resultSet = qc.prepareLeavesUsed(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+            	leavesUsedDB = resultSet.getInt("leave_used");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		
+		//EMPLOYEE ID
+		try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+            if (resultSet.next()) {
+                employeeIDDB = resultSet.getString("employee_id");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		
+		
 		JLabel employeeName = new JLabel(nameDB);
 		employeeName.setBounds(85, 76, 206, 25);
 		employeeName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employeeName);
 		
 		// EMPLOYEE ID
-		JLabel employee_ID = new JLabel(String.valueOf(employee.getEmployeeID()));
-		employee_ID.setBounds(155, 45, 265, 25);
+		JLabel employee_ID = new JLabel(employeeIDDB);
+		employee_ID.setBounds(155, 45, 212, 25);
 		employee_ID.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employee_ID);
 		
-		JLabel employeeDepartment = new JLabel(employee.getEmployeeDepartment());
+		JLabel employeeDepartment = new JLabel(departmentDB);
 		employeeDepartment.setBounds(145, 111, 222, 25);
 		employeeDepartment.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		employeeInfoPanel.add(employeeDepartment);
@@ -133,7 +177,7 @@ public class UserDashboardFrame extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Employee ID:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(10, 45, 135, 25);
+		lblNewLabel.setBounds(10, 45, 149, 25);
 		employeeInfoPanel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Name:");
@@ -165,7 +209,7 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.add(remainingLeaveCreditPanel);
 		remainingLeaveCreditPanel.setLayout(null);
 		
-		JLabel remaining_LeaveCount = new JLabel("13");
+		JLabel remaining_LeaveCount = new JLabel("" + leavesRemainingDB);
 		remaining_LeaveCount.setBounds(13, 48, 158, 85);
 		remainingLeaveCreditPanel.add(remaining_LeaveCount);
 		remaining_LeaveCount.setHorizontalAlignment(SwingConstants.CENTER);
@@ -196,7 +240,7 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.add(usedCreditsPanel);
 		usedCreditsPanel.setLayout(null);
 		
-		JLabel used_LeaveCount = new JLabel("2");
+		JLabel used_LeaveCount = new JLabel("" + leavesUsedDB);
 		used_LeaveCount.setBounds(15, 50, 150, 85);
 		usedCreditsPanel.add(used_LeaveCount);
 		used_LeaveCount.setHorizontalAlignment(SwingConstants.CENTER);
