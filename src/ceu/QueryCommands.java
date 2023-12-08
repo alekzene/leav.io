@@ -106,7 +106,7 @@ public class QueryCommands {
             preparedStatement.setString(10, adminRemarks);
             preparedStatement.setString(11, mocName);
             preparedStatement.setString(12, mocName);
-            preparedStatement.setString(12, mocNumber);
+            preparedStatement.setString(13, mocNumber);
             return preparedStatement;
         } catch (Exception e) {
             e.printStackTrace();

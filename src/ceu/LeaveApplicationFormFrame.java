@@ -89,7 +89,7 @@ public class LeaveApplicationFormFrame extends JFrame {
     	// CONTENT PANE
         setResizable(false);
         setTitle("Leave Application Form");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(500, 100, 499, 812);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(255, 255, 255));
@@ -280,7 +280,7 @@ public class LeaveApplicationFormFrame extends JFrame {
         	}
         });      
         // FIXME: SET NEW STRING[] {} VALUES TO FLEXIBLE ENUM WHERE WE CAN ADD MORE VALUES
-        leaveTypeSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Sick Leave", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
+        leaveTypeSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Sick", "Emergency", "Vacation", "Maternity", "Paternity"}));
         leaveTypeSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
         leaveTypeSelect.setBackground(Color.WHITE);
         formPanel.add(leaveTypeSelect);
@@ -343,11 +343,11 @@ public class LeaveApplicationFormFrame extends JFrame {
         clientCommentsTextField.setLineWrap(true);
         clientCommentsTextField.setWrapStyleWord(true);
         clientCommentsTextField.setColumns(10);
-       
+               
         // GET VALUES ENTERED IN FORM FIELDS
         selectedCategory = (String) leaveTypeSelect.getSelectedItem();
         enteredStartDate = startDateChooser.getDateFormatString();
-        enteredEndDate = startDateChooser.getDateFormatString();
+        enteredEndDate = endDateChooser.getDateFormatString();
         enteredReason = specificPurposeTextField.getText();
         enteredClientComments = clientCommentsTextField.getText();
         enteredMocName = contactNameTextField.getText();
@@ -364,10 +364,15 @@ public class LeaveApplicationFormFrame extends JFrame {
         			// FIXME: PUT ALL VALUES GATHERED FROM FORM INTO DATABASE
         			
         			// FIXME: CALCULATE DURATION IN DAYS
-        	        LocalDate startDate = LocalDate.parse(enteredStartDate);
-        	        LocalDate endDate = LocalDate.parse(enteredEndDate);
+        	        Date enteredStartDateDate = startDateChooser.getDate();
+        	        int startDateDate = enteredStartDateDate.getDate();
         	        
-        	        int durationInDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
+        	        Date enteredEndDateDate = endDateChooser.getDate();
+        	        int endDateDate = enteredEndDateDate.getDate();
+        	        
+        	        int durationInDays = endDateDate - startDateDate;
+        	        
+//        	        int durationInDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
 
         			// GET EMPLOYEE ID FOREIGN KEY BASED ON USERNAME
         	        try (ResultSet resultSet = qc.prepareSelectEmployeeIDFKStatement( connection, LogInFrame.usernameDB).executeQuery()) {
@@ -382,24 +387,22 @@ public class LeaveApplicationFormFrame extends JFrame {
         			leaveRequestStatus = "Pending";
         			String adminRemarks = null;
         			
-        			// INSERT LEAVE RQEUEST TO DATABASE
-        	        try (ResultSet resultSet = qc.prepareInsertLeaveRequestStatement(connection, employeeIDFK, selectedCategory, applicationDate, enteredStartDate, enteredEndDate, durationInDays, enteredReason, enteredClientComments, leaveRequestStatus, adminRemarks, enteredMocName, enteredMocAddress, enteredMocContactNumber).executeQuery()) {
-        	            if (resultSet.next()) {
-        	                leaveRequestIDDB = resultSet.getInt("id");
-        	            }
-        	        } catch (SQLException ex) {
-        	            ex.printStackTrace();
-        	        }
-        	        
-        			JOptionPane.showMessageDialog(null, "Successfully Submitted!");
-        			JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(submitButton);
-		            currentFrame.dispose();
-        		}
-        		else {
-        			JOptionPane.showMessageDialog(null, "Fill up all required fields.");
-        		}        		
+        			//FIXME: PROBLEM WITH ENUM: DATA TRUNCATED FOR COLUMN 'CATEGORY' AT ROW 1
+        			// INSERT LEAVE REQUEST TO DATABASE
+        	        try {
+        	        	int rowsAffected = qc.prepareInsertLeaveRequestStatement(connection, employeeIDFK, selectedCategory, applicationDate, enteredStartDate, enteredEndDate, durationInDays, enteredReason, enteredClientComments, leaveRequestStatus, adminRemarks, enteredMocName, enteredMocAddress, enteredMocContactNumber).executeUpdate();
+            		    if (rowsAffected > 0) {
+            		        JOptionPane.showMessageDialog(null, "Successfully Submitted!");
+                    		JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(submitButton);
+                            currentFrame.dispose();
+            		    } else {
+            		        JOptionPane.showMessageDialog(null, "Fill up all required fields.");
+            		    }
+            		} catch (SQLException ex) {
+            		    ex.printStackTrace();
+            		}   		
         	}
-        });
+        }});
         
         // BACKGROUND LABEL
         JLabel backgroundLabel = new JLabel("New label");
