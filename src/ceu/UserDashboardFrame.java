@@ -55,6 +55,7 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton LogOutbutton = new JButton("LOGOUT");
+		LogOutbutton.setForeground(new Color(255, 255, 255));
 		LogOutbutton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -73,8 +74,9 @@ public class UserDashboardFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		LogOutbutton.setBounds(980, 514, 125, 35);
+		LogOutbutton.setBounds(523, 514, 125, 35);
 		contentPane.add(LogOutbutton);
+		
 		
 		JPanel employeeInfoPanel = new JPanel();
 		employeeInfoPanel.setBackground(new Color(255, 255, 255));
