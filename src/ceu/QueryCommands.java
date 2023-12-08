@@ -1,6 +1,6 @@
 package ceu;
 
-// FIXME: Adjust
+// FIXME: Adjust according to database needs
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -160,6 +160,24 @@ public class QueryCommands {
     // SELECT EMPLOYEE ID QUERY
     public String selectEmployeeID(String enteredEmployeeID) {
         return "SELECT employee_id FROM employees WHERE employee_id = ?";
+    }
+    
+    // SELECT NAME STATEMENT
+    public PreparedStatement prepareSelectNameStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectName(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // SELECT NAME QUERY
+    public String selectName(String enteredName) {
+        return "SELECT name FROM employees WHERE username = ?";
     }
     
     // UPDATE PASSWORD STATEMENT

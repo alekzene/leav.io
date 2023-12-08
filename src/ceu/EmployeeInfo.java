@@ -1,10 +1,15 @@
 package ceu;
 
+import java.sql.*;
+
 public class EmployeeInfo {
 
 	private String employeeUser, employeePass, employeeName, employeeType, employeeDepartment;
 	private int employeeAge;
 	private int employeeID;
+	private Connection connection;
+	private QueryCommands qc;
+	private String nameDB;
 	
 	public EmployeeInfo() {
 	
