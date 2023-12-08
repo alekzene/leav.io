@@ -104,45 +104,45 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         formPanel.setLayout(null);
         
         JLabel lblNewLabel = new JLabel("Center Scholar University");
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
         lblNewLabel.setBounds(105, 21, 266, 20);
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
         formPanel.add(lblNewLabel);
         
         JLabel lblNewLabel_1 = new JLabel("Leave Application");
+        lblNewLabel_1.setBounds(85, 40, 286, 25);
         lblNewLabel_1.setVerticalAlignment(SwingConstants.BOTTOM);
         lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-        lblNewLabel_1.setBounds(85, 40, 286, 25);
         formPanel.add(lblNewLabel_1);
         
         JLabel dateLabel = new JLabel("Date:");
-        dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         dateLabel.setBounds(10, 97, 72, 25);
+        dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         formPanel.add(dateLabel);
         
         JLabel periodApplied = new JLabel("Period Applied");
+        periodApplied.setBounds(10, 344, 131, 20);
         periodApplied.setFont(new Font("Tahoma", Font.BOLD, 15));
-        periodApplied.setBounds(10, 361, 131, 20);
         formPanel.add(periodApplied);
         
         JLabel contactLabel = new JLabel("Means of Contact:");
-        contactLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
         contactLabel.setBounds(10, 462, 139, 20);
+        contactLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
         formPanel.add(contactLabel);
         
         JLabel contactName = new JLabel("Name:");
-        contactName.setFont(new Font("Tahoma", Font.PLAIN, 15));
         contactName.setBounds(10, 493, 50, 14);
+        contactName.setFont(new Font("Tahoma", Font.PLAIN, 15));
         formPanel.add(contactName);
         
         JLabel contactAddress = new JLabel("Address:");
-        contactAddress.setFont(new Font("Tahoma", Font.PLAIN, 15));
         contactAddress.setBounds(10, 528, 86, 14);
+        contactAddress.setFont(new Font("Tahoma", Font.PLAIN, 15));
         formPanel.add(contactAddress);
         
         JLabel contactNumber = new JLabel("Contact no.:");
-        contactNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
         contactNumber.setBounds(10, 567, 86, 14);
+        contactNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
         formPanel.add(contactNumber); 
         
         // FETCH EMPLOYEE ID FROM DATABASE BASED ON USERNAME
@@ -156,8 +156,8 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         // DISPLAY EMPLOYEE ID ON LABEL
         employeeIDDBLabel = new JLabel("Employee ID:       " + employeeIDDB);        
-        employeeIDDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         employeeIDDBLabel.setBounds(10, 169, 361, 20);
+        employeeIDDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         formPanel.add(employeeIDDBLabel);
         
         // FETCH FULL NAME FROM DATABASE BASED ON USERNAME
@@ -171,8 +171,8 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         // DISPLAY FULL NAME ON LABEL
         fullNameDBLabel = new JLabel("Name:                " + fullNameDB);        
-        fullNameDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         fullNameDBLabel.setBounds(10, 200, 361, 20);
+        fullNameDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         formPanel.add(fullNameDBLabel);
         
         
@@ -187,8 +187,8 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         // DISPLAY CAMPUS ON LABEL
         campusDBLabel = new JLabel("Campus:             " + campusDB);        
-        campusDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         campusDBLabel.setBounds(10, 231, 361, 20);
+        campusDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         formPanel.add(campusDBLabel);
         
         // FETCH DEPARTMENT FROM DATABASE BASED ON USERNAME
@@ -202,16 +202,17 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         
         // DISPLAY DEPARTMENT ON LABEL
         departmentDBLabel = new JLabel("Department:        " + departmentDB);        
-        departmentDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         departmentDBLabel.setBounds(10, 262, 361, 20);
+        departmentDBLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         formPanel.add(departmentDBLabel);
         
         purposeText = new JTextField();
+        purposeText.setBounds(132, 297, 239, 20);
         purposeText.setColumns(10);
-        purposeText.setBounds(132, 315, 239, 20);
         formPanel.add(purposeText);
         
         contactNameText = new JTextField();
+        contactNameText.setBounds(132, 493, 239, 20);
         contactNameText.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -223,15 +224,15 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         });
         
         contactNameText.setColumns(10);
-        contactNameText.setBounds(132, 493, 239, 20);
         formPanel.add(contactNameText);
         
         contactAddressText = new JTextField();
-        contactAddressText.setColumns(10);
         contactAddressText.setBounds(132, 527, 239, 20);
+        contactAddressText.setColumns(10);
         formPanel.add(contactAddressText);
         
         contactNoText = new JTextField();
+        contactNoText.setBounds(132, 566, 239, 20);
         contactNoText.addKeyListener(new KeyAdapter() {
         	//Logic for contactNo
         	@Override
@@ -244,20 +245,20 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         });
         
         contactNoText.setColumns(10);
-        contactNoText.setBounds(132, 566, 239, 20);
         formPanel.add(contactNoText);
         
         JLabel leaveTypeLabel = new JLabel("Leave Type:");
-        leaveTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         leaveTypeLabel.setBounds(10, 133, 121, 25);
+        leaveTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         formPanel.add(leaveTypeLabel);
         
         JLabel purposeLabel = new JLabel("Specific Purpose:");
+        purposeLabel.setBounds(10, 293, 165, 25);
         purposeLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        purposeLabel.setBounds(10, 311, 165, 25);
         formPanel.add(purposeLabel);
         
         leaveTypeSelect = new JComboBox();
+        leaveTypeSelect.setBounds(132, 136, 239, 21);
         leaveTypeSelect.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		updateDateRestrictions();
@@ -267,32 +268,31 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         leaveTypeSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Sick Leave", "Emergency Leave", "Vacation Leave", "Maternity Leave", "Paternity Leave"}));
         leaveTypeSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
         leaveTypeSelect.setBackground(Color.WHITE);
-        leaveTypeSelect.setBounds(132, 136, 239, 21);
         formPanel.add(leaveTypeSelect);
         
         
         startDateChooser = new JDateChooser();
-        startDateChooser.setBounds(132, 388, 239, 20);
+        startDateChooser.setBounds(132, 371, 239, 20);
         formPanel.add(startDateChooser);
         
         endDateChooser = new JDateChooser();
-        endDateChooser.setBounds(132, 431, 239, 20);
+        endDateChooser.setBounds(132, 414, 239, 20);
         formPanel.add(endDateChooser);
         
         JLabel toLabel = new JLabel("To");
+        toLabel.setBounds(73, 420, 33, 14);
         toLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        toLabel.setBounds(76, 437, 33, 14);
         formPanel.add(toLabel);
         
 		JLabel currentDateLabel = new JLabel(getCurrentDate());
+		currentDateLabel.setBounds(132, 97, 239, 25);
 		currentDateLabel.setHorizontalAlignment(SwingConstants.LEFT);
         currentDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        currentDateLabel.setBounds(132, 97, 239, 25);
         formPanel.add(currentDateLabel);
         
         JLabel lblFrom = new JLabel("From");
+        lblFrom.setBounds(74, 375, 50, 14);
         lblFrom.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblFrom.setBounds(74, 392, 50, 14);
         formPanel.add(lblFrom);
        
         
@@ -301,12 +301,12 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         formPanel.add(btnSubmit);
         
         JButton btnNewButton = new JButton("CANCEL");
+        btnNewButton.setBounds(271, 699, 116, 32);
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		dispose();
         	}
         });
-        btnNewButton.setBounds(271, 699, 116, 32);
         formPanel.add(btnNewButton);
         
         commentPanel = new JPanel();
