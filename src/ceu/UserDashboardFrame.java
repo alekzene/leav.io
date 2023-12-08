@@ -410,7 +410,7 @@ public class UserDashboardFrame extends JFrame {
             approveTracker_Model.setColumnIdentifiers(approveTracker_Headers);
             
           //CHECKS IF LEAVE STATUS IS APPROVED
-//      		if(leaveStatusDB.equals("Approved")) {
+      		if(leaveStatusDB.equals("Approved")) {
       			if(dateTime.getCurrentDate().before(dateTime.getEndDate(endDateDB))) {
       				approveTracker_Model.addRow(new Object[] {employeeIDDB, leaveCategoryDB, startDateDB, endDateDB, "In Effect"});
       			}	else {
@@ -419,7 +419,7 @@ public class UserDashboardFrame extends JFrame {
       			
       			//FIXME -- PREPARESTATEMENT IN THE WORKS
 //      			approveTracker_Model.addRow(new Object[] {"00002","Sick","12-03-23","12-10-23","In Effect"});
-//      		}
+      		}
             
 		approveTracker_Table = new JTable(approveTracker_Model);
 		approveTracker_Table.setSize(new Dimension(300, 300));

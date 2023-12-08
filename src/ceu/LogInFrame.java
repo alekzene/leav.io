@@ -202,7 +202,13 @@ public class LogInFrame extends JFrame {
 
 		            if (userCategoryDB.equals("Client")) {
 		                // OPEN USER DASHBOARD
-		                UserDashboardFrame userDashboardFrame = null;
+		            	
+		            	//EARLIER ITERATION
+//		                UserDashboardFrame userDashboardFrame = new UserDashboardFrame();
+//		                userDashboardFrame.setVisible(true);
+//		                userDashboardFrame.setLocationRelativeTo(null);
+		            	
+		            	UserDashboardFrame userDashboardFrame = null;
 						try {
 							userDashboardFrame = new UserDashboardFrame();
 						} catch (ParseException e1) {
