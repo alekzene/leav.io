@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -18,8 +19,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import com.toedter.calendar.JDateChooser;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
-
-
 
 
 public class LeaveApplicationFormFrame2 extends JFrame {
@@ -51,6 +50,10 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     
     private Date_And_Time dateTime;
     private JPanel commentPanel;
+    private String newLeaveType;
+    
+    private Connection connection;
+	private QueryCommands qc;
 
     /**
      * Launch the application.
@@ -215,6 +218,8 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         contactNumber.setBounds(10, 567, 86, 14);
         formPanel.add(contactNumber);
         
+  
+        
         employeeNoText = new JTextField();
         employeeNoText.addKeyListener(new KeyAdapter() {
         	  public void keyTyped(KeyEvent e) {
@@ -334,6 +339,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         leaveTypeSelect.setBounds(132, 120, 239, 21);
         formPanel.add(leaveTypeSelect);
         
+        
         startDateChooser = new JDateChooser();
         startDateChooser.setBounds(132, 388, 239, 20);
         formPanel.add(startDateChooser);
@@ -403,7 +409,12 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     
     //Methods and Constructors
     
-    private static String getCurrentDate() {
+    private Object prepareAddLeaveTypeStatement(Connection connection2, String newLeaveType2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static String getCurrentDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(new Date());
     }

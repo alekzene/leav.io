@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.EventObject;
 import java.util.Vector;
 
@@ -41,6 +44,10 @@ public class AdminDashboardFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable AdminDashboard_Table;
+	
+	private Connection connection;
+	private QueryCommands qc;
+	private String newLeaveType;
 
 	/**
 	 * Launch the application.
@@ -63,6 +70,9 @@ public class AdminDashboardFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public AdminDashboardFrame() {
+        this.connection = DatabaseConnection.getConnection();
+        this.qc = new QueryCommands(connection);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 787, 520);
 		contentPane = new JPanel();
@@ -186,8 +196,9 @@ public class AdminDashboardFrame extends JFrame {
 //		AdminDashboard_Table.getColumnModel().getColumn(3).setMaxWidth(150);
 //		AdminDashboard_Table.setFont(new Font("Tahoma", Font.BOLD, 16));
 //		AdminDashboard_Table.setRowHeight(50);
-		
-		JButton btnNewButton = new JButton("+  New Leave Type");
+        
+        // FIXME DOUBLE CHECK LOGIC		
+        JButton btnNewButton = new JButton("+  New Leave Type");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JTextField leaveTypeField = new JTextField();
@@ -197,10 +208,22 @@ public class AdminDashboardFrame extends JFrame {
                 int option = JOptionPane.showConfirmDialog(null, message,
                         "New Leave Type", JOptionPane.OK_CANCEL_OPTION);
                 if (option == JOptionPane.OK_OPTION) {
-                		//add to leaves type
+                    newLeaveType = leaveTypeField.getText();
+                    try {
+                        // Use the prepared statement to add the new leave type
+                    	int rowsAffected = qc.prepareAddLeaveTypeStatement(connection, newLeaveType).executeUpdate();
+                        // You might want to perform additional actions after the update
+                        // For example, refreshing the UI or displaying a success message
+                        JOptionPane.showMessageDialog(null, "New leave type added successfully!");
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        // Handle the exception appropriately, e.g., display an error message
+                        JOptionPane.showMessageDialog(null, "Failed to add new leave type. Please try again.");
+                    }
                 }
             }
         });
+
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnNewButton.setBounds(503, 18, 175, 29);
