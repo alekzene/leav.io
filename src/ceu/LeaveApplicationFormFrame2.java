@@ -355,7 +355,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
         Date_And_Time dateTime = new Date_And_Time();
 		
         currentDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        currentDateLabel.setBounds(105, 85, 339, 25);
+        currentDateLabel.setBounds(132, 85, 239, 25);
         formPanel.add(currentDateLabel);
         
         JLabel lblFrom = new JLabel("From");
@@ -404,7 +404,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     //Methods and Constructors
     
     private static String getCurrentDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY");
         return dateFormat.format(new Date());
     }
    

@@ -60,7 +60,6 @@ public class UserDashboardFrame extends JFrame {
 		qc = new QueryCommands();
 		
 		Date_And_Time dateTime = new Date_And_Time();
-		employee = new EmployeeInfo("jomjom123", "12345", "Jomari B. Arrojo", "Employee", "HR", 21, 123456789 );
 		
 		// CONTENT PANE
 		setTitle("Leave Application Form\r\n");
@@ -110,7 +109,7 @@ public class UserDashboardFrame extends JFrame {
 		// EMPLOYEE NAME
 		try (ResultSet resultSet = qc.prepareSelectNameStatement(connection, LogInFrame.usernameDB).executeQuery()) {
             if (resultSet.next()) {
-                nameDB = resultSet.getString("name");
+                nameDB = resultSet.getString("full_name");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -137,7 +136,7 @@ public class UserDashboardFrame extends JFrame {
 		//LEAVES USED
 		try (ResultSet resultSet = qc.prepareLeavesUsed(connection, LogInFrame.usernameDB).executeQuery()) {
             if (resultSet.next()) {
-            	leavesUsedDB = resultSet.getInt("leave_used");
+            	leavesUsedDB = resultSet.getInt("leaves_used");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -332,6 +331,7 @@ public class UserDashboardFrame extends JFrame {
 		approveTracker_Label.setHorizontalAlignment(SwingConstants.LEFT);
 		approveTracker_Label.setFont(new Font("Tahoma", Font.BOLD, 25));
 		
+		
 		JPanel approvedTracker_Panel = new JPanel();
 		approvedTracker_Panel.setBackground(new Color(255, 255, 255));
 		approvedTracker_Panel.setBounds(20, 259, 430, 251);
@@ -358,6 +358,9 @@ public class UserDashboardFrame extends JFrame {
 		approveTracker_Table = new JTable(approveTracker_Model);
 		approveTracker_Table.setSize(new Dimension(300, 300));
 		approveTracker_Table.setRowHeight(40);
+		approveTracker_Table.setCellSelectionEnabled(false);  // Disable cell selection
+		approveTracker_Table.setColumnSelectionAllowed(false); // Disable column selection
+		approveTracker_Table.getTableHeader().setReorderingAllowed(false); // Disable column reordering
 		
 		JScrollPane scrollPane = new JScrollPane(approveTracker_Table);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -457,10 +460,14 @@ public class UserDashboardFrame extends JFrame {
         pendingTracker_Table = new JTable(pendingTracker_Model);
 		pendingTracker_Table.setSize(new Dimension(100, 100));
 		pendingTracker_Table.setRowHeight(40);
-        
+		pendingTracker_Table.setCellSelectionEnabled(false);  // Disable cell selection
+		pendingTracker_Table.setColumnSelectionAllowed(false); // Disable column selection
+		pendingTracker_Table.getTableHeader().setReorderingAllowed(false); // Disable column reordering
+		
 		JScrollPane scrollPane_1 = new JScrollPane(pendingTracker_Table);
 	    scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	    scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	    
 	    scrollPane_1.setBounds(0, 0, 285, 247);
 		
 		pendingTracker_Panel.add(scrollPane_1);
@@ -544,6 +551,9 @@ public class UserDashboardFrame extends JFrame {
 		declinedTracker_Table = new JTable(declinedTracker_Model);
 		declinedTracker_Table.setSize(new Dimension(100, 100));
 		declinedTracker_Table.setRowHeight(40);
+		declinedTracker_Table.setCellSelectionEnabled(false);  // Disable cell selection
+		declinedTracker_Table.setColumnSelectionAllowed(false); // Disable column selection
+		declinedTracker_Table.getTableHeader().setReorderingAllowed(false); // Disable column reordering
 		
 		JScrollPane scrollPane_2 = new JScrollPane(declinedTracker_Table);
 		scrollPane_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

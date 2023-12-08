@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.EventObject;
 import java.util.Vector;
 
@@ -41,7 +44,13 @@ public class AdminDashboardFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable AdminDashboard_Table;
+	
+	// DATABASE
+	private Connection connection;
+	private QueryCommands qc;
+	private String firstNameDB;
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -63,6 +72,10 @@ public class AdminDashboardFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public AdminDashboardFrame() {
+		
+		connection = DatabaseConnection.getConnection();
+		qc = new QueryCommands();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 787, 520);
 		contentPane = new JPanel();
@@ -227,15 +240,25 @@ public class AdminDashboardFrame extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnNewButton_1.setBounds(299, 311, 126, 29);
 		panel_1.add(btnNewButton_1);
-		
-		int pendingCount= 5;
-		
+			
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255, 150));
 		panel.setBounds(27, 37, 717, 55);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		JLabel lblNewLabel = new JLabel(String.format("Kathryn, you have %S leave application requests to review.", pendingCount));
+		
+		//Fetch Admin Name from Database
+		  try (ResultSet resultSet = qc.prepareSelectFirstNameStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+              if (resultSet.next()) {
+            	  firstNameDB = resultSet.getString("first_name");
+              }
+          } catch (SQLException ex) {
+              ex.printStackTrace();
+          }
+		
+		int pendingCount= 5; // FIXME: Should not be hard-coded.
+
+		JLabel lblNewLabel = new JLabel(String.format( firstNameDB + ", you have %S leave application requests to review.", pendingCount));
 		lblNewLabel.setBounds(10, 0, 631, 55);
 		panel.add(lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);

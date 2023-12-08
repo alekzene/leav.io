@@ -233,7 +233,7 @@ public class QueryCommands {
 
 	// SELECT NAME QUERY
     public String selectName(String enteredUsername) {
-        return "SELECT name FROM employees WHERE username = ?";
+        return "SELECT full_name FROM employees WHERE username = ?";
     }
     
     // UPDATE PASSWORD STATEMENT
@@ -254,5 +254,24 @@ public class QueryCommands {
     // UPDATE PASSWORD QUERY
     public String updatePassword(String enteredConfirmPassword, String enteredEmployeeID) {
         return "UPDATE employees SET pass = ? WHERE employee_id = ?";
+    }
+    
+    // SELECT USER CATEGORY STATEMENT
+    public PreparedStatement prepareSelectFirstNameStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectUsername(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // SELECT USER CATEGORY QUERY
+    public String selectFirstName(String enteredUsername) {
+        return "SELECT first_name FROM employees WHERE username = ?";
     }
 }
