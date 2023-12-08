@@ -39,7 +39,7 @@ public class UserDashboardFrame extends JFrame {
 	private String leaveCategoryDB;
 	
 	
-	private Date_And_Time dateTime;
+	private DateAndTime dateTime;
 	private EmployeeInfo employee;
 	
 	/**
@@ -66,7 +66,7 @@ public class UserDashboardFrame extends JFrame {
 		connection = DatabaseConnection.getConnection();
 		qc = new QueryCommands();
 		
-		Date_And_Time dateTime = new Date_And_Time();
+		DateAndTime dateTime = new DateAndTime();
 		
 		// CONTENT PANE
 		setTitle("Leave Application Form\r\n");
@@ -674,7 +674,7 @@ public class UserDashboardFrame extends JFrame {
 	}
 	
 	 private void updateTime() {
-	        Date_And_Time dateTime = new Date_And_Time();
+	        DateAndTime dateTime = new DateAndTime();
 	        String formattedTime = dateTime.getFormattedTime();
 	        Time.setText(formattedTime);
 	    }

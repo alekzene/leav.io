@@ -3,7 +3,7 @@ package ceu;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Date_And_Time {
+public class DateAndTime {
 
     public String getFormattedDate() {
         Date currentDate = new Date();

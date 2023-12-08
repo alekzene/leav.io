@@ -47,7 +47,7 @@ public class LeaveApplicationFormFrame2 extends JFrame {
     private JDateChooser start;
     private JLabel lblNewLabel_2;
     
-    private Date_And_Time dateTime;
+    private DateAndTime dateTime;
     private JPanel commentPanel;
     private String newLeaveType;
     
