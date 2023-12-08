@@ -3,7 +3,6 @@ package ceu;
 // FIXME: Adjust according to database needs
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class QueryCommands {
@@ -20,7 +19,6 @@ public class QueryCommands {
     int totalLeaves;
     int leavesRemaining;
     int leavesUsed;
-    private Connection connection;
    
     public String deleteRequest(int id) 
     {
@@ -30,10 +28,6 @@ public class QueryCommands {
 
     public String select() {
         return "SELECT * FROM account";
-    }
- 
-    public QueryCommands(Connection connection) {
-        this.connection = connection;
     }
 
     // INSERT NEW ENTRY STATEMENT
@@ -261,16 +255,6 @@ public class QueryCommands {
     public String updatePassword(String enteredConfirmPassword, String enteredEmployeeID) {
         return "UPDATE employees SET pass = ? WHERE employee_id = ?";
     }
-     
-    //ADD NEW LEAVE TYPE STATEMENT
-    public PreparedStatement prepareAddLeaveTypeStatement(Connection connection, String newLeaveType) {
-        try {
-            String existingEnumValues = getExistingEnumValues();
-            String query = "ALTER TABLE leave_requests MODIFY COLUMN category ENUM(" + existingEnumValues + ", ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, newLeaveType);
-            return preparedStatement;
-        } catch (Exception e) {
     
     // SELECT USER CATEGORY STATEMENT
     public PreparedStatement prepareSelectFirstNameStatement(Connection connection, String enteredUsername) {
@@ -286,34 +270,6 @@ public class QueryCommands {
         }
     }
 
- // ADD NEW LEAVE TYPE QUERY
-    public String addLeaveTypeQuery(String newLeaveType) {
-    	String existingEnumValues = getExistingEnumValues();
-        String query = "ALTER TABLE leave_requests ADD COLUMN category ENUM(" + existingEnumValues + ", ?)";
-        query = query.replace("ENUM", "`ENUM`");
-        
-        return query;
-    }
-    
-    private String getExistingEnumValues() {
-        String query = "SHOW COLUMNS FROM leave_requests LIKE 'category'";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-
-            if (resultSet.next()) {
-                String enumValues = resultSet.getString("Type");
-                String[] valuesArray = enumValues.split(",");
-                for (int i = 1; i < valuesArray.length; i++) {
-                    valuesArray[i] = valuesArray[i].trim(); 
-                }
-                return String.join(", ", valuesArray);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-}
     // SELECT USER CATEGORY QUERY
     public String selectFirstName(String enteredUsername) {
         return "SELECT first_name FROM employees WHERE username = ?";

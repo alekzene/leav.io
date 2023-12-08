@@ -156,9 +156,7 @@ public class AdminDashboardFrame extends JFrame {
         scrollPane.setBounds(0, 0, 676, 226);
         
         users.add(scrollPane);
-		
-		JButton btnNewButton = new JButton("+  New Leave Type");
-        
+		        
 //		AdminDashboard_Table = new JTable();
 //		AdminDashboard_Table.setRowSelectionAllowed(false);
 //		scrollPane.setViewportView(AdminDashboard_Table);
@@ -207,60 +205,60 @@ public class AdminDashboardFrame extends JFrame {
 //		AdminDashboard_Table.setFont(new Font("Tahoma", Font.BOLD, 16));
 //		AdminDashboard_Table.setRowHeight(50);
         
-        // FIXME DOUBLE CHECK LOGIC		
-        JButton btnNewButton = new JButton("+  New Leave Type");
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JTextField leaveTypeField = new JTextField();
-                Object[] message = {
-                        "Enter new leave type:", leaveTypeField
-                };
-                int option = JOptionPane.showConfirmDialog(null, message,
-                        "New Leave Type", JOptionPane.OK_CANCEL_OPTION);
-                if (option == JOptionPane.OK_OPTION) {
-                    newLeaveType = leaveTypeField.getText();
-                    try {
-                        // Use the prepared statement to add the new leave type
-                    	int rowsAffected = qc.prepareAddLeaveTypeStatement(connection, newLeaveType).executeUpdate();
-                        // You might want to perform additional actions after the update
-                        // For example, refreshing the UI or displaying a success message
-                        JOptionPane.showMessageDialog(null, "New leave type added successfully!");
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                        // Handle the exception appropriately, e.g., display an error message
-                        JOptionPane.showMessageDialog(null, "Failed to add new leave type. Please try again.");
-                    }
-                }
-            }
-        });
-
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setBounds(503, 18, 175, 29);
-		panel_1.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("LOG OUT");
-		btnNewButton_1.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirm Log Out", JOptionPane.YES_NO_OPTION);
-
-		        if (confirmation == JOptionPane.YES_OPTION) {
-		            AdminDashboardFrame.this.dispose();
-		            LogInFrame frame = new LogInFrame();
-					frame.setVisible(true);	
-					frame.setLocationRelativeTo(null);
-		        } else {
-		            // Do nothing or handle cancellation
-		        }
-		    }
-		});
+//        // FIXME DOUBLE CHECK LOGIC		
+//        JButton btnNewButton = new JButton("+  New Leave Type");
+//        btnNewButton.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                JTextField leaveTypeField = new JTextField();
+//                Object[] message = {
+//                        "Enter new leave type:", leaveTypeField
+//                };
+//                int option = JOptionPane.showConfirmDialog(null, message,
+//                        "New Leave Type", JOptionPane.OK_CANCEL_OPTION);
+//                if (option == JOptionPane.OK_OPTION) {
+//                    newLeaveType = leaveTypeField.getText();
+//                    try {
+//                        // Use the prepared statement to add the new leave type
+//                    	int rowsAffected = qc.prepareAddLeaveTypeStatement(connection, newLeaveType).executeUpdate();
+//                        // You might want to perform additional actions after the update
+//                        // For example, refreshing the UI or displaying a success message
+//                        JOptionPane.showMessageDialog(null, "New leave type added successfully!");
+//                    } catch (SQLException ex) {
+//                        ex.printStackTrace();
+//                        // Handle the exception appropriately, e.g., display an error message
+//                        JOptionPane.showMessageDialog(null, "Failed to add new leave type. Please try again.");
+//                    }
+//                }
+//            }
+//        });
+//
+//		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
+//		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+//		btnNewButton.setBounds(503, 18, 175, 29);
+//		panel_1.add(btnNewButton);
+//		
+//		JButton btnNewButton_1 = new JButton("LOG OUT");
+//		btnNewButton_1.addActionListener(new ActionListener() {
+//		    @Override
+//		    public void actionPerformed(ActionEvent e) {
+//		        int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirm Log Out", JOptionPane.YES_NO_OPTION);
+//
+//		        if (confirmation == JOptionPane.YES_OPTION) {
+//		            AdminDashboardFrame.this.dispose();
+//		            LogInFrame frame = new LogInFrame();
+//					frame.setVisible(true);	
+//					frame.setLocationRelativeTo(null);
+//		        } else {
+//		            // Do nothing or handle cancellation
+//		        }
+//		    }
+//		});
 	
-		btnNewButton_1.setForeground(Color.WHITE);
-		btnNewButton_1.setBackground(new Color(255, 108, 108));
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btnNewButton_1.setBounds(299, 311, 126, 29);
-		panel_1.add(btnNewButton_1);
+//		btnNewButton_1.setForeground(Color.WHITE);
+//		btnNewButton_1.setBackground(new Color(255, 108, 108));
+//		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
+//		btnNewButton_1.setBounds(299, 311, 126, 29);
+//		panel_1.add(btnNewButton_1);
 			
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255, 150));
