@@ -370,7 +370,7 @@ public class UserDashboardFrame extends JFrame {
 		JButton fileLeaveButton = new JButton("File New Leave");
 		fileLeaveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LeaveApplicationFormFrame2 leaveApplicationFrame = new LeaveApplicationFormFrame2();
+				LeaveApplicationFormFrame leaveApplicationFrame = new LeaveApplicationFormFrame();
 				leaveApplicationFrame.setVisible(true);
 				leaveApplicationFrame.setLocationRelativeTo(null);
 			}
