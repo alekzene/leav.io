@@ -436,7 +436,7 @@ public class UserDashboardFrame extends JFrame {
 		contentPane.add(approvedTracker_Panel);
 		approvedTracker_Panel.setLayout(null);
 		
-		DefaultTableModel approveTracker_Model = new DefaultTableModel(0, 5) {
+		DefaultTableModel approveTracker_Model = new DefaultTableModel(0, 4) {
 			boolean[] columnEditables = new boolean[] {
 			false, false, false, false, false
 		};
@@ -446,35 +446,27 @@ public class UserDashboardFrame extends JFrame {
 			}
 		};
             
-        String[]approveTracker_Headers = {"ID", "Type of Leave", "Start Date", "End Date", "Status"};
+        String[]approveTracker_Headers = {"ID", "Type of Leave", "Start Date", "End Date"};
         approveTracker_Model.setColumnIdentifiers(approveTracker_Headers);
         System.out.println("sdfghmjhgsdf");
         System.out.println(leaveStatusDB);
+        
+        //CHECKS IF LEAVE STATUS IS APPROVED
         rs.last();
-		int rowsCount = rs.getRow();
+		int rowCount = rs.getRow();
 		rs.first();
-		
-          //CHECKS IF LEAVE STATUS IS APPROVED
-		for(int i = 1; i <= rowsCount; i++ ) {
-			rs.next();
-        if(leaveStatusDB != null && leaveStatusDB.equals("Approved")) {
-    		System.out.println("sdfghmjhgsdf");
-			
-			for(int j = 1; j <= rowsCount; j++ ) {
-				if(dateTime.getCurrentDate().before(dateTime.getEndDate(endDateDB))) {
-					System.out.println("hi");
-					approveTracker_Model.addRow(new Object[]{rs.getString("id"), rs.getString("category"), rs.getDate("start_date"), rs.getDate("end_date"), "In Effect" });
-				}
-				else {
-					System.out.println("ascgm");
-					approveTracker_Model.addRow(new Object[]{rs.getString("id"), rs.getString("category"), rs.getDate("start_date"), rs.getDate("end_date"), "Finished" });
-				}
-				
-				System.out.println("jo");
-				rs.next();
+        
+        for(int i = 1; i <= rowCount; i++ ) {	
+        
+	        if(leaveStatusDB != null && rs.getString("status").equals("Approved")) {
+	    		
+	        	approveTracker_Model.addRow(new Object[]{rs.getString("id"), rs.getString("category"), rs.getDate("start_date"), rs.getDate("end_date") });
+					
+					
 			}
-		}
-		}
+	        
+	        rs.next();
+        }
             
 		approveTracker_Table = new JTable(approveTracker_Model);
 		approveTracker_Table.setSize(new Dimension(300, 300));
@@ -519,19 +511,31 @@ public class UserDashboardFrame extends JFrame {
 		String[]pendingTracker_Headers = {"ID", "Type of Leave", "Date Applied"};
 		pendingTracker_Model.setColumnIdentifiers(pendingTracker_Headers);
 		
-		//CHECKS IF LEAVE STATUS IS PENDING
-		if(leaveStatusDB != null && leaveStatusDB.equals("Pending")) {
 		
-			rs.last();
-			int rowCount = rs.getRow();
-			rs.first();
-			
-			for(int i = 1; i <= rowCount; i++ ) {				
-				pendingTracker_Model.addRow(new Object[]{rs.getString("id"), rs.getString("category"), rs.getDate("application_date")});
-			
-				rs.next();
+//		if(leaveStatusDB != null && leaveStatusDB.equals("Pending")) {
+//		
+//			rs.last();
+//			int rowCount = rs.getRow();
+//			rs.first();
+//			
+//			for(int i = 1; i <= rowCount; i++ ) {				
+//				pendingTracker_Model.addRow(new Object[]{rs.getString("id"), rs.getString("category"), rs.getDate("application_date")});
+//			
+//				rs.next();
+//			}
+//		}		
+		
+		rs.first();
+		//CHECKS IF LEAVE STATUS IS PENDING
+		for(int i = 1; i <= rowCount; i++ ) {	        
+	        if(leaveStatusDB != null && rs.getString("status").equals("Pending")) {
+	    		
+	        	pendingTracker_Model.addRow(new Object[]{rs.getString("id"), rs.getString("category"), rs.getDate("application_date")});	
+					
 			}
-		}		
+	        
+	        rs.next();
+        }
 		
         pendingTracker_Table = new JTable(pendingTracker_Model);
 		pendingTracker_Table.setSize(new Dimension(100, 100));
@@ -574,19 +578,32 @@ public class UserDashboardFrame extends JFrame {
 		String[]declinedTracker_Headers = {"ID", "Type of Leave", "Date Applied"};
 		declinedTracker_Model.setColumnIdentifiers(declinedTracker_Headers);
 		
-		//CHECKS IF LEAVE STATUS IS DECLINED		
-		if(leaveStatusDB != null && leaveStatusDB.equals("Declined")) {
-			
-			rs.last();
-			int rowCount = rs.getRow();
-			rs.first();
-			
-			for(int i = 1; i <= rowCount; i++ ) {				
-				declinedTracker_Model.addRow(new Object[]{rs.getString("id"), rs.getString("category"), rs.getDate("application_date")});
-			
-				rs.next();
-			}
-		}
+//		//CHECKS IF LEAVE STATUS IS DECLINED		
+//		if(leaveStatusDB != null && leaveStatusDB.equals("Declined")) {
+//			
+//			rs.last();
+//			int rowCount = rs.getRow();
+//			rs.first();
+//			
+//			for(int i = 1; i <= rowCount; i++ ) {				
+//				declinedTracker_Model.addRow(new Object[]{rs.getString("id"), rs.getString("category"), rs.getDate("application_date")});
+//			
+//				rs.next();
+//			}
+//		}
+		
+		rs.first();
+		
+		//CHECKS IF LEAVE STATUS IS DECLINED
+				for(int i = 1; i <= rowCount; i++ ) {	        
+			        if(leaveStatusDB != null && rs.getString("status").equals("Declined")) {
+			    		
+			        	declinedTracker_Model.addRow(new Object[]{rs.getString("id"), rs.getString("category"), rs.getDate("application_date")});	
+							
+					}
+			        
+			        rs.next();
+		        }
 				
 		declinedTracker_Table = new JTable(declinedTracker_Model);
 		declinedTracker_Table.setSize(new Dimension(100, 100));
