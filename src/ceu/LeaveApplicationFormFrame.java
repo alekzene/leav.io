@@ -285,7 +285,7 @@ public class LeaveApplicationFormFrame extends JFrame {
         	}
         });      
         // FIXME: SET NEW STRING[] {} VALUES TO FLEXIBLE ENUM WHERE WE CAN ADD MORE VALUES
-        leaveTypeSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Sick", "Emergency", "Vacation", "Maternity", "Paternity"}));
+        leaveTypeSelect.setModel(new DefaultComboBoxModel(new String[] {"Select Type", "Sick", "Emergency", "Vacation", "Maternal", "Paternal"}));
         leaveTypeSelect.setFont(new Font("Tahoma", Font.PLAIN, 12));
         leaveTypeSelect.setBackground(Color.WHITE);
         formPanel.add(leaveTypeSelect);
@@ -416,7 +416,7 @@ public class LeaveApplicationFormFrame extends JFrame {
 //        	        
 //        	        Date enteredEndDateDate = endDateChooser.getDate();
 //        	        int endDateDate = enteredEndDateDate.getDate();
-        	        System.out.println(selectedCategory);        	        
+//        	        System.out.println(selectedCategory);        	        
 //        	        int durationInDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
 
         			// GET EMPLOYEE ID FOREIGN KEY BASED ON USERNAME
@@ -449,6 +449,9 @@ public class LeaveApplicationFormFrame extends JFrame {
         			System.out.println(enteredMocName);
         			System.out.println(enteredMocAddress);
         			System.out.println(enteredMocContactNumber);
+        			
+        	        System.out.println(selectedCategory);        	        
+
 
         			// INSERT LEAVE REQUEST TO DATABASE
 

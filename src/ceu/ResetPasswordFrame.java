@@ -183,7 +183,7 @@ public class ResetPasswordFrame extends JFrame {
                 else
                 {
                 	// CHECK IF ENTERED EMPLOYEE ID IS IN DATABASE
-    	            try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, enteredEmployeeID).executeQuery()) {
+    	            try (ResultSet resultSet = qc.prepareConfirmEmployeeIDStatement(connection, enteredEmployeeID).executeQuery()) {
     	                if (resultSet.next()) {
     	                    employeeIDDB = resultSet.getString("employee_id");
     	                }
