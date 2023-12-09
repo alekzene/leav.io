@@ -312,5 +312,25 @@ public class QueryCommands {
     private String updateLeavesRemaining() {
         return "UPDATE employees SET leaves_remaining = ? WHERE username = ?";
     }
+    
+    // Select LeaveRequestID
+    public PreparedStatement prepareSelectLeaveRequestIDStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectLeaveRequestID(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (SQLException e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // SELECT LEAVEREQUESTIDS
+    private String selectLeaveRequestID(String enteredUsername) {
+        return "SELECT * id FROM leave_requests";
+    }
 }
+
 
