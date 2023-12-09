@@ -419,17 +419,20 @@ public class LeaveApplicationFormFrame extends JFrame {
         // SUBMIT BUTTON LOGIC IMPLEMENTATION
         submitButton.addActionListener(new ActionListener() {	
         	public void actionPerformed(ActionEvent e) {  			
-        		if (isAllFieldsFilledUP()) {
+        		if ( isAllFieldsFilledUP() == false ) {
+    		        JOptionPane.showMessageDialog(null, "Fill up all required fields.");
+        		}
+        		else {
         			// FIXME: ADD MORE VALIDATION IF NEEDED
         			// FIXME: PUT ALL VALUES GATHERED FROM FORM INTO DATABASE
         			// CALCULATE DURATION IN DAYS
-        	        Date enteredStartDateDate = startDateChooser.getDate();
-        	        int startDateDate = enteredStartDateDate.getDate();
-        	        
-        	        Date enteredEndDateDate = endDateChooser.getDate();
-        	        int endDateDate = enteredEndDateDate.getDate();
-        	        
-        	        int durationInDays = endDateDate - startDateDate;
+//        	        Date enteredStartDateDate = startDateChooser.getDate();
+//        	        int startDateDate = enteredStartDateDate.getDate();
+//        	        
+//        	        Date enteredEndDateDate = endDateChooser.getDate();
+//        	        int endDateDate = enteredEndDateDate.getDate();
+        	        System.out.println(selectedCategory);
+        	        int durationInDays = 8; // FIXME
         	        
 //        	        int durationInDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
 
@@ -449,7 +452,6 @@ public class LeaveApplicationFormFrame extends JFrame {
         			System.out.println( connection );
         			System.out.println(employeeIDFK);
         			System.out.println(selectedCategory);
-        			System.out.println(selectedCategory);
         			System.out.println(applicationDate);
         			System.out.println(enteredStartDate);
         			System.out.println(enteredEndDate);
@@ -463,18 +465,21 @@ public class LeaveApplicationFormFrame extends JFrame {
         			System.out.println(enteredMocContactNumber);
 
         			// INSERT LEAVE REQUEST TO DATABASE
-        	        try {
-        	        	int rowsAffected = qc.prepareInsertLeaveRequestStatement(connection, employeeIDFK, selectedCategory, applicationDate, enteredStartDate, enteredEndDate, durationInDays, enteredReason, enteredClientComments, leaveRequestStatus, adminRemarks, enteredMocName, enteredMocAddress, enteredMocContactNumber).executeUpdate();
-            		    if (rowsAffected > 0) {
-            		        JOptionPane.showMessageDialog(null, "Successfully Submitted!");
-                    		JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(submitButton);
-                            currentFrame.dispose();
-            		    } else {
-            		        JOptionPane.showMessageDialog(null, "Fill up all required fields.");
-            		    }
-            		} catch (SQLException ex) {
-            		    ex.printStackTrace();
-            		}   		
+
+
+            	        try {
+            	        	int rowsAffected = qc.prepareInsertLeaveRequestStatement(connection, employeeIDFK, selectedCategory, applicationDate, enteredStartDate, enteredEndDate, durationInDays, enteredReason, enteredClientComments, leaveRequestStatus, adminRemarks, enteredMocName, enteredMocAddress, enteredMocContactNumber).executeUpdate();
+                		    if (rowsAffected > 0) {
+                		        JOptionPane.showMessageDialog(null, "Successfully Submitted!");
+                        		JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(submitButton);
+                                currentFrame.dispose();
+                		    } else {
+                		        JOptionPane.showMessageDialog(null, "Submission Failed.");
+                		    }
+                		} catch (SQLException ex) {
+                		    ex.printStackTrace();
+                		}   	
+
         	}
         }});
         
