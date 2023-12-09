@@ -25,9 +25,9 @@ public class QueryCommands {
     int leaveRequestID;
     int employeeIDFK;
     String leaveRequestCategory;
-    String applicationDate; 
-    String startDate;
-    String endDate;
+    java.sql.Date applicationDate; 
+    java.sql.Date startDate;
+    java.sql.Date endDate;
     int durationInDays;
     String reason;
     String clientComments;
@@ -90,15 +90,15 @@ public class QueryCommands {
     }
     
     // INSERT NEW LEAVE REQUEST ENTRY STATEMENT
-    public PreparedStatement prepareInsertLeaveRequestStatement(Connection connection, int employeeIDFK, String leaveRequestCategory, String applicationDate, String startDate, String endDate, int durationInDays, String reason, String clientComments, String status, String adminRemarks, String mocName, String mocAddress, String mocNumber) {
+    public PreparedStatement prepareInsertLeaveRequestStatement(Connection connection, int employeeIDFK, String leaveRequestCategory, java.sql.Date applicationDate, java.sql.Date startDate, java.sql.Date endDate, int durationInDays, String reason, String clientComments, String status, String adminRemarks, String mocName, String mocAddress, String mocNumber) {
         try {
             String query = insertLeaveRequest(employeeIDFK, leaveRequestCategory, applicationDate, startDate, endDate, durationInDays, reason, clientComments, status, adminRemarks, mocName, mocAddress, mocNumber);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, employeeIDFK);
             preparedStatement.setString(2, leaveRequestCategory);
-            preparedStatement.setString(3, applicationDate);
-            preparedStatement.setString(4, startDate);
-            preparedStatement.setString(5, endDate);
+            preparedStatement.setDate(3, applicationDate);
+            preparedStatement.setDate(4, startDate);
+            preparedStatement.setDate(5, endDate);
             preparedStatement.setInt(6, durationInDays);
             preparedStatement.setString(7, reason);
             preparedStatement.setString(8, clientComments);
@@ -115,7 +115,7 @@ public class QueryCommands {
     }
     
     // INSERT NEW LEAVE REQUEST ENTRY QUERY
-    public String insertLeaveRequest(int employeeIDFK, String leaveRequestCategory, String applicationDate, String startDate, String endDate, int durationInDays, String reason, String clientComments, String status, String adminRemarks, String mocName, String mocAddress, String mocNumber) {
+    public String insertLeaveRequest(int employeeIDFK, String leaveRequestCategory,  java.sql.Date applicationDate, java.sql.Date startDate, java.sql.Date endDate, int durationInDays, String reason, String clientComments, String status, String adminRemarks, String mocName, String mocAddress, String mocNumber) {
     	this.employeeIDFK = employeeIDFK;
     	this.leaveRequestCategory = leaveRequestCategory;
     	this.applicationDate = applicationDate;
