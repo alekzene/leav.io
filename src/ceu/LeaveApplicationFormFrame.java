@@ -50,6 +50,7 @@ public class LeaveApplicationFormFrame extends JFrame {
     
     // OTHER VARIABLES
     private Calendar currentDate = Calendar.getInstance();
+    private Calendar advancedDate = Calendar.getInstance();
     private java.sql.Date applicationDate;
     private java.sql.Date enteredStartDate;
     private java.sql.Date enteredEndDate;
@@ -84,6 +85,9 @@ public class LeaveApplicationFormFrame extends JFrame {
 	 * Create the frame.
 	 */
     public LeaveApplicationFormFrame() {
+    	advancedDate.setTime(new Date());
+    	advancedDate.add(Calendar.DATE, 3);
+    	System.out.println("update");
     	
     	connection = DatabaseConnection.getConnection();
     	qc = new QueryCommands();
@@ -487,6 +491,7 @@ public class LeaveApplicationFormFrame extends JFrame {
     // FIXME: LOGIC STILL FLAWEDss
     private void updateDateRestrictions() {
         currentDate.setTime(new Date());
+        
         // Enable all dates by default
         startDateChooser.setEnabled(true);
         endDateChooser.setEnabled(true);       
@@ -501,20 +506,24 @@ public class LeaveApplicationFormFrame extends JFrame {
             startDateChooser.setMinSelectableDate(null);
             endDateChooser.setMinSelectableDate(startDateChooser.getDate());
             
-        } else {
+        } 
+        else if("Emergency".equals(selectedCategory)||("Paternity".equals(selectedCategory))||"Vacation".equals(selectedCategory)) {
             // For other leave types, additional logic can be added here
-        	currentDate.add(Calendar.DATE, 1);
+        	// Set the MaxSelectableDate for startDateChooser
+        	
+        	
             // For example, disable dates before the current date for startDateChooser
             startDateChooser.setMinSelectableDate(currentDate.getTime()); 
             endDateChooser.setMinSelectableDate(startDateChooser.getDate());
-
+            
             // Optional: Allow filing leaves three days in advance
             currentDate.add(Calendar.DATE, 3);
-            // Set the MaxSelectableDate for startDateChooser
             startDateChooser.setMaxSelectableDate(null);
-
+            System.out.println(advancedDate.getTime());
             // Set the MaxSelectableDate for endDateChooser
-            endDateChooser.setMaxSelectableDate(currentDate.getTime());
+            endDateChooser.setMaxSelectableDate(advancedDate.getTime());
+            
+            
         }
     }
  
