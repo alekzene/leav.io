@@ -1,9 +1,11 @@
 package ceu;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Date_And_Time {
+public class DateAndTime {
 
     public String getFormattedDate() {
         Date currentDate = new Date();
@@ -12,6 +14,19 @@ public class Date_And_Time {
         String formattedDate = dateFormat.format(currentDate);
 
         return formattedDate;
+    }
+    
+    public Date getCurrentDate() {
+        Date currentDate = new Date();
+
+        return currentDate;
+    }
+    
+    public Date getEndDate(String endDate) throws ParseException {      
+        DateFormat df = new SimpleDateFormat("mm-dd-yyyy");
+        Date formattedEndDate = df.parse(endDate);
+        
+        return formattedEndDate;
     }
 
     public String getFormattedDay() {
@@ -32,5 +47,4 @@ public class Date_And_Time {
         return formattedTime;
     
     }
-    
 }

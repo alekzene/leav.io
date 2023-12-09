@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class QueryCommands {
+	// ATTRIBUTES FOR EMPLOYEE TABLE
 	int id;
     String category;
     String employeeID;
@@ -19,6 +20,22 @@ public class QueryCommands {
     int totalLeaves;
     int leavesRemaining;
     int leavesUsed;
+    
+    // ATTRIBUTES FOR LEAVE REQUEST
+    int leaveRequestID;
+    int employeeIDFK;
+    String leaveRequestCategory;
+    String applicationDate; 
+    String startDate;
+    String endDate;
+    int durationInDays;
+    String reason;
+    String clientComments;
+    String status; 
+    String adminRemarks;
+    String mocName;
+    String mocAddress;
+    String mocNumber;
    
     public String deleteRequest(int id) 
     {
@@ -30,7 +47,7 @@ public class QueryCommands {
         return "SELECT * FROM account";
     }
 
-    // INSERT NEW ENTRY STATEMENT
+    // INSERT NEW EMPLOYEE ENTRY STATEMENT
     public PreparedStatement prepareInsertStatement(Connection connection, String employeeID, String category, String username, String pass, String name, String address, String contactNumber, String campus, String department, int totalLeaves, int leavesRemaining, int leavesUsed) {
         try {
             String query = insert(employeeID, category, username, pass, name, address, contactNumber, campus, department, totalLeaves, leavesRemaining, leavesUsed);
@@ -54,7 +71,7 @@ public class QueryCommands {
         }
     }
     
-    // INSERT NEW ENTRY QUERY
+    // INSERT NEW EMPLOYEE ENTRY QUERY
     public String insert(String category, String employee_id, String username, String pass, String name, String address, String contact_number, String campus, String department, int total_leaves, int leaves_remaining, int leaves_used) {
         this.category = category;
         this.employeeID = employee_id;
@@ -70,6 +87,49 @@ public class QueryCommands {
         this.leavesUsed = leaves_used;
 
         return "INSERT INTO employees (category, employee_id, username, pass, name, address, contact_number, campus, department, total_leaves, leaves_remaining, leaves_used) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }
+    
+    // INSERT NEW LEAVE REQUEST ENTRY STATEMENT
+    public PreparedStatement prepareInsertLeaveRequestStatement(Connection connection, int employeeIDFK, String leaveRequestCategory, String applicationDate, String startDate, String endDate, int durationInDays, String reason, String clientComments, String status, String adminRemarks, String mocName, String mocAddress, String mocNumber) {
+        try {
+            String query = insertLeaveRequest(employeeIDFK, leaveRequestCategory, applicationDate, startDate, endDate, durationInDays, reason, clientComments, status, adminRemarks, mocName, mocAddress, mocNumber);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, employeeIDFK);
+            preparedStatement.setString(2, leaveRequestCategory);
+            preparedStatement.setString(3, applicationDate);
+            preparedStatement.setString(4, startDate);
+            preparedStatement.setString(5, endDate);
+            preparedStatement.setInt(6, durationInDays);
+            preparedStatement.setString(7, reason);
+            preparedStatement.setString(8, clientComments);
+            preparedStatement.setString(9, status);
+            preparedStatement.setString(10, adminRemarks);
+            preparedStatement.setString(11, mocName);
+            preparedStatement.setString(12, mocName);
+            preparedStatement.setString(13, mocNumber);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    // INSERT NEW LEAVE REQUEST ENTRY QUERY
+    public String insertLeaveRequest(int employeeIDFK, String leaveRequestCategory, String applicationDate, String startDate, String endDate, int durationInDays, String reason, String clientComments, String status, String adminRemarks, String mocName, String mocAddress, String mocNumber) {
+    	this.employeeIDFK = employeeIDFK;
+    	this.leaveRequestCategory = leaveRequestCategory;
+    	this.applicationDate = applicationDate;
+    	this.startDate = startDate;
+    	this.endDate = endDate;
+    	this.durationInDays = durationInDays;
+    	this.reason = reason;
+    	this.clientComments = clientComments;
+    	this.status = status;
+    	this.adminRemarks = adminRemarks;
+    	this.mocName = mocName;
+    	this.mocAddress = mocAddress;
+    	this.mocNumber = mocNumber;
+        return "INSERT INTO leave_requests (employee_id, category, application_date, start_date, end_date, duration_in_days, reason, client_comments, status, admin_remarks, contact_name, contact_address, contact_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     // DELETE EMPLOYEE ENTRY STATEMENT
@@ -90,6 +150,25 @@ public class QueryCommands {
         this.id = id;
 
         return "DELETE FROM employees WHERE id = ?";
+    }
+    
+    // SELECT EMPLOYEE ID (FOREGIN KEY) STATEMENT
+    public PreparedStatement prepareSelectEmployeeIDFKStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectUsername(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // SELECT EMPLOYEE ID (FOREIGN KEY) QUERY
+    public String selectEmployeeIDFK(String enteredUsername) {
+        return "SELECT id FROM employees WHERE username = ?";
     }
 
     // SELECT USERNAME STATEMENT
@@ -169,9 +248,9 @@ public class QueryCommands {
     }
     
     // SELECT NAME STATEMENT
-    public PreparedStatement prepareSelectNameStatement(Connection connection, String enteredUsername) {
+    public PreparedStatement prepareSelectFullNameStatement(Connection connection, String enteredUsername) {
         try {
-            String query = selectName(enteredUsername);
+            String query = selectFullName(enteredUsername);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, enteredUsername);
             return preparedStatement;
@@ -198,6 +277,23 @@ public class QueryCommands {
 		return "SELECT department FROM employees WHERE username = ?";
 	}
     
+    // SELECT CAMPUS STATEMENT
+    public PreparedStatement prepareSelectCampusStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectCampus(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private String selectCampus(String enteredUsername) {
+		return "SELECT campus FROM employees WHERE username = ?";
+	}
+    
  // LEAVES REMAINING
     public PreparedStatement prepareLeavesRemaining(Connection connection, String enteredUsername) {
         try {
@@ -210,6 +306,8 @@ public class QueryCommands {
             return null;
         }
     }
+
+    
     private String displayLeavesRemaining(String enteredUsername) {
 		return "SELECT leaves_remaining FROM employees WHERE username = ?";
 	}
@@ -230,9 +328,77 @@ public class QueryCommands {
     private String displayLeavesUsed(String enteredUsername) {
 		return "SELECT leaves_used FROM employees WHERE username = ?";
 	}
+    
+    // START DATE
+    public PreparedStatement prepareSelectStartDateStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectStartDate(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private String selectStartDate(String enteredUsername) {
+		return "SELECT start_date FROM leave_requests WHERE username = ?";
+	}
+    
+ // END DATE
+    public PreparedStatement prepareSelectEndDateStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectEndDate(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private String selectEndDate(String enteredUsername) {
+		return "SELECT end_date FROM leave_requests WHERE username = ?";
+	}
+    
+ // STATUS
+    public PreparedStatement prepareSelectStatusStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectStatus(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private String selectStatus(String enteredUsername) {
+		return "SELECT status FROM leave_requests WHERE username = ?";
+	}
+    
+ // APPLICATION DATE
+    public PreparedStatement prepareSelectApplicationDateStatement(Connection connection, String enteredUsername) {
+        try {
+            String query = selectApplicationDate(enteredUsername);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, enteredUsername);
+            return preparedStatement;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private String selectApplicationDate(String enteredUsername) {
+		return "SELECT application_date FROM leave_requests WHERE username = ?";
+	}
 
 	// SELECT NAME QUERY
-    public String selectName(String enteredUsername) {
+    public String selectFullName(String enteredUsername) {
         return "SELECT full_name FROM employees WHERE username = ?";
     }
     
