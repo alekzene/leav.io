@@ -1,3 +1,6 @@
+// FIXME: SHOW LEAVE REQUESTS IN TABLE
+// FIXME: VIEW BUTTON LOGIC
+
 package ceu; 
 
 import java.awt.EventQueue;
