@@ -564,7 +564,7 @@ public class UserDashboardFrame extends JFrame {
 		lblNewLabel_3.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
 		lblNewLabel_3.setBounds(0, 0, 1121, 560);
 		contentPane.add(lblNewLabel_3);
-	}
+        }}
 	
 	private void updateTime() {
 		DateAndTime dateTime = new DateAndTime();
