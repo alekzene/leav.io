@@ -121,20 +121,6 @@ public class LogInFrame extends JFrame {
 		  viewPassword.setIcon(new ImageIcon(LogInFrame.class.getResource("/images/icons8-eye-24.png")));
 		  viewPassword.setBounds(407, 163, 24, 21);
 		  logInPanel.add(viewPassword);
-		  
-		// REMEMBER ME RADIO BUTTON
-        JRadioButton rememberMeRadioButton = new JRadioButton("Remember Me");
-        rememberMeRadioButton.setBackground(new Color(241, 171, 192));
-        rememberMeRadioButton.setForeground(Color.BLACK);
-        rememberMeRadioButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		// FIXME: ADD CODE HERE. MUST REMEMBER USER WHEN CLICKED.
-        	}
-        });
-		rememberMeRadioButton.setOpaque(true); 
-		rememberMeRadioButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		rememberMeRadioButton.setBounds(63, 195, 131, 25);
-		logInPanel.add(rememberMeRadioButton);
 		
 		// RESET PASSWORD BUTTON
 		JButton resetPasswordButton = new JButton("Forgot Password?");
