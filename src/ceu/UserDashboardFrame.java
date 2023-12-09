@@ -38,6 +38,7 @@ public class UserDashboardFrame extends JFrame {
 	private String endDateDB;
 	private String startDateDB;
 	private String leaveCategoryDB;
+	private String leaveStatusDB;
 	
 	
 	private DateAndTime dateTime;
