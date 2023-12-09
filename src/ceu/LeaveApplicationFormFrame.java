@@ -465,22 +465,13 @@ public class LeaveApplicationFormFrame extends JFrame {
         			// INSERT LEAVE REQUEST TO DATABASE
         	        try {
         	        	int rowsAffected = qc.prepareInsertLeaveRequestStatement(connection, employeeIDFK, selectedCategory, applicationDate, enteredStartDate, enteredEndDate, durationInDays, enteredReason, enteredClientComments, leaveRequestStatus, adminRemarks, enteredMocName, enteredMocAddress, enteredMocContactNumber).executeUpdate();
-        	        	if (!isAllFieldsFilledUP())
-        	        	{
-            		        JOptionPane.showMessageDialog(null, "Fill all required fields.");
-        	        	}
-        	        	else
-        	        	{
-	        	        	if (rowsAffected > 0) {
-	            		        JOptionPane.showMessageDialog(null, "Successfully Submitted!");
-	                    		JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(submitButton);
-	                            currentFrame.dispose();
-	            		    } else {
-	            		        JOptionPane.showMessageDialog(null, "Submit Failed.");
-	            		    }
-        	        	}
-            		    
-            		   
+            		    if (rowsAffected > 0) {
+            		        JOptionPane.showMessageDialog(null, "Successfully Submitted!");
+                    		JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(submitButton);
+                            currentFrame.dispose();
+            		    } else {
+            		        JOptionPane.showMessageDialog(null, "Fill up all required fields.");
+            		    }
             		} catch (SQLException ex) {
             		    ex.printStackTrace();
             		}   		
