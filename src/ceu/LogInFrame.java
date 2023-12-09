@@ -208,7 +208,13 @@ public class LogInFrame extends JFrame {
 		                userDashboardFrame.setLocationRelativeTo(null);
 		            } else if (userCategoryDB.equals("Admin")) {
 		                // OPEN ADMIN DASHBOARD
-		                AdminDashboardFrame adminDashboardFrame = new AdminDashboardFrame();
+		                AdminDashboardFrame adminDashboardFrame = null;
+						try {
+							adminDashboardFrame = new AdminDashboardFrame();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 		                adminDashboardFrame.setVisible(true);
 		                adminDashboardFrame.setLocationRelativeTo(null);
 		            }

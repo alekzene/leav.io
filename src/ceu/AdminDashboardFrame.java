@@ -17,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
@@ -79,11 +80,15 @@ public class AdminDashboardFrame extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public AdminDashboardFrame() {
+	public AdminDashboardFrame() throws SQLException {
 		
 		connection = DatabaseConnection.getConnection();
 		qc = new QueryCommands();
+		
+		Statement st = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 0);		
+		ResultSet rs = st.executeQuery("select * from leave_requests");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 787, 520);
@@ -117,7 +122,7 @@ public class AdminDashboardFrame extends JFrame {
 		
 		DefaultTableModel adminDashboard_Model = new DefaultTableModel(0, 4) {
 			boolean[] columnEditables = new boolean[] {
-			false, false, false, false
+			false, false, false, true
 		};
             @Override
 //            public boolean isCellEditable(int row, int column) {
@@ -128,13 +133,27 @@ public class AdminDashboardFrame extends JFrame {
             };
 
         // Set column headers
-        String[] adminDashboard_Headers = {"Employee Name", "Department", "Type of Leave", ""};
+        String[] adminDashboard_Headers = {"Client ID", "Leave ID", "Type of Leave", ""};
         adminDashboard_Model.setColumnIdentifiers(adminDashboard_Headers);
+        
+        rs.last();
+		int rowCount = rs.getRow();
+		rs.first();
+		
+		int count = 0;
+		for(int i = 1; i <= rowCount; i++ ) {	
+	        
+	        if(rs.getString("status").equals("Pending")) {
+	    		count++;
+	        	
+	        	adminDashboard_Model.addRow(new Object[]{rs.getString("employee_id"), rs.getInt("id"), rs.getString("category"), "/images/icons8-eye-24.png" });
+					
+					
+			}
+	        
+	        rs.next();
+        }
 
-        // Populate the table with 20 rows
-//        for (int i = 0; i < 20; i++) {
-        // FIXME: FIX PRINT LOGIC / ROW ADDITION LOGIC
-        adminDashboard_Model.addRow(new Object[]{"Francisco, Earl Ace", "Library", "Vacation", "/images/icons8-eye-24.png"});
 //        }
         
      // Create the table with the model
@@ -159,87 +178,7 @@ public class AdminDashboardFrame extends JFrame {
         scrollPane.setBounds(0, 0, 676, 226);
         
         users.add(scrollPane);
-		        
-//		AdminDashboard_Table = new JTable();
-//		AdminDashboard_Table.setRowSelectionAllowed(false);
-//		scrollPane.setViewportView(AdminDashboard_Table);
-//		AdminDashboard_Table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{"Francisco, Earl Ace", "Library", "Vacation Leave", null },
-//				{"Gallano, Matt Joshua", "Canteen", "Vacation Leave", null },
-//				{"Arrojo, Jomari", "Security", "Sick Leave", null },
-//				{"Padilla, Daniel", "HR", "Paternal Leave", null},
-//				{"Brilantes, Andrea", "HR", "Maternal Leave", null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//			},
-//			new String[] {
-//				"Name", "Department", "Type of Leave", ""
-//			}
-//		) {
-//			boolean[] columnEditables = new boolean[] {
-//				false, false, false, false
-//			};
-//			public boolean isCellEditable(int row, int column) {
-//				return columnEditables[column];
-//			}
-//		});
-//		AdminDashboard_Table.getColumnModel().getColumn(0).setResizable(false);
-//		AdminDashboard_Table.getColumnModel().getColumn(0).setMaxWidth(200);
-//		AdminDashboard_Table.getColumnModel().getColumn(1).setResizable(false);
-//		AdminDashboard_Table.getColumnModel().getColumn(1).setMaxWidth(150);
-//		AdminDashboard_Table.getColumnModel().getColumn(2).setResizable(false);
-//		AdminDashboard_Table.getColumnModel().getColumn(2).setMaxWidth(160);
-//		AdminDashboard_Table.getColumnModel().getColumn(3).setResizable(false);
-//		AdminDashboard_Table.getColumnModel().getColumn(3).setMaxWidth(150);
-//		AdminDashboard_Table.setFont(new Font("Tahoma", Font.BOLD, 16));
-//		AdminDashboard_Table.setRowHeight(50);
-        
-//        // FIXME DOUBLE CHECK LOGIC		
-//        JButton btnNewButton = new JButton("+  New Leave Type");
-//        btnNewButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                JTextField leaveTypeField = new JTextField();
-//                Object[] message = {
-//                        "Enter new leave type:", leaveTypeField
-//                };
-//                int option = JOptionPane.showConfirmDialog(null, message,
-//                        "New Leave Type", JOptionPane.OK_CANCEL_OPTION);
-//                if (option == JOptionPane.OK_OPTION) {
-//                    newLeaveType = leaveTypeField.getText();
-//                    try {
-//                        // Use the prepared statement to add the new leave type
-//                    	int rowsAffected = qc.prepareAddLeaveTypeStatement(connection, newLeaveType).executeUpdate();
-//                        // You might want to perform additional actions after the update
-//                        // For example, refreshing the UI or displaying a success message
-//                        JOptionPane.showMessageDialog(null, "New leave type added successfully!");
-//                    } catch (SQLException ex) {
-//                        ex.printStackTrace();
-//                        // Handle the exception appropriately, e.g., display an error message
-//                        JOptionPane.showMessageDialog(null, "Failed to add new leave type. Please try again.");
-//                    }
-//                }
-//            }
-//        });
-//
-//		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-//		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-//		btnNewButton.setBounds(503, 18, 175, 29);
-//		panel_1.add(btnNewButton);
-//		
+		        	
 		JButton logOutButton = new JButton("LOG OUT");
 		logOutButton.addActionListener(new ActionListener() {
 		    @Override
@@ -301,7 +240,7 @@ public class AdminDashboardFrame extends JFrame {
             ex.printStackTrace();
         }
 
-		JLabel lblNewLabel = new JLabel(String.format( firstNameDB + ", you have %S leave application requests to review.", pendingCount));
+		JLabel lblNewLabel = new JLabel(String.format( firstNameDB + ", you have %S leave application requests to review.", count));
 		lblNewLabel.setBounds(10, 0, 631, 55);
 		panel.add(lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -340,6 +279,15 @@ public class AdminDashboardFrame extends JFrame {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                	
+    				try {
+    					AdminLeaveEndorsementGUI endorsement = new AdminLeaveEndorsementGUI();
+                    	endorsement.setVisible(true);
+        				endorsement.setLocationRelativeTo(null);
+    				} catch (Exception d) {
+    					d.printStackTrace();
+    				}
+	                // FIXME 
                     fireEditingStopped();
                 }
             });
