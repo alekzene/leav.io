@@ -11,5 +11,5 @@ public class Main {
 	            logInFrame.setVisible(true);
 	            logInFrame.setLocationRelativeTo(null);
 	        });
-	}
+	};
 }

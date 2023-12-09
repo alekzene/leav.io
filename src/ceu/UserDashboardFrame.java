@@ -34,13 +34,14 @@ public class UserDashboardFrame extends JFrame {
 	private int leavesRemainingDB;
 	private int leavesUsedDB;
 	private String employeeIDDB;
-	private String leaveStatusDB;
+//	private String leaveStatusDB;
 	private String applicationDateDB;
 	private String endDateDB;
 	private String startDateDB;
 	private String leaveCategoryDB;
 	private int leaveIDDB;
 	private int idDB;
+	private String leaveStatusDB;
 	
 	private EmployeeInfo employee;
 	
@@ -454,7 +455,7 @@ public class UserDashboardFrame extends JFrame {
       			
       			//FIXME -- PREPARESTATEMENT IN THE WORKS
 //      			approveTracker_Model.addRow(new Object[] {"00002","Sick","12-03-23","12-10-23","In Effect"});
-      	}
+//      	}
             
 		approveTracker_Table = new JTable(approveTracker_Model);
 		approveTracker_Table.setSize(new Dimension(300, 300));
@@ -497,9 +498,9 @@ public class UserDashboardFrame extends JFrame {
 		pendingTracker_Model.setColumnIdentifiers(pendingTracker_Headers);
         
 		//CHECKS IF LEAVE STATUS IS PENDING
-		if(leaveStatusDB.equals("Pending")) {
-			pendingTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
-		}				
+//		if(leaveStatusDB.equals("Pending")) {
+//			pendingTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
+//		}				
 		
         pendingTracker_Table = new JTable(pendingTracker_Model);
 		pendingTracker_Table.setSize(new Dimension(100, 100));
@@ -541,9 +542,9 @@ public class UserDashboardFrame extends JFrame {
 		declinedTracker_Model.setColumnIdentifiers(declinedTracker_Headers);
 		
 		//CHECKS IF LEAVE STATUS IS DECLINED
-		if(leaveStatusDB.equals("Declined")) {
-			declinedTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
-		}
+//		if(leaveStatusDB.equals("Declined")) {
+//			declinedTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
+//		}
 				
 		declinedTracker_Table = new JTable(declinedTracker_Model);
 		declinedTracker_Table.setSize(new Dimension(100, 100));

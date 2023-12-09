@@ -5,6 +5,7 @@ import javax.swing.table.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
 import java.sql.*;
 import java.text.*;
 import java.util.*;
@@ -16,6 +17,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.beans.PropertyChangeListener;
 
 public class LeaveApplicationFormFrame extends JFrame {
     
@@ -48,9 +50,9 @@ public class LeaveApplicationFormFrame extends JFrame {
     
     // OTHER VARIABLES
     private Calendar currentDate = Calendar.getInstance();
-    private String applicationDate;
-    private String enteredStartDate;
-    private String enteredEndDate;
+    private java.sql.Date applicationDate;
+    private java.sql.Date enteredStartDate;
+    private java.sql.Date enteredEndDate;
     private String enteredReason;
     private String enteredClientComments;
     private String enteredMocName;
@@ -287,13 +289,44 @@ public class LeaveApplicationFormFrame extends JFrame {
         
         // START DATE CHOOSER
         startDateChooser = new JDateChooser();
+        startDateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+        	public void propertyChange(PropertyChangeEvent evt) {
+		        if ("date".equals(evt.getPropertyName())) {
+		            java.util.Date selectedDate = startDateChooser.getDate();
+		    	    enteredStartDate = new java.sql.Date(startDateChooser.getCalendar().getTime().getTime());
+		            System.out.println("Selected Start Date: " + selectedDate);
+		            updateDateRestrictions();
+		        }
+        	}
+        });
         startDateChooser.setBounds(132, 371, 239, 20);
         formPanel.add(startDateChooser);
         
         // END DATE CHOOOSER
         endDateChooser = new JDateChooser();
+        endDateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+        	public void propertyChange(PropertyChangeEvent evt) {
+		        if ("date".equals(evt.getPropertyName())) {
+		            java.util.Date selectedDate = endDateChooser.getDate();
+		    	    enteredEndDate = new java.sql.Date(endDateChooser.getCalendar().getTime().getTime());
+		            System.out.println("Selected End Date: " + selectedDate);
+		            updateDateRestrictions();
+		        }
+        	}
+        });
         endDateChooser.setBounds(132, 414, 239, 20);
         formPanel.add(endDateChooser);
+//        endDateChooser = new JDateChooser();
+//        endDateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+//        	public void propertyChange(PropertyChangeEvent evt) {
+//		        if ("date".equals(evt.getPropertyName())) {
+//	            java.util.Date selectedDate = endDateChooser.getDate();
+//	    	    enteredEndDate = new java.sql.Date(endDateChooser.getCalendar().getTime().getTime());
+//	            System.out.println("Selected End Date: " + selectedDate);
+//	            updateDateRestrictions();
+//	        }
+//        	}
+//        });
         
         // TO LABEL (PERIOD APPLIED)
         JLabel toLabel = new JLabel("To");
@@ -345,25 +378,44 @@ public class LeaveApplicationFormFrame extends JFrame {
         clientCommentsTextField.setColumns(10);
                
         // GET VALUES ENTERED IN FORM FIELDS
-        selectedCategory = (String) leaveTypeSelect.getSelectedItem();
-        enteredStartDate = startDateChooser.getDateFormatString();
-        enteredEndDate = endDateChooser.getDateFormatString();
+		leaveTypeSelect.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        // Update selectedCategory when combo box selection changes
+		        selectedCategory = (String) leaveTypeSelect.getSelectedItem();
+		        System.out.println(selectedCategory);
+		        // Update date restrictions based on leave type
+		        updateDateRestrictions();
+		    }
+		});
+		
+//		startDateChooser.addPropertyChangeListener(new PropertyChangeListener() {
+//		    @Override
+//		    public void propertyChange(PropertyChangeEvent evt) {
+//		        if ("date".equals(evt.getPropertyName())) {
+//		            java.util.Date selectedDate = startDateChooser.getDate();
+//		    	    enteredStartDate = (java.sql.Date) startDateChooser.getDate();
+//		            System.out.println("Selected Date: " + selectedDate);
+//		            updateDateRestrictions();
+//		        }
+//		    }
+//		});
+		
+        enteredEndDate = (java.sql.Date) endDateChooser.getDate();
         enteredReason = specificPurposeTextField.getText();
         enteredClientComments = clientCommentsTextField.getText();
         enteredMocName = contactNameTextField.getText();
         enteredMocAddress = contactAddressTextField.getText();
         enteredMocContactNumber = contactNumberTextField.getText();
-        applicationDate = currentDate.toString();
+        applicationDate = new java.sql.Date(currentDate.getTimeInMillis());
 
+		//FIXME: PROBLEM NOTHING HAPPENS AFTER CLICKING SUBMIT
         // SUBMIT BUTTON LOGIC IMPLEMENTATION
         submitButton.addActionListener(new ActionListener() {	
-        	public void actionPerformed(ActionEvent e) {
+        	public void actionPerformed(ActionEvent e) {  			
         		if (isAllFieldsFilledUP()) {
         			// FIXME: ADD MORE VALIDATION IF NEEDED
-        			
         			// FIXME: PUT ALL VALUES GATHERED FROM FORM INTO DATABASE
-        			
-        			// FIXME: CALCULATE DURATION IN DAYS
+        			// CALCULATE DURATION IN DAYS
         	        Date enteredStartDateDate = startDateChooser.getDate();
         	        int startDateDate = enteredStartDateDate.getDate();
         	        
@@ -387,7 +439,22 @@ public class LeaveApplicationFormFrame extends JFrame {
         			leaveRequestStatus = "Pending";
         			String adminRemarks = null;
         			
-        			//FIXME: PROBLEM WITH ENUM: DATA TRUNCATED FOR COLUMN 'CATEGORY' AT ROW 1
+        			System.out.println( connection );
+        			System.out.println(employeeIDFK);
+        			System.out.println(selectedCategory);
+        			System.out.println(selectedCategory);
+        			System.out.println(applicationDate);
+        			System.out.println(enteredStartDate);
+        			System.out.println(enteredEndDate);
+        			System.out.println(durationInDays);
+        			System.out.println(enteredReason);
+        			System.out.println(enteredClientComments);
+        			System.out.println(leaveRequestStatus);
+        			System.out.println(adminRemarks);
+        			System.out.println(enteredMocName);
+        			System.out.println(enteredMocAddress);
+        			System.out.println(enteredMocContactNumber);
+
         			// INSERT LEAVE REQUEST TO DATABASE
         	        try {
         	        	int rowsAffected = qc.prepareInsertLeaveRequestStatement(connection, employeeIDFK, selectedCategory, applicationDate, enteredStartDate, enteredEndDate, durationInDays, enteredReason, enteredClientComments, leaveRequestStatus, adminRemarks, enteredMocName, enteredMocAddress, enteredMocContactNumber).executeUpdate();
@@ -425,7 +492,7 @@ public class LeaveApplicationFormFrame extends JFrame {
         endDateChooser.setEnabled(true);       
         
         // Update date restrictions based on leave type
-        if ("Sick Leave".equals(selectedCategory)) {
+        if ("Sick".equals(selectedCategory)) {
             // Disable dates on and after the current date for startDateChooser
             startDateChooser.setMaxSelectableDate(currentDate.getTime());
             endDateChooser.setMaxSelectableDate(currentDate.getTime());
