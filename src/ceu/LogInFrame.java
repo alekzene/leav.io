@@ -171,7 +171,7 @@ public class LogInFrame extends JFrame {
 	            }
 	            
 		        // SEARCH FOR COMPATIBLE PASSWORD ENTRY IN DATABASE
-	            try (ResultSet resultSet = qc.prepareSelectPasswordStatement(connection, enteredPassword).executeQuery()) {
+	            try (ResultSet resultSet = qc.prepareSelectPasswordStatement(connection, enteredUsername, enteredPassword).executeQuery()) {
 	                if (resultSet.next()) {
 	                    passwordDB = resultSet.getString("pass");
 	                }

@@ -24,6 +24,7 @@ public class UserDashboardFrame extends JFrame {
 	private JTable declinedTracker_Table;
 	private JLabel Time;
 	private Timer timer;
+	private DateAndTime dateTime;
 	
 	// DATABASE
 	private Connection connection;
@@ -39,8 +40,8 @@ public class UserDashboardFrame extends JFrame {
 	private String startDateDB;
 	private String leaveCategoryDB;
 	private int leaveIDDB;
+	private int idDB;
 	
-	private DateAndTime dateTime;
 	private EmployeeInfo employee;
 	
 	/**
@@ -160,14 +161,14 @@ public class UserDashboardFrame extends JFrame {
             ex.printStackTrace();
         }
 		
-		//CATEGORY
-		try (ResultSet resultSet = qc.prepareSelectUserCategoryStatement(connection, LogInFrame.usernameDB).executeQuery()) {
-			if (resultSet.next()) {
-				leaveCategoryDB = resultSet.getString("category");
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}		
+//		//CATEGORY
+//		try (ResultSet resultSet = qc.prepareSelectUserCategoryStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+//			if (resultSet.next()) {
+//				leaveCategoryDB = resultSet.getString("category");
+//			}
+//		} catch (SQLException ex) {
+//			ex.printStackTrace();
+//		}		
 		
 		//START DATE
 		try (ResultSet resultSet = qc.prepareSelectStartDateStatement(connection, LogInFrame.usernameDB).executeQuery()) {
@@ -203,8 +204,38 @@ public class UserDashboardFrame extends JFrame {
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+		}	
+		
+		
+		//USER ID
+		try (ResultSet resultSet = qc.prepareSelectUserIDStatement(connection, LogInFrame.usernameDB).executeQuery()){
+			
+			if (resultSet.next()){
+				idDB = resultSet.getInt("id");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		//LEAVE ID
+		try (ResultSet resultSet = qc.prepareSelectLeaveRequestIDStatement(connection, idDB).executeQuery()) {
+			
+			if (resultSet.next()) {
+				leaveIDDB = resultSet.getInt("id");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
 		}		
-				
+
+		
+		// LEAVE CATEGORY
+		try (ResultSet resultSet = qc.prepareSelectLeaveCategoryStatement(connection, idDB).executeQuery()) {
+			if (resultSet.next()) {
+				leaveCategoryDB = resultSet.getString("category");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}	
 		
 		JLabel employeeName = new JLabel(nameDB);
 		employeeName.setBounds(85, 76, 206, 25);
@@ -413,8 +444,13 @@ public class UserDashboardFrame extends JFrame {
             
           //CHECKS IF LEAVE STATUS IS APPROVED
         if(leaveStatusDB.equals("Approved")) {
+        	if(dateTime.getCurrentDate().before(dateTime.getEndDate(endDateDB))) {
+        		approveTracker_Model.addRow(new Object[]{leaveIDDB, leaveCategoryDB, startDateDB, endDateDB, "In Effect"}); 
+        	}
         	else {
-      		}
+        		approveTracker_Model.addRow(new Object[]{leaveIDDB, leaveCategoryDB, startDateDB, endDateDB, "Finished"});
+        	}
+        
       			
       			//FIXME -- PREPARESTATEMENT IN THE WORKS
 //      			approveTracker_Model.addRow(new Object[] {"00002","Sick","12-03-23","12-10-23","In Effect"});

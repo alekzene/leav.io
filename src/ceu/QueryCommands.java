@@ -191,11 +191,12 @@ public class QueryCommands {
     }
     
     // SELECT PASSWORD STATEMENT
-    public PreparedStatement prepareSelectPasswordStatement(Connection connection, String enteredPass) {
+    public PreparedStatement prepareSelectPasswordStatement(Connection connection, String enteredUsername, String enteredPass) {
         try {
             String query = selectPassword(enteredPass);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, enteredPass);
+            preparedStatement.setString(1, enteredUsername);
+            preparedStatement.setString(2, enteredPass);
             return preparedStatement;
         } catch (Exception e) {
             // Handle the exception appropriately
@@ -206,7 +207,7 @@ public class QueryCommands {
 
     // SELECT PASSWORD QUERY
     public String selectPassword(String enteredPass) {
-        return "SELECT * FROM employees WHERE pass = ?";
+        return "SELECT * FROM employees WHERE username = ? AND pass = ?";
     }
     
     // SELECT USER CATEGORY STATEMENT
@@ -343,7 +344,7 @@ public class QueryCommands {
     }
     
     private String selectStartDate(String enteredUsername) {
-		return "SELECT start_date FROM leave_requests WHERE username = ?";
+		return "SELECT start_date FROM leave_requests WHERE employee_id = ?";
 	}
     
  // END DATE
@@ -360,7 +361,7 @@ public class QueryCommands {
     }
     
     private String selectEndDate(String enteredUsername) {
-		return "SELECT end_date FROM leave_requests WHERE username = ?";
+		return "SELECT end_date FROM leave_requests WHERE employee_id = ?";
 	}
     
  // STATUS
@@ -377,7 +378,7 @@ public class QueryCommands {
     }
     
     private String selectStatus(String enteredUsername) {
-		return "SELECT status FROM leave_requests WHERE username = ?";
+		return "SELECT status FROM leave_requests WHERE employee_id = ?";
 	}
     
  // APPLICATION DATE
@@ -394,7 +395,7 @@ public class QueryCommands {
     }
     
     private String selectApplicationDate(String enteredUsername) {
-		return "SELECT application_date FROM leave_requests WHERE username = ?";
+		return "SELECT application_date FROM leave_requests WHERE employee_id = ?";
 	}
 
 	// SELECT NAME QUERY
@@ -479,12 +480,12 @@ public class QueryCommands {
         return "UPDATE employees SET leaves_remaining = ? WHERE username = ?";
     }
     
-    // Select LeaveRequestID
-    public PreparedStatement prepareSelectLeaveRequestIDStatement(Connection connection, String enteredUsername) {
+    // Select LEAVEREQUEST ID
+    public PreparedStatement prepareSelectLeaveRequestIDStatement(Connection connection, int employee_id) {
         try {
-            String query = selectLeaveRequestID(enteredUsername);
+            String query = selectLeaveRequestID(employee_id);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, enteredUsername);
+            preparedStatement.setInt(1, employee_id);
             return preparedStatement;
         } catch (SQLException e) {
             // Handle the exception appropriately
@@ -494,9 +495,46 @@ public class QueryCommands {
     }
 
     // SELECT LEAVEREQUESTIDS
-    private String selectLeaveRequestID(String enteredUsername) {
-        return "SELECT * id FROM leave_requests";
+    private String selectLeaveRequestID(int employee_id) {
+        return "SELECT id FROM leave_requests WHERE employee_id = ?";
+    }
+    
+ // Select LeaveRequestID
+    public PreparedStatement prepareSelectLeaveCategoryStatement(Connection connection, int idDB) {
+        try {
+            String query = selectLeaveCategory(idDB);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, idDB);
+            return preparedStatement; 
+        } catch (SQLException e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // SELECT LEAVEREQUESTIDS
+    private String selectLeaveCategory(int idDB) {
+        return "SELECT category FROM leave_requests WHERE employee_id = ?";
+    }
+    
+   // Select User ID
+    public PreparedStatement prepareSelectUserIDStatement(Connection connection, String enteredUsername) {
+    	try {
+    		String query = selectUserID(enteredUsername);
+    		PreparedStatement preparedStatement = connection.prepareStatement(query);
+    		preparedStatement.setString(1, enteredUsername);
+    	     return preparedStatement;
+        } catch (Exception e) {
+            // Handle the exception appropriately
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    // SELECT USERID
+    public String selectUserID(String enteredUsername) {
+    	return "SELECT id FROM employees WHERE username = ?";
     }
 }
-
 
