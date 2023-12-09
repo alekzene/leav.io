@@ -510,7 +510,7 @@ public class LeaveApplicationFormFrame extends JFrame {
             endDateChooser.setMinSelectableDate(startDateChooser.getDate());
             
         } 
-        else if("Emergency".equals(selectedCategory)||("Paternity".equals(selectedCategory))||"Vacation".equals(selectedCategory)) {
+        else {
             // For other leave types, additional logic can be added here
         	// Set the MaxSelectableDate for startDateChooser
         	
@@ -520,11 +520,11 @@ public class LeaveApplicationFormFrame extends JFrame {
             endDateChooser.setMinSelectableDate(startDateChooser.getDate());
             
             // Optional: Allow filing leaves three days in advance
-            currentDate.add(Calendar.DATE, 3);
+//            currentDate.add(Calendar.DATE, 3);
             startDateChooser.setMaxSelectableDate(null);
-            System.out.println(advancedDate.getTime());
+//            System.out.println(advancedDate.getTime());
             // Set the MaxSelectableDate for endDateChooser
-            endDateChooser.setMaxSelectableDate(advancedDate.getTime());
+            endDateChooser.setMaxSelectableDate(null);
             
             
         }
