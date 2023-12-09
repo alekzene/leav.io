@@ -1,3 +1,6 @@
+// FIXME: CALENDAR LOGIC (ALL EXCEPT SICK LEAVE)
+// FIXME: TEXT FIELD LISTENERS
+
 package ceu;
 
 import javax.swing.border.*;

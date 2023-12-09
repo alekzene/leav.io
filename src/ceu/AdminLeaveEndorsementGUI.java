@@ -1,3 +1,6 @@
+// FIXME: APPROVE BUTTON LOGIC
+// FIXME: REJECT BUTTON LOGIC
+
 package ceu;
 
 import java.awt.EventQueue;

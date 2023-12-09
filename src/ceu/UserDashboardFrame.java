@@ -1,3 +1,5 @@
+// FIXME: SHOW ROWS IN TABLES (APPROVED, PENDING, DECLINED)
+
 package ceu;
 
 import javax.swing.*;
@@ -24,7 +26,6 @@ public class UserDashboardFrame extends JFrame {
 	private JTable declinedTracker_Table;
 	private JLabel Time;
 	private Timer timer;
-	private DateAndTime dateTime;
 	
 	// DATABASE
 	private Connection connection;
@@ -39,10 +40,10 @@ public class UserDashboardFrame extends JFrame {
 	private String endDateDB;
 	private String startDateDB;
 	private String leaveCategoryDB;
-	private int leaveIDDB;
-	private int idDB;
 	private String leaveStatusDB;
 	
+	
+	private DateAndTime dateTime;
 	private EmployeeInfo employee;
 	
 	/**
@@ -162,14 +163,14 @@ public class UserDashboardFrame extends JFrame {
             ex.printStackTrace();
         }
 		
-//		//CATEGORY
-//		try (ResultSet resultSet = qc.prepareSelectUserCategoryStatement(connection, LogInFrame.usernameDB).executeQuery()) {
-//			if (resultSet.next()) {
-//				leaveCategoryDB = resultSet.getString("category");
-//			}
-//		} catch (SQLException ex) {
-//			ex.printStackTrace();
-//		}		
+		//CATEGORY
+		try (ResultSet resultSet = qc.prepareSelectUserCategoryStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+			if (resultSet.next()) {
+				leaveCategoryDB = resultSet.getString("category");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}		
 		
 		//START DATE
 		try (ResultSet resultSet = qc.prepareSelectStartDateStatement(connection, LogInFrame.usernameDB).executeQuery()) {
@@ -205,38 +206,8 @@ public class UserDashboardFrame extends JFrame {
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-		}	
-		
-		
-		//USER ID
-		try (ResultSet resultSet = qc.prepareSelectUserIDStatement(connection, LogInFrame.usernameDB).executeQuery()){
-			
-			if (resultSet.next()){
-				idDB = resultSet.getInt("id");
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		
-		//LEAVE ID
-		try (ResultSet resultSet = qc.prepareSelectLeaveRequestIDStatement(connection, idDB).executeQuery()) {
-			
-			if (resultSet.next()) {
-				leaveIDDB = resultSet.getInt("id");
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
 		}		
-
-		
-		// LEAVE CATEGORY
-		try (ResultSet resultSet = qc.prepareSelectLeaveCategoryStatement(connection, idDB).executeQuery()) {
-			if (resultSet.next()) {
-				leaveCategoryDB = resultSet.getString("category");
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}	
+				
 		
 		JLabel employeeName = new JLabel(nameDB);
 		employeeName.setBounds(85, 76, 206, 25);
@@ -444,14 +415,13 @@ public class UserDashboardFrame extends JFrame {
         approveTracker_Model.setColumnIdentifiers(approveTracker_Headers);
             
           //CHECKS IF LEAVE STATUS IS APPROVED
-        if(leaveStatusDB.equals("Approved")) {
-        	if(dateTime.getCurrentDate().before(dateTime.getEndDate(endDateDB))) {
-        		approveTracker_Model.addRow(new Object[]{leaveIDDB, leaveCategoryDB, startDateDB, endDateDB, "In Effect"}); 
-        	}
-        	else {
-        		approveTracker_Model.addRow(new Object[]{leaveIDDB, leaveCategoryDB, startDateDB, endDateDB, "Finished"});
-        	}
-        
+//        if(leaveStatusDB.equals("Approved")) {
+//        	if(dateTime.getCurrentDate().before(dateTime.getEndDate(endDateDB))) {
+//      			approveTracker_Model.addRow(new Object[] {leaveIDDB, leaveCategoryDB, startDateDB, endDateDB, "In Effect"});
+//      		}	
+//        	else {
+//      			approveTracker_Model.addRow(new Object[] {leaveIDDB, leaveCategoryDB, startDateDB, endDateDB, "Finished"});
+//      		}
       			
       			//FIXME -- PREPARESTATEMENT IN THE WORKS
 //      			approveTracker_Model.addRow(new Object[] {"00002","Sick","12-03-23","12-10-23","In Effect"});
@@ -468,6 +438,7 @@ public class UserDashboardFrame extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBounds(0, 0, 432, 253);
+        
 		approvedTracker_Panel.add(scrollPane);
 		
 		//PENDING SECTION//
@@ -499,7 +470,7 @@ public class UserDashboardFrame extends JFrame {
         
 		//CHECKS IF LEAVE STATUS IS PENDING
 //		if(leaveStatusDB.equals("Pending")) {
-//			pendingTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
+//			pendingTracker_Model.addRow(new Object[]{leaveIDDB, leaveCategoryDB, applicationDateDB});
 //		}				
 		
         pendingTracker_Table = new JTable(pendingTracker_Model);
@@ -512,7 +483,9 @@ public class UserDashboardFrame extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane(pendingTracker_Table);
 	    scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	    scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	    
 	    scrollPane_1.setBounds(0, 0, 285, 247);
+		
 		pendingTracker_Panel.add(scrollPane_1);
 		
 		//DECLINED SECTION//
@@ -564,7 +537,7 @@ public class UserDashboardFrame extends JFrame {
 		lblNewLabel_3.setIcon(new ImageIcon(UserDashboardFrame.class.getResource("/images/bbg.png")));
 		lblNewLabel_3.setBounds(0, 0, 1121, 560);
 		contentPane.add(lblNewLabel_3);
-        }}
+	}
 	
 	private void updateTime() {
 		DateAndTime dateTime = new DateAndTime();
