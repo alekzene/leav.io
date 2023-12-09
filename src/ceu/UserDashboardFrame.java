@@ -35,13 +35,12 @@ public class UserDashboardFrame extends JFrame {
 	private int leavesRemainingDB;
 	private int leavesUsedDB;
 	private String employeeIDDB;
-//	private String leaveStatusDB;
 	private String applicationDateDB;
 	private String endDateDB;
 	private String startDateDB;
 	private String leaveCategoryDB;
 	private String leaveStatusDB;
-	
+	private int idDB;
 	
 	private DateAndTime dateTime;
 	private EmployeeInfo employee;
@@ -200,7 +199,7 @@ public class UserDashboardFrame extends JFrame {
 		}	
 		
 		//STATUS
-		try (ResultSet resultSet = qc.prepareSelectStatusStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+		try (ResultSet resultSet = qc.prepareSelectStatusStatement(connection, idDB).executeQuery()) {
 			if (resultSet.next()) {
 				leaveStatusDB = resultSet.getString("status");
 			}
@@ -415,14 +414,14 @@ public class UserDashboardFrame extends JFrame {
         approveTracker_Model.setColumnIdentifiers(approveTracker_Headers);
             
           //CHECKS IF LEAVE STATUS IS APPROVED
-//        if(leaveStatusDB.equals("Approved")) {
-//        	if(dateTime.getCurrentDate().before(dateTime.getEndDate(endDateDB))) {
-//      			approveTracker_Model.addRow(new Object[] {leaveIDDB, leaveCategoryDB, startDateDB, endDateDB, "In Effect"});
-//      		}	
-//        	else {
-//      			approveTracker_Model.addRow(new Object[] {leaveIDDB, leaveCategoryDB, startDateDB, endDateDB, "Finished"});
-//      		}
-      			
+        if(leaveStatusDB != null && leaveStatusDB.equals("Approved")) {
+        	if(dateTime.getCurrentDate().before(dateTime.getEndDate(endDateDB))) {
+      			approveTracker_Model.addRow(new Object[] {employeeIDDB, leaveCategoryDB, startDateDB, endDateDB, "In Effect"});
+      		}	
+        	else {
+      			approveTracker_Model.addRow(new Object[] {employeeIDDB, leaveCategoryDB, startDateDB, endDateDB, "Finished"});
+      		}
+        }		
       			//FIXME -- PREPARESTATEMENT IN THE WORKS
 //      			approveTracker_Model.addRow(new Object[] {"00002","Sick","12-03-23","12-10-23","In Effect"});
 //      	}
@@ -467,11 +466,15 @@ public class UserDashboardFrame extends JFrame {
 		
 		String[]pendingTracker_Headers = {"ID", "Type of Leave", "Date Applied"};
 		pendingTracker_Model.setColumnIdentifiers(pendingTracker_Headers);
-        
+		System.out.println(leaveStatusDB);
 		//CHECKS IF LEAVE STATUS IS PENDING
-//		if(leaveStatusDB.equals("Pending")) {
-//			pendingTracker_Model.addRow(new Object[]{leaveIDDB, leaveCategoryDB, applicationDateDB});
+//		if(!(leaveStatusDB == null )) {
+//		if( leaveStatusDB.equals("Pending")) {
+			pendingTracker_Model.addRow(new Object[]{12356, "Sick", 12-03-2003});
+
+			pendingTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
 //		}				
+//		}
 		
         pendingTracker_Table = new JTable(pendingTracker_Model);
 		pendingTracker_Table.setSize(new Dimension(100, 100));
@@ -515,9 +518,9 @@ public class UserDashboardFrame extends JFrame {
 		declinedTracker_Model.setColumnIdentifiers(declinedTracker_Headers);
 		
 		//CHECKS IF LEAVE STATUS IS DECLINED
-//		if(leaveStatusDB.equals("Declined")) {
-//			declinedTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
-//		}
+		if(leaveStatusDB != null && leaveStatusDB.equals("Declined")) {
+			declinedTracker_Model.addRow(new Object[]{employeeIDDB, leaveCategoryDB, applicationDateDB});
+		}
 				
 		declinedTracker_Table = new JTable(declinedTracker_Model);
 		declinedTracker_Table.setSize(new Dimension(100, 100));

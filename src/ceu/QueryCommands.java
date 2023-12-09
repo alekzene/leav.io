@@ -365,11 +365,11 @@ public class QueryCommands {
 	}
     
  // STATUS
-    public PreparedStatement prepareSelectStatusStatement(Connection connection, String enteredUsername) {
+    public PreparedStatement prepareSelectStatusStatement(Connection connection, int employee_id) {
         try {
-            String query = selectStatus(enteredUsername);
+            String query = selectStatus(employee_id);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, enteredUsername);
+            preparedStatement.setInt(1, employee_id);
             return preparedStatement;
         } catch (Exception e) {
             e.printStackTrace();
@@ -377,7 +377,7 @@ public class QueryCommands {
         }
     }
     
-    private String selectStatus(String enteredUsername) {
+    private String selectStatus(int employee_id) {
 		return "SELECT status FROM leave_requests WHERE employee_id = ?";
 	}
     

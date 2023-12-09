@@ -53,7 +53,6 @@ public class LeaveApplicationFormFrame extends JFrame {
     
     // OTHER VARIABLES
     private Calendar currentDate = Calendar.getInstance();
-    private Calendar advancedDate = Calendar.getInstance();
     private java.sql.Date applicationDate;
     private java.sql.Date enteredStartDate;
     private java.sql.Date enteredEndDate;
@@ -88,9 +87,6 @@ public class LeaveApplicationFormFrame extends JFrame {
 	 * Create the frame.
 	 */
     public LeaveApplicationFormFrame() {
-    	advancedDate.setTime(new Date());
-    	advancedDate.add(Calendar.DATE, 3);
-    	System.out.println("update");
     	
     	connection = DatabaseConnection.getConnection();
     	qc = new QueryCommands();
@@ -323,17 +319,6 @@ public class LeaveApplicationFormFrame extends JFrame {
         });
         endDateChooser.setBounds(132, 414, 239, 20);
         formPanel.add(endDateChooser);
-//        endDateChooser = new JDateChooser();
-//        endDateChooser.addPropertyChangeListener(new PropertyChangeListener() {
-//        	public void propertyChange(PropertyChangeEvent evt) {
-//		        if ("date".equals(evt.getPropertyName())) {
-//	            java.util.Date selectedDate = endDateChooser.getDate();
-//	    	    enteredEndDate = new java.sql.Date(endDateChooser.getCalendar().getTime().getTime());
-//	            System.out.println("Selected End Date: " + selectedDate);
-//	            updateDateRestrictions();
-//	        }
-//        	}
-//        });
         
         // TO LABEL (PERIOD APPLIED)
         JLabel toLabel = new JLabel("To");
@@ -519,13 +504,9 @@ public class LeaveApplicationFormFrame extends JFrame {
             startDateChooser.setMinSelectableDate(currentDate.getTime()); 
             endDateChooser.setMinSelectableDate(startDateChooser.getDate());
             
-            // Optional: Allow filing leaves three days in advance
-//            currentDate.add(Calendar.DATE, 3);
             startDateChooser.setMaxSelectableDate(null);
-//            System.out.println(advancedDate.getTime());
             // Set the MaxSelectableDate for endDateChooser
             endDateChooser.setMaxSelectableDate(null);
-            
             
         }
     }
