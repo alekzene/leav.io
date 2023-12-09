@@ -170,40 +170,40 @@ public class UserDashboardFrame extends JFrame {
 		}		
 		
 		//START DATE
-//		try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
-//			if (resultSet.next()) {
-//				startDateDB = resultSet.getString("start_date");
-//			}
-//		} catch (SQLException ex) {
-//			ex.printStackTrace();
-//		}		
+		try (ResultSet resultSet = qc.prepareSelectStartDateStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+			if (resultSet.next()) {
+				startDateDB = resultSet.getString("start_date");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}		
 		
 		//END DATE
-//				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
-//					if (resultSet.next()) {
-//						endDateDB = resultSet.getString("end_date");
-//					}
-//				} catch (SQLException ex) {
-//					ex.printStackTrace();
-//				}		
+		try (ResultSet resultSet = qc.prepareSelectEndDateStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+			if (resultSet.next()) {
+				endDateDB = resultSet.getString("end_date");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}		
 		
 		//APPLICATION DATE
-//				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
-//					if (resultSet.next()) {
-//						applicationDateDB = resultSet.getString("application_date");
-//					}
-//				} catch (SQLException ex) {
-//					ex.printStackTrace();
-//				}	
-//		
-//				//STATUS
-//				try (ResultSet resultSet = qc.prepareSelectEmployeeIDStatement(connection, LogInFrame.usernameDB).executeQuery()) {
-//					if (resultSet.next()) {
-//						leaveStatusDB = resultSet.getString("status");
-//					}
-//				} catch (SQLException ex) {
-//					ex.printStackTrace();
-//				}		
+		try (ResultSet resultSet = qc.prepareSelectApplicationDateStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+			if (resultSet.next()) {
+				applicationDateDB = resultSet.getString("application_date");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}	
+		
+		//STATUS
+		try (ResultSet resultSet = qc.prepareSelectStatusStatement(connection, LogInFrame.usernameDB).executeQuery()) {
+			if (resultSet.next()) {
+				leaveStatusDB = resultSet.getString("status");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}		
 				
 		
 		JLabel employeeName = new JLabel(nameDB);
