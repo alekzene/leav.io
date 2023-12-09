@@ -408,11 +408,6 @@ public class LeaveApplicationFormFrame extends JFrame {
 //		});
 		
         enteredEndDate = (java.sql.Date) endDateChooser.getDate();
-        enteredReason = specificPurposeTextField.getText();
-        enteredClientComments = clientCommentsTextField.getText();
-        enteredMocName = contactNameTextField.getText();
-        enteredMocAddress = contactAddressTextField.getText();
-        enteredMocContactNumber = contactNumberTextField.getText();
         applicationDate = new java.sql.Date(currentDate.getTimeInMillis());
 
 		//FIXME: PROBLEM NOTHING HAPPENS AFTER CLICKING SUBMIT
@@ -423,6 +418,11 @@ public class LeaveApplicationFormFrame extends JFrame {
     		        JOptionPane.showMessageDialog(null, "Fill up all required fields.");
         		}
         		else {
+        	        enteredReason = specificPurposeTextField.getText();
+        	        enteredClientComments = clientCommentsTextField.getText();
+        	        enteredMocName = contactNameTextField.getText();
+        	        enteredMocAddress = contactAddressTextField.getText();
+        	        enteredMocContactNumber = contactNumberTextField.getText();
         			// FIXME: ADD MORE VALIDATION IF NEEDED
         			// FIXME: PUT ALL VALUES GATHERED FROM FORM INTO DATABASE
         			// CALCULATE DURATION IN DAYS
