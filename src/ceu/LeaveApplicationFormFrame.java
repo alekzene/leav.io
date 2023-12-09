@@ -1,5 +1,5 @@
-// FIXME: CALENDAR LOGIC (ALL EXCEPT SICK LEAVE)
-// FIXME: TEXT FIELD LISTENERS
+// FIXED: CALENDAR LOGIC (ALL EXCEPT SICK LEAVE)
+// FIXED: TEXT FIELD LISTENERS
 
 package ceu;
 
@@ -431,9 +431,7 @@ public class LeaveApplicationFormFrame extends JFrame {
 //        	        
 //        	        Date enteredEndDateDate = endDateChooser.getDate();
 //        	        int endDateDate = enteredEndDateDate.getDate();
-        	        System.out.println(selectedCategory);
-        	        int durationInDays = 8; // FIXME
-        	        
+        	        System.out.println(selectedCategory);        	        
 //        	        int durationInDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
 
         			// GET EMPLOYEE ID FOREIGN KEY BASED ON USERNAME
@@ -455,6 +453,9 @@ public class LeaveApplicationFormFrame extends JFrame {
         			System.out.println(applicationDate);
         			System.out.println(enteredStartDate);
         			System.out.println(enteredEndDate);
+        	        int startDay = enteredStartDate.getDate();
+        	        int endDay = enteredEndDate.getDate();
+        	        int durationInDays = endDay - startDay; // FIXME
         			System.out.println(durationInDays);
         			System.out.println(enteredReason);
         			System.out.println(enteredClientComments);
