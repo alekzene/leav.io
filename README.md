@@ -4,7 +4,7 @@
 **Frontend:** Java Swing  
 **Database:** MySQL  
 
-**modules**  
+**Modules**  
 **leave-application:** easily file for a leave using auto-fill and auto-review  
 **leave-credits:** receive immediate leave credit updates upon approval  
 **leave-tracking:** track the status of leave requests and get info about the current handler  
