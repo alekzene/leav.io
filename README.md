@@ -1,2 +1,4 @@
-# Leave-Application-System
-Manages Leave Applications for CEU Personnels
+# h1 leav.io  
+**Language:** Java
+**Frontend:** Java Swing
+**Database:** MySQL
